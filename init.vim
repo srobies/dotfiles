@@ -4,7 +4,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
 Plug 'jremmen/vim-ripgrep'
-Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
