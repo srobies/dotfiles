@@ -1,4 +1,4 @@
-let g:lc3_detect_asm = 1
+let g:ale_disable_lsp = 1 " Use LSP from coc
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.config/nvim/plugged')
 
@@ -12,13 +12,14 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'luochen1990/rainbow' 
-Plug 'nprindle/lc3.vim'
+"Plug 'nprindle/lc3.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'lambdalisue/suda.vim'
+Plug 'unblevable/quick-scope'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -53,12 +54,12 @@ set showmatch
 "Searches are you type
 set incsearch
 "Change to using system clipboard instead of unnamed register
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 "Visual autocomplete for command menu
 set wildmenu
 "Enable true color support
 set termguicolors
-set updatetime=100
+set updatetime=300
 "Change color scheme to palenight color
 set background=dark
 colorscheme palenight
@@ -76,9 +77,10 @@ endif
 
 "Rebinds
 let mapleader=' '
-"Bind esc to jk/kj
+"Bind esc to jk
 inoremap jk <esc>
-inoremap kj <esc>
+" Map terminal exit to esc
+tnoremap <Esc> <C-\><C-n>
 " Insert mode navigation keys
 inoremap <C-k> <Up>
 inoremap <C-j> <Down>
@@ -168,10 +170,17 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
-
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
