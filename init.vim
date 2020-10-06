@@ -3,7 +3,9 @@ let g:ale_disable_lsp = 1 " Use LSP from coc
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-Plug 'jremmen/vim-ripgrep'
+Plug 'rakr/vim-one'
+Plug 'sheerun/vim-polyglot'
+Plug 'maximbaz/lightline-ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
@@ -16,7 +18,6 @@ Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
-Plug 'drewtempelmeyer/palenight.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'lambdalisue/suda.vim'
 Plug 'unblevable/quick-scope'
@@ -34,7 +35,7 @@ set expandtab
 syntax on
 set undodir=~/.config/nvim/undodir
 set undofile
-set colorcolumn=80
+set colorcolumn=120
 "New lines inherit indentation of previous lines
 set autoindent
 "Enable search highlighting
@@ -59,26 +60,56 @@ set incsearch
 set wildmenu
 "Enable true color support
 set termguicolors
-set updatetime=300
-"Change color scheme to palenight color
+"Change color scheme to one colorscheme
 set background=dark
-colorscheme palenight
-"Change lightline to palenight colorscheme
-let g:lightline = { 'colorscheme': 'palenight' }
+"Enable the mouse. Just using for adjusting window sizes
+set mouse=a
+colorscheme one
+" Lightline config
+"Change lightline to one colorscheme
+let g:lightline = {
+	  \ 'colorscheme': 'one',
+	  \ 'active': {
+	  \   'left': [ [ 'mode', 'paste' ],
+	  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ],
+	  \ },
+	  \ 'component_function': {
+	  \   'cocstatus': 'coc#status',
+      \   'wordcount': 'WordCount'
+	  \ },
+	  \ }
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ], [ 'lineinfo' ], [ 'percent', 'wordcount' ], [ 'fileformat', 'fileencoding', 'filetype' ]] }
 "Enable Tab guide on startup
 let g:indent_guides_enable_on_vim_startup = 1
 "Enable rainbow at startup
 let g:rainbow_active = 1
 let g:python_highlight_all = 1
-
+let g:python3_host_prog = '~/python_venv/neovim/bin/python3'
 if executable('rg')
     let g:rg_derive_root='true'
 endif
 
 "Rebinds
 let mapleader=' '
+let localleader = ' '
 "Bind esc to jk
 inoremap jk <esc>
+"Clear search highlight
+nnoremap <leader>c :nohlsearch<CR>
 " Map terminal exit to esc
 tnoremap <Esc> <C-\><C-n>
 " Insert mode navigation keys
@@ -94,14 +125,14 @@ nnoremap <leader>J :wincmd j<CR>
 nnoremap <leader>K :wincmd k<CR>
 nnoremap <leader>L :wincmd l<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <leader>s :Rg<SPACE>
 " Make tab behave as expected in visual and normal mode
 nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
-"Maps :Files to Ctrl-p binding
-nnoremap <C-p> :Files<Cr>
+"Maps :Files to <leader>-f binding
+nnoremap <leader>f :Files<Cr>
 
 " Suda.vim config
 let g:suda#prefix = ['suda:/', 'sudo:/']
@@ -142,7 +173,7 @@ nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
-let g:netrw_altv = 1
+" let g:netrw_altv = 1
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
 let g:netrw_banner = 0
@@ -207,4 +238,4 @@ endif
 " Add (Neo)Vim's native statusline support.
 " NOTE: Pease see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

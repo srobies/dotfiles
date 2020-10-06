@@ -1,7 +1,11 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
+set -o vi # Vim binds
+alias todo_view='clear && todo-txt view context'
+alias todo=todo-txt
+alias python=python3
+alias 2020_fall='cd ~/Documents/school/2020_fall'
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
