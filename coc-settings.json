@@ -1,0 +1,17 @@
+{
+    "diagnostic.displayByAle": true,
+
+    "languageserver": {
+        "hdlChecker": {
+            "command": "hdl_checker",
+            "args": [
+                "--lsp"
+            ],
+            "filetypes": [
+                "vhdl",
+                "verilog",
+                "systemverilog"
+            ]
+        }
+    }
+}
