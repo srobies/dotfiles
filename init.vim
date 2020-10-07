@@ -3,6 +3,7 @@ let g:ale_disable_lsp = 1 " Use LSP from coc
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 Plug 'maximbaz/lightline-ale'
@@ -60,7 +61,7 @@ set incsearch
 set wildmenu
 "Enable true color support
 " set termguicolors
-" Enable true color 启用终端24位色
+" Enable true color
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -69,9 +70,9 @@ endif
 "Change color scheme to one colorscheme
 set background=dark
 set t_Co=256
+colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
-colorscheme one
 " Lightline config
 "Change lightline to one colorscheme
 let g:lightline = {
@@ -133,6 +134,8 @@ nnoremap <leader>K :wincmd k<CR>
 nnoremap <leader>L :wincmd l<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>s :Rg<SPACE>
+nnoremap <leader><bar> :vsp<CR>
+nnoremap <leader>- :sp<CR>
 " Make tab behave as expected in visual and normal mode
 nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
