@@ -59,9 +59,16 @@ set incsearch
 "Visual autocomplete for command menu
 set wildmenu
 "Enable true color support
-set termguicolors
+" set termguicolors
+" Enable true color 启用终端24位色
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 "Change color scheme to one colorscheme
 set background=dark
+set t_Co=256
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
 colorscheme one
