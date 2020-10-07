@@ -11,6 +11,9 @@
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
+# So that font isn't massive on laptop
+# font:
+#   size: 8.0
 # Colors (One Half Dark)
 colors:
   primary:
@@ -49,18 +52,9 @@ cursor:
   #   - | Beam
   style: Block
 
-  # Vi mode cursor style
-  #
-  # If the vi mode cursor style is `None` or not specified, it will fall back to
-  # the style of the active value of the normal cursor.
-  #
-  # See `cursor.style` for available options.
-  vi_mode_style: Underline
-
-  Key bindings:
+Key bindings:
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }

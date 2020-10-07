@@ -121,17 +121,17 @@ nnoremap <leader>c :nohlsearch<CR>
 " Map terminal exit to esc
 tnoremap <Esc> <C-\><C-n>
 " Insert mode navigation keys
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+" inoremap <C-k> <Up>
+" inoremap <C-j> <Down>
+" inoremap <C-h> <Left>
+" inoremap <C-l> <Right>
 " Better navigation keys
 nnoremap <leader>h     ^
 nnoremap <leader>l     $
-nnoremap <leader>H :wincmd h<CR>
-nnoremap <leader>J :wincmd j<CR>
-nnoremap <leader>K :wincmd k<CR>
-nnoremap <leader>L :wincmd l<CR>
+" nnoremap <leader>H :wincmd h<CR>
+" nnoremap <leader>J :wincmd j<CR>
+" nnoremap <leader>K :wincmd k<CR>
+" nnoremap <leader>L :wincmd l<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>s :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
