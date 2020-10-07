@@ -1,6 +1,12 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+alias school_sync="~/repos/scripts/rclone_cron.sh"
+alias todo_sync="~/repos/script/todo_sync"
+alias tmux="TERM=screen-256color-bce tmux"
 alias todo_view='clear && todo-txt view context'
 alias todo=todo-txt
 alias python=python3
@@ -125,3 +131,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+source /home/spencer/repos/alacritty/extra/completions/alacritty.bash
