@@ -4,7 +4,7 @@
 export EDITOR=nvim
 TERM="xterm-256color"
 alias school_sync="~/repos/scripts/rclone_cron.sh"
-alias todo_sync="~/repos/scripts/todo_sync_arch.sh"
+alias todo_sync="~/repos/scripts/todo_sync.sh"
 alias todo_view='clear && todo view context'
 alias todo=todo.sh
 alias python=python3
@@ -24,7 +24,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # See bash(1) for more options
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 HISTCONTROL=ignoreboth
-
+export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[34m\]\w\[\e[m\]\\$ "
 # append to the history file, don't overwrite it
 shopt -s histappend
 
