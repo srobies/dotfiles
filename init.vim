@@ -62,14 +62,13 @@ set wildmenu
 "Enable true color support
 " set termguicolors
 " Enable true color
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+set t_co=256
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 "Change color scheme to one colorscheme
 set background=dark
-set t_Co=256
+" set t_Co=256
 colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
@@ -160,32 +159,35 @@ if !exists('g:undotree_SetFocusWhenToggle')
     let g:undotree_SetFocusWhenToggle = 1 
 endif
 
-" Toggles netrw with <leader>e
+" Toggle Vexplore with Ctrl-O
 function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
-      let t:expl_buf_num = bufnr("%")
-  endif
+    if exists("t:expl_buf_num")
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        let cur_win_num = winnr()
+
+        if expl_win_num != -1
+            while expl_win_num != cur_win_num
+                exec "wincmd w"
+                let cur_win_num = winnr()
+            endwhile
+
+            close
+        endif
+
+        unlet t:expl_buf_num
+    else
+         Vexplore
+         let t:expl_buf_num = bufnr("%")
+    endif
 endfunction
-nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
+
+map <silent> <leader>e :call ToggleVExplorer()<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
+let g:netrw_altv = 1
 let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
+let g:netrw_winsize = 15
 let g:netrw_banner = 0
 " Change directory to the current buffer when opening files.
 set autochdir
