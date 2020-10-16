@@ -84,7 +84,7 @@ bindsym $mod+e exec dmenu_run
 # Move workspaces
 bindsym $mod+Ctrl+l move workspace to output right
 bindsym $mod+Ctrl+h move workspace to output left
-
+bindsym $mod+Ctrl+space move workspace to output primary
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
