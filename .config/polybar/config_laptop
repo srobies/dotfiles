@@ -39,6 +39,7 @@ white   =#dcdfe4
 monitor = ${env:MONITOR:}
 width = 100%
 height = 26
+enable-ipc = true
 ; offset-x = 0%
 ; offset-y = 0%
 radius = 0.0
@@ -64,9 +65,9 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = "UbuntuMono Nerd font:size=12"
 
-modules-left = i3
-modules-center = xwindow
-modules-right = battery backlight-acpi wired-network wireless-network pulseaudio memory cpu temperature date
+modules-left = i3 xwindow
+; modules-center = xwindow
+modules-right = battery backlight-acpi xkeyboard wired-network wireless-network pulseaudio memory cpu temperature date
 separator = "  |  "
 ; tray-position = right
 ; tray-detached = false
@@ -95,15 +96,16 @@ label = %title%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
 
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-layout = %name%
+; label-layout-underline = ${colors.secondary}
+label-layout-foreground = ${colors.secondary}
 
-label-indicator-padding = 2
-label-indicator-margin = 1
+label-indicator-padding = 0
+label-indicator-margin = 0
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
 
@@ -214,7 +216,8 @@ card = intel_backlight
 format = <label> 
 label = %percentage%%
 enable-scroll = true
-format-underline = ${colors.yellow}
+; format-underline = ${colors.yellow}
+format-foreground = ${colors.yellow}
 
 
 [module/cpu]
@@ -223,7 +226,8 @@ interval = 2
 format-prefix =
 format = <label>
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0071c5
+; format-underline = #0071c5
+format-foreground = #0071c5
 label =  CPU %percentage%%
 
 [module/memory]
@@ -232,7 +236,8 @@ interval = 2
 format-prefix = 
 format = <label>
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #45b597
+; format-underline = #45b597
+format-foreground = #208f07
 label = MEM %percentage_used%%
 
 [module/wireless-network]
@@ -240,8 +245,9 @@ type = internal/network
 interface = wlp2s0
 interval = 3.0
 
-format-connected = <label-connected>
-format-connected-underline = #9f78e1
+format-connected = <label-connected>
+; format-connected-underline = #9f78e1
+format-connected-foreground = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
@@ -256,8 +262,9 @@ interface = enp58s0u1u4
 interval = 3.0
 
 format-connected = <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %local_ip%
+; format-connected-underline = #9f78e1
+format-connected-foreground = #9f78e1
+label-connected = %local_ip% 
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -283,7 +290,8 @@ time = %I:%M %p
 time-alt = %H:%M:%S
 
 format-prefix =
-format-underline = ${colors.blue}
+; format-underline = ${colors.blue}
+format-foreground = ${colors.blue}
 format-prefix-foreground = ${colors.foreground-alt}
 ; format-underline = #0a6cf5
 
@@ -292,10 +300,10 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> 
-format-volume-underline = ${colors.cyan}
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
+format-volume = <label-volume> 
+; format-volume-underline = ${colors.cyan}
+label-volume = VOL %percentage%% 
+label-volume-foreground = ${colors.cyan}
 
 label-muted =  Muted 
 format-muted-underline = ${colors.red}
@@ -355,12 +363,15 @@ full-at = 75
 format-charging = <label-charging> Battery
 label-charging = %percentage%% 
 format-charging-underline = ${colors.blue}
+format-charging-foreground = ${colors.blue}
 
 format-discharging = <label-discharging>
 label-discharging =%percentage%% 
-format-discharging-underline = ${colors.red}
+; format-discharging-underline = ${colors.red}
+format-discharging-foreground = ${colors.red}
 label-full = %percentage%% 
-format-full-underline = ${colors.green}
+; format-full-underline = ${colors.green}
+format-full-foreground = ${colors.green}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -385,11 +396,13 @@ thermal-zone = 0
 warn-temperature = 80
 
 format = <label>
-format-underline = #f50a4d
+; format-underline = #f50a4d
+format-underline = ${colors.background}
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
 label = SYS %temperature-c%
+label-foreground = #f50a4d
 label-warn = SYS %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
