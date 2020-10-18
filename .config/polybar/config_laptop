@@ -55,7 +55,7 @@ border-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 5
 
 module-margin-left = 0
 module-margin-right = 0
@@ -395,6 +395,7 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 80
 
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
 format = <label>
 ; format-underline = #f50a4d
 format-underline = ${colors.background}
@@ -416,12 +417,12 @@ type = custom/menu
 
 expand-right = true
 
-format-spacing = 1
+format-spacing = 5
 
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
+label-open = 
+label-open-foreground = ${colors.red}
+label-close = cancel
+; label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
