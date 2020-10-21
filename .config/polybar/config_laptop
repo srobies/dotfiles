@@ -157,7 +157,7 @@ label-mode-background = ${colors.primary}
 ; focused = Active workspace on focused monitor
 label-focused = %{F#56b6c2}%name%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.secondary}
+; label-focused-underline= ${colors.secondary}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
@@ -167,7 +167,7 @@ label-unfocused-padding = 2
 ; visible = Active workspace on unfocused monitor
 label-visible = %{F#a626a4}%name%
 label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
+; label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
@@ -359,17 +359,17 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 75
+full-at = 100
 
-format-charging = <label-charging> Battery
+format-charging = <label-charging>
 label-charging = %percentage%% 
-; format-charging-underline = ${colors.blue}
-format-charging-foreground = ${colors.blue}
+format-charging-underline = ${colors.green}
+; format-charging-foreground = ${colors.blue}
 
 format-discharging = <label-discharging>
 label-discharging =%percentage%% 
-; format-discharging-underline = ${colors.red}
-format-discharging-foreground = $696766
+format-discharging-underline = ${colors.yellow}
+format-discharging-foreground = ${colors.foreground}
 label-full = %percentage%% 
 ; format-full-underline = ${colors.green}
 format-full-foreground = ${colors.green}
@@ -400,18 +400,13 @@ hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
 format = <label>
 ; format-underline = #f50a4d
 format-underline = ${colors.background}
-format-warn = <ramp> <label-warn>
+format-warn = <label-warn>
 format-warn-underline = ${self.format-underline}
 
 label = SYS %temperature-c%
 label-foreground = #9f78e1
 label-warn = SYS %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+label-warn-foreground = ${colors.red}
 
 [module/powermenu]
 type = custom/menu

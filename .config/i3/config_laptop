@@ -25,16 +25,15 @@ no_focus [class="plasmashell" window_type="notification"]
 
 exec ~/.fehbg
 default_border none
-
+exec ~/.config/polybar/launch.sh
+exec ~/repos/scripts/touchscreen_map.sh
 set $mod Mod4
 # Start polybar
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # rofi keybind
 bindsym $mod+g exec "rofi -combi-modi window#run#ssh -modi combi -show combi"
-
-# Set the background
-exec --no-startup-id feh --bg-scale ~/Downloads/530895_souredapple_clouds.png
-
+bindsym $mod+b exec "xbacklight -inc 5"
+bindsym $mod+n exec "xbacklight -dec 5"
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -141,12 +140,12 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:web"
-set $ws2 "2:coding"
-set $ws3 "3:school"
-set $ws4 "4:messaging"
-set $ws5 "5:music"
-set $ws6 "6:misc"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -181,7 +180,7 @@ assign [class="Thunderbird"] 4
 assign [class="Discord"] 4
 assign [class="Spotify"] 5
 assign [class="Pulseeffects"] 5
-assign [class="Zoom"] 3
+assign [class="Zoom"] 6
 assign [class="alacritty"] 2
 # reload the configuration file
 bindsym $mod+Shift+i reload
@@ -191,8 +190,7 @@ bindsym $mod+Shift+o restart
 # bindsym $mod+Shift+period exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Use KDE screen to logout
-bindsym $mod+Shift+e exec --no-startup-id qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
-
+bindsym $mod+Shift+period exec --no-startup-id qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
