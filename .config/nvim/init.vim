@@ -3,7 +3,12 @@ let g:ale_disable_lsp = 1 " Use LSP from coc
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
+" Plug 'glepnir/zephyr-nvim'
+Plug 'szw/vim-maximizer'
+Plug 'puremourning/vimspector'
+Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
+Plug 'c0r73x/neotags.nvim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
@@ -17,11 +22,12 @@ Plug 'itchyny/lightline.vim'
 "Plug 'nprindle/lc3.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
-Plug 'justinmk/vim-sneak'
 Plug 'lambdalisue/suda.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+
+let g:vimspector_enable_mappings = 'HUMAN'
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
 " shiftwidth        Determines the amount of whitespace to add in normal mode
@@ -71,6 +77,7 @@ set t_Co=256
 colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
+" let g:neotags_ignore='fzf'
 " Lightline config
 "Change lightline to one colorscheme
 let g:lightline = {
@@ -108,7 +115,6 @@ endif
 
 "Rebinds
 let mapleader=' '
-let localleader = ' '
 "Bind esc to jk
 inoremap jk <esc>
 "Clear search highlight
@@ -121,14 +127,14 @@ tnoremap <Esc> <C-\><C-n>
 " inoremap <C-h> <Left>
 " inoremap <C-l> <Right>
 " Better navigation keys
-nnoremap <leader>h     ^
-nnoremap <leader>l     $
+" nnoremap <leader>h     ^
+" nnoremap <leader>l     $
 " nnoremap <leader>H :wincmd h<CR>
 " nnoremap <leader>J :wincmd j<CR>
 " nnoremap <leader>K :wincmd k<CR>
 " nnoremap <leader>L :wincmd l<CR>
 nnoremap <leader>u :MundoToggle<CR>
-nnoremap <leader>s :Rg<SPACE>
+nnoremap <leader>/ :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 " Make tab behave as expected in visual and normal mode
@@ -138,21 +144,37 @@ vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 "Maps :Files to <leader>-f binding
 nnoremap <leader>f :Files<Cr>
+"Go to last buffer
+nnoremap <leader>` <C-^> 
+"Debugger rebinds
+nnoremap <leader>m :MaximizerToggle!<CR>
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
+nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
+nnoremap <leader>de :call vimspector#Reset()<CR>
+
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>dr <Plug>VimspectorRestart
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
+
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
 " Suda.vim config
 let g:suda#prefix = ['suda:/', 'sudo:/']
-" Sneak config
-let g:sneak#label = 1
-
-" case insensitive sneak
-let g:sneak#use_ic_scs = 1
-map gS <Plug>Sneak_,
-map gs <Plug>Sneak_;
 
 "Mundo config
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 
+let g:indentLine_char = '|'
 
 " Toggles netrw with <leader>e
 function! ToggleVExplorer()
@@ -210,13 +232,25 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" Formatting
 xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader> gf <Plug>(coc-format-selected)
+nmap <leader>gf <Plug>(coc-format-selected)
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 " Symbol renaming.
-nmap <leader>r <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
+" Find symbol of current document.
+nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
