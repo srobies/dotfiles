@@ -4,11 +4,11 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
 " Plug 'glepnir/zephyr-nvim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
 Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
-Plug 'c0r73x/neotags.nvim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
@@ -26,7 +26,7 @@ Plug 'lambdalisue/suda.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-
+let g:ruby_host_prog = '~/.gem/ruby/2.7.0/bin/neovim-ruby-host'
 let g:vimspector_enable_mappings = 'HUMAN'
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
@@ -77,7 +77,7 @@ set t_Co=256
 colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
-" let g:neotags_ignore='fzf'
+let g:neotags_ignore='fzf'
 " Lightline config
 "Change lightline to one colorscheme
 let g:lightline = {
@@ -149,19 +149,19 @@ nnoremap <leader>` <C-^>
 "Debugger rebinds
 nnoremap <leader>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
-nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
-nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
-nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
-nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
-nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
-nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
+" nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+" nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+" nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+" nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
+" nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+" nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
 nnoremap <leader>de :call vimspector#Reset()<CR>
 
 nmap <leader>dl <Plug>VimspectorStepInto
 nmap <leader>dj <Plug>VimspectorStepOver
 nmap <leader>dk <Plug>VimspectorStepOut
 nmap <leader>dr <Plug>VimspectorRestart
-nnoremap <leader>d<space> :call vimspector#Continue()<CR>
+nnoremap <leader>dc :call vimspector#Continue()<CR>
 
 nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dbp <Plug>VimspectorToggleBreakpoint

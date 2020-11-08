@@ -1,5 +1,6 @@
 {
     "diagnostic.displayByAle": true,
+    "clangd.semanticHighlighting": true,
 
     "languageserver": {
         "hdlChecker": {
