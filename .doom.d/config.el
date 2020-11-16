@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Lrobie"
+      user-mail-address "sprobie1@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -36,6 +36,12 @@
 (setq display-line-numbers-type 'relative)
 (setq ein:output-area-inlined-images t) ;; show images inline. Emacs support for jupyter is kinda half-baked. Best to stay with the browser for now
 
+;; dap debugger settings
+(setq dap-auto-configure-features '(sessions locals controls tooltip))
+(require 'dap-python)
+(require 'dap-cpptools)
+;; (require 'dap-cpptools) can't figure out how to make this work
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -52,12 +58,23 @@
       :desc "Vertical split" "|" #'split-window-horizontally
       :desc "Horizontal split" "-" #'split-window-vertically) ;; split commands
 (map! :leader
-      (:desc "Debugger"
-      :desc "Enter debugger" "dd" #'gdb
-      :desc "Toggle breakpoint" "db" #'gdb-toggle-breakpoint
-      :desc "Run to cursor" "dr" #'gdb-mouse-until
-      :desc "Step" "dl" #'gdb-step-thread
-      :desc "Continue" "dc" #'gdb-continue-thread))
+      :desc "Undotree toggle" "u" #'undo-tree-visualize)
+(map! :leader
+      :desc "Neotree" "e" #'treemacs)
+;; DAP bindings
+(map! :leader
+      (:prefix-map ("d" . "DAP debugger")
+        :desc "Next" "n" #'dap-next
+        :desc "Debug" "d" #'dap-debug
+        :desc "Edit template" "e" #'dap-debug-edit-template
+        :desc "Step in" "l" #'dap-step-in
+        :desc "Step out" "h" #'dap-step-out
+        :desc "Continue" "c" #'dap-continue
+        :desc "Restart" "r" #'dap-restart-frame
+       (:prefix ("b" . "breakpoint")
+        :desc "Add breakpoint" "a" #'dap-breakpoint-add
+        :desc "Remove breakpoint" "r" #'dap-breakpoint-delete
+        :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle)))
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
@@ -65,3 +82,4 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(setq password-cache-expiry nil) ;; cache passwords as long as emacs is open
