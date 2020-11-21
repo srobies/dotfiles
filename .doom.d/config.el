@@ -46,6 +46,12 @@
 ;;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
+
+;; install tree-sitter for better highlighting
+(use-package! tree-sitter
+  :config(require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', relative to
 ;;   this file. Emacs searches the `load-path' when you load packages with
@@ -64,17 +70,18 @@
 ;; DAP bindings
 (map! :leader
       (:prefix-map ("d" . "DAP debugger")
-        :desc "Next" "n" #'dap-next
-        :desc "Debug" "d" #'dap-debug
+        :desc "Step over" "j" #'dap-next
+        :desc "Start debuggger" "d" #'dap-debug
         :desc "Edit template" "e" #'dap-debug-edit-template
         :desc "Step in" "l" #'dap-step-in
         :desc "Step out" "h" #'dap-step-out
         :desc "Continue" "c" #'dap-continue
         :desc "Restart" "r" #'dap-restart-frame
        (:prefix ("b" . "breakpoint")
-        :desc "Add breakpoint" "a" #'dap-breakpoint-add
-        :desc "Remove breakpoint" "r" #'dap-breakpoint-delete
-        :desc "Toggle breakpoint" "t" #'dap-breakpoint-toggle)))
+        :desc "Add" "a" #'dap-breakpoint-add
+        :desc "Remove" "d" #'dap-breakpoint-delete
+        :desc "Toggle" "t" #'dap-breakpoint-toggle
+        :desc "Conditional" "c" #'dap-breakpoint-condition)))
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').

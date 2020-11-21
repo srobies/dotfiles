@@ -3,15 +3,16 @@ let g:ale_disable_lsp = 1 " Use LSP from coc
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-" Plug 'glepnir/zephyr-nvim'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'jackguo380/vim-lsp-cxx-highlight' " Treesitter covers this plugin.
+" Will probably remove
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
 Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot' " Treesitter covers this plugin
 Plug 'maximbaz/lightline-ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -26,7 +27,6 @@ Plug 'lambdalisue/suda.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-let g:ruby_host_prog = '~/.gem/ruby/2.7.0/bin/neovim-ruby-host'
 let g:vimspector_enable_mappings = 'HUMAN'
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
@@ -77,7 +77,6 @@ set t_Co=256
 colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
-let g:neotags_ignore='fzf'
 " Lightline config
 "Change lightline to one colorscheme
 let g:lightline = {
@@ -129,10 +128,10 @@ tnoremap <Esc> <C-\><C-n>
 " Better navigation keys
 " nnoremap <leader>h     ^
 " nnoremap <leader>l     $
-" nnoremap <leader>H :wincmd h<CR>
-" nnoremap <leader>J :wincmd j<CR>
-" nnoremap <leader>K :wincmd k<CR>
-" nnoremap <leader>L :wincmd l<CR>
+nnoremap <leader>wh :wincmd h<CR>
+nnoremap <leader>wj :wincmd j<CR>
+nnoremap <leader>wk :wincmd k<CR>
+nnoremap <leader>wl :wincmd l<CR>
 nnoremap <leader>u :MundoToggle<CR>
 nnoremap <leader>/ :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
@@ -157,15 +156,15 @@ nnoremap <leader>dd :call vimspector#Launch()<CR>
 " nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
 nnoremap <leader>de :call vimspector#Reset()<CR>
 
-nmap <leader>dl <Plug>VimspectorStepInto
-nmap <leader>dj <Plug>VimspectorStepOver
-nmap <leader>dk <Plug>VimspectorStepOut
-nmap <leader>dr <Plug>VimspectorRestart
+nnoremap <leader>dl <Plug>VimspectorStepInto
+nnoremap <leader>dj <Plug>VimspectorStepOver
+nnoremap <leader>dh <Plug>VimspectorStepOut
+nnoremap <leader>dr <Plug>VimspectorRestart
 nnoremap <leader>dc :call vimspector#Continue()<CR>
 
-nmap <leader>drc <Plug>VimspectorRunToCursor
-nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
-nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+nnoremap <leader>drc <Plug>VimspectorRunToCursor
+nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
+nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
 " Suda.vim config
 let g:suda#prefix = ['suda:/', 'sudo:/']
@@ -283,3 +282,14 @@ endif
 " NOTE: Pease see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" Treesitter config
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "bash","c","cpp","lua","python","verilog", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = {"bash","c","cpp","lua","python","verilog"},              -- false will disable the whole extension
+    disable = {},  -- list of language that will be disabled
+  },
+}
+EOF
