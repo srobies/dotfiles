@@ -5,6 +5,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Declare the list of plugins.
 " Plug 'jackguo380/vim-lsp-cxx-highlight' " Treesitter covers this plugin.
 " Will probably remove
+
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
