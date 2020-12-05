@@ -3,9 +3,6 @@ let g:ale_disable_lsp = 1 " Use LSP from coc
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-" Plug 'jackguo380/vim-lsp-cxx-highlight' " Treesitter covers this plugin.
-" Will probably remove
-
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
@@ -28,7 +25,6 @@ Plug 'lambdalisue/suda.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-let g:vimspector_enable_mappings = 'HUMAN'
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
 " shiftwidth        Determines the amount of whitespace to add in normal mode
@@ -127,8 +123,6 @@ tnoremap <Esc> <C-\><C-n>
 " inoremap <C-h> <Left>
 " inoremap <C-l> <Right>
 " Better navigation keys
-" nnoremap <leader>h     ^
-" nnoremap <leader>l     $
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
@@ -201,7 +195,7 @@ nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
 let g:netrw_browse_split = 4
 " let g:netrw_altv = 1
 let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
+let g:netrw_winsize = 18
 let g:netrw_banner = 0
 " Change directory to the current buffer when opening files.
 " set autochdir
@@ -287,7 +281,7 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " Treesitter config
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "bash","c","cpp","lua","python","verilog", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = {"bash","c","cpp","lua","python","verilog"},              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
