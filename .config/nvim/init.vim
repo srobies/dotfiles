@@ -2,10 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-<<<<<<< HEAD
 Plug 'kshenoy/vim-signature'
-=======
->>>>>>> cc2b93350a0b0a0afdb458220bdf46f5bf5ac101
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
