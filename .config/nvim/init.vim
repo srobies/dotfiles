@@ -1,11 +1,8 @@
-let g:ale_disable_lsp = 1 " Use LSP from coc
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-" Plug 'jackguo380/vim-lsp-cxx-highlight' " Treesitter covers this plugin.
-" Will probably remove
-
+Plug 'kshenoy/vim-signature'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
@@ -13,11 +10,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
-" Plug 'sheerun/vim-polyglot' " Treesitter covers this plugin
-Plug 'maximbaz/lightline-ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
@@ -25,14 +19,15 @@ Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
+Plug 'liuchengxu/vim-which-key'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-let g:vimspector_enable_mappings = 'HUMAN'
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
 " shiftwidth        Determines the amount of whitespace to add in normal mode
 " expandtab:        When this option is enabled, vi will use spaces instead of tabs
+set timeoutlen=500
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
@@ -79,33 +74,23 @@ colorscheme one
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
 " Lightline config
-"Change lightline to one colorscheme
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 let g:lightline = {
 	  \ 'colorscheme': 'one',
 	  \ 'active': {
 	  \   'left': [ [ 'mode', 'paste' ],
-	  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ],
-	  \ },
-	  \ 'component_function': {
-	  \   'cocstatus': 'coc#status',
-      \   'wordcount': 'WordCount'
+	  \             [ 'readonly', 'filename', 'modified' ] ],
+      \ 'right':[ [ 'lineinfo' ],
+      \           [ 'percent ' ],
+      \           [ 'cocstatus','currentfunction','fileformat', 'fileencoding', 'filetype']]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
 	  \ },
 	  \ }
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_infos': 'lightline#ale#infos',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-let g:lightline.component_type = {
-      \     'linter_checking': 'right',
-      \     'linter_infos': 'right',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'right',
-      \ }
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ], [ 'lineinfo' ], [ 'percent', 'wordcount' ], [ 'fileformat', 'fileencoding', 'filetype' ]] }
 
 let g:python_highlight_all = 1
 let g:python3_host_prog = '~/python_venvs/nvim/bin/python3'
@@ -115,6 +100,7 @@ endif
 
 "Rebinds
 let mapleader=' '
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 "Bind esc to jk
 inoremap jk <esc>
 "Clear search highlight
@@ -127,14 +113,12 @@ tnoremap <Esc> <C-\><C-n>
 " inoremap <C-h> <Left>
 " inoremap <C-l> <Right>
 " Better navigation keys
-" nnoremap <leader>h     ^
-" nnoremap <leader>l     $
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
 nnoremap <leader>u :MundoToggle<CR>
-nnoremap <leader>/ :Rg<SPACE>
+nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 " Make tab behave as expected in visual and normal mode
@@ -143,7 +127,6 @@ nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 "Maps :Files to <leader>-f binding
-nnoremap <leader>f :Files<Cr>
 "Go to last buffer
 nnoremap <leader>` <C-^> 
 "Debugger rebinds
@@ -166,6 +149,38 @@ nnoremap <leader>dc :call vimspector#Continue()<CR>
 nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
+"fzf-preview
+" nnoremap <leader>ff :Files<Cr>
+set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
+" nmap <Leader>f [fzf-p]
+" xmap <Leader>f [fzf-p]
+
+" nnoremap <silent> [fzf-p]f     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
+" nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
+" nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+" nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+" nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+" nnoremap <silent> [fzf-p]j     :<C-u>CocCommand fzf-preview.Jumps<CR>
+" nnoremap <silent> [fzf-p]m     :<C-u>CocCommand fzf-preview.Marks<CR>
+" nnoremap <silent> [fzf-p]c     :<C-u>CocCommand fzf-preview.Changes<CR>
+" nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+" nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+" nnoremap          [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+" nnoremap          [fzf-p]r     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+" xnoremap          [fzf-p]r     "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> <leader>ff     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
+nnoremap <silent> <leader>fp     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
+nnoremap <silent> <leader>fgs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+nnoremap <silent> <leader>fga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+nnoremap <silent> <leader>fb     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+nnoremap <silent> <leader>fj     :<C-u>CocCommand fzf-preview.Jumps<CR>
+nnoremap <silent> <leader>fm     :<C-u>CocCommand fzf-preview.Marks<CR>
+nnoremap <silent> <leader>fc     :<C-u>CocCommand fzf-preview.Changes<CR>
+nnoremap <silent> <leader>f/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> <leader>f*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap <silent> <leader>fq     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+nnoremap          <leader>fr     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          <leader>fr     "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
 
 " Suda.vim config
 let g:suda#prefix = ['suda:/', 'sudo:/']
@@ -233,11 +248,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Formatting
-xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader>gf <Plug>(coc-format-selected)
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>qf  <Plug>(coc-fix-current)
+" xmap <leader>gf <Plug>(coc-format-selected)
+" nmap <leader>gf <Plug>(coc-format-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Find symbol of current document.
@@ -284,13 +299,71 @@ endif
 " provide custom statusline: lightline.vim, vim-airline.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
+"Vim which key stuff
+let g:which_key_use_floating_win = 0
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+call which_key#register('<Space>', "g:which_key_map")
+let g:which_key_map = {}
+let g:which_key_map.u = [ 'Mundotoggle', 'Undotree' ]
+let g:which_key_map.e = 'File Explorer' 
+let g:which_key_map.r = 'Ripgrep' 
+let g:which_key_map['-'] = 'which_key_ignore' 
+let g:which_key_map['|'] =  'which_key_ignore' 
+let g:which_key_map.m = 'Maximizer' 
+let g:which_key_map.c = 'Highlights off' 
+let g:which_key_map['`'] = 'Last file' 
+let g:which_key_map.a =  'Codeaction' 
+let g:which_key_map['rn'] = 'Rename' 
+let g:which_key_map['db'] = 'which_key_ignore' 
+let g:which_key_map.o = 'Outline' 
+let g:which_key_map['w'] = {
+    \ 'name' : '+windows',
+    \ 'h' : 'Left buffer',
+    \ 'l' : 'Right buffer',
+    \ 'j' : 'Down buffer',
+    \ 'k' : 'Up buffer',
+    \ }
+let g:which_key_map['d'] = {
+    \ 'name' : '+debugger',
+    \ 'h' : 'Step out',
+    \ 'l' : 'Step into',
+    \ 'j' : 'Step over',
+    \ 'd' : 'Launch',
+    \ 'e' : 'Reset',
+    \ 'c' : 'Continue',
+    \ 'r' : 'Restart',
+    \ 'rc' : 'Run to cursor',
+    \ 'bt' : 'Toggle breakpoint',
+    \ 'bc' : 'Toggle conditional breakpoint',
+    \ }
+let g:which_key_map.f = {
+    \ 'name' : '+fzf preview',
+    \ 'f' : 'File Search',
+    \ 'p' : 'Project Search',
+    \ 'b' : 'Buffers',
+    \ 'j' : 'Jump list',
+    \ 'm' : 'Mark list',
+    \ 'c' : 'Change list',
+    \ '/' : 'Line search',
+    \ '*' : 'Search this line',
+    \ 'r' : 'Rg',
+    \ 'q' : 'Quickfix',
+    \ 'gs' : 'Git status',
+    \ 'ga' : 'Git action',
+    \ 'g' : 'which_key_ignore',
+    \ }
+
 " Treesitter config
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "bash","c","cpp","lua","python","verilog", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = {"bash","c","cpp","lua","python","verilog"},              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
   },
 }
 EOF
+
