@@ -1,6 +1,5 @@
 #!/bin/bash
 # Do all setup necessary for a new system
-dotfiles="/$HOME/repos/dotfiles"
 
 #install necessary programs
 sudo pacman -S --noconfirm --needed \
@@ -25,6 +24,7 @@ sudo pacman -S --noconfirm --needed \
     ripgrep \
     rofi \
     sudo \
+    thunderbird \
     ttf-fantasque-sans-mono \
     vifm \
     wget \
@@ -34,7 +34,9 @@ sudo pacman -S --noconfirm --needed \
 
 sudo systemctl enable lightdm
 sudo systemctl enable NetworkManager
-pip install dbus-python
+if !(pip list | rg dbus-python); then
+    pip install dbus-python
+fi
 
 xdg-user-dirs-update # Create user directories
 
@@ -42,6 +44,7 @@ mkdir -p $HOME/repos;
 cd ~/repos
 
 reposFolder="$HOME/repos"
+dotfiles="/$HOME/repos/dotfiles"
 # Build neovim
 neovimRepo="https://github.com/neovim/neovim.git"
 sudo pacman -S --noconfirm --needed base-devel cmake unzip ninja tree-sitter
