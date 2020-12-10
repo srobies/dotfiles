@@ -13,21 +13,28 @@ sudo pacman -S --noconfirm --needed \
     git \
     i3-wm \
     i3lock \
+    libnotify \
     lightdm \
     lightdm-gtk-greeter \
+    openssh \
     pulseaudio \
     pulseaudio-alsa \
     python-pip \
     python3 \
+    rclone \
     ripgrep \
     rofi \
+    sudo \
     ttf-fantasque-sans-mono \
     vifm \
-    rclone \
+    wget \
+    xdg-user-dirs \
     xorg-server \
     xorg-xrandr \
-    xdg-user-dirs \
-    wget
+
+sudo systemctl enable lightdm
+sudo systemctl enable NetworkManager
+pip install dbus-python
 
 xdg-user-dirs-update # Create user directories
 
@@ -70,8 +77,8 @@ paru --needed --noconfirm zoom
 
 # Copy .config folders/files
 cd $HOME/repos/dotfiles
-configFiles=(.bash_profile .bashrc .doom.d .tmux.conf .gitconfig .git .ssh)
-configFolders=(.config/alacritty .config/i3 .config/polybar .config/rofi .config/vifm)
+configFiles=(.bash_profile .bashrc .doom.d .tmux.conf .gitconfig .ssh)
+configFolders=(.config/dunst .config/alacritty .config/i3 .config/polybar .config/rofi .config/vifm)
 
 for i in ${configFiles[@]}; do
     echo "$i"
@@ -85,3 +92,12 @@ for i in ${configFolders[@]}; do
         cp -r $i $HOME/.config
     fi
 done
+
+cd $HOME
+mkdir python_venvs
+cd python_venvs
+if [[ ! -d nvim ]]; then
+    python -m venv nvim
+    source nvim/bin/activate
+    pip install pynvim
+fi
