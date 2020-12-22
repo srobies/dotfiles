@@ -15,11 +15,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
-"Plug 'nprindle/lc3.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
 Plug 'liuchengxu/vim-which-key'
+Plug 'voldikss/vim-floaterm'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -129,6 +129,8 @@ vnoremap <S-Tab> <<<Esc>gv
 "Maps :Files to <leader>-f binding
 "Go to last buffer
 nnoremap <leader>` <C-^> 
+"Toggle terminal
+nnoremap <silent> <leader>t :FloatermToggle<CR>
 "Debugger rebinds
 nnoremap <leader>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
@@ -149,6 +151,9 @@ nnoremap <leader>dc :call vimspector#Continue()<CR>
 nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
+
+"floaterm binds
+nnoremap
 "fzf-preview
 " nnoremap <leader>ff :Files<Cr>
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
@@ -210,7 +215,8 @@ function! ToggleVExplorer()
       let t:expl_buf_num = bufnr("%")
   endif
 endfunction
-nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
+" nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
+nnoremap <silent> <leader>e :FloatermNew vifm<CR>
 " Hit enter in the file browser to open the selected
 " file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
@@ -222,6 +228,7 @@ let g:netrw_banner = 0
 " set autochdir
 
 "coc.nvim config
+let g:coc_global_extensions = ['coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -308,7 +315,9 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 call which_key#register('<Space>', "g:which_key_map")
 let g:which_key_map = {}
 let g:which_key_map.u = [ 'Mundotoggle', 'Undotree' ]
-let g:which_key_map.e = 'File Explorer' 
+" let g:which_key_map.e = 'File Explorer' 
+let g:which_key_map.e = 'vifm' 
+let g:which_key_map.t = 'Terminal' 
 let g:which_key_map.r = 'Ripgrep' 
 let g:which_key_map['-'] = 'which_key_ignore' 
 let g:which_key_map['|'] =  'which_key_ignore' 
@@ -349,7 +358,7 @@ let g:which_key_map.f = {
     \ 'c' : 'Change list',
     \ '/' : 'Line search',
     \ '*' : 'Search this line',
-    \ 'r' : 'Rg',
+    \ 'r' : 'Project Rg',
     \ 'q' : 'Quickfix',
     \ 'gs' : 'Git status',
     \ 'ga' : 'Git action',

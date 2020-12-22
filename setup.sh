@@ -10,16 +10,17 @@ sudo pacman -S --noconfirm --needed \
     firefox \
     fzf \
     git \
-    i3-wm \
     i3lock \
     libnotify \
     lightdm \
     lightdm-gtk-greeter \
+    noto-fonts-emoji \
     openssh \
     pulseaudio \
     pulseaudio-alsa \
     python-pip \
     python3 \
+    qtile \
     rclone \
     ripgrep \
     rofi \
@@ -30,6 +31,7 @@ sudo pacman -S --noconfirm --needed \
     wget \
     xdg-user-dirs \
     xorg-server \
+    xorg-xinput \
     xorg-xrandr \
 
 sudo systemctl enable lightdm
@@ -69,7 +71,7 @@ cd $reposFolder
 if !(pacman -Q paru); then
     git clone https://aur.archlinux.org/paru.git
     cd paru
-    makepkg -si --noconfirm -
+    makepkg -si --noconfirm
 fi
 
 # AUR applications
@@ -78,21 +80,29 @@ paru --needed --noconfirm spotify
 paru --needed --noconfirm polybar
 paru --needed --noconfirm zoom
 
-# Copy .config folders/files
+# Symlink .config folders/files
 cd $HOME/repos/dotfiles
-configFiles=(.bash_profile .bashrc .doom.d .tmux.conf .gitconfig .ssh)
-configFolders=(.config/dunst .config/alacritty .config/i3 .config/polybar .config/rofi .config/vifm)
+configFiles=(.bash_profile .bashrc .tmux.conf .gitconfig .ssh)
+configFolders=(dunst alacritty polybar rofi qtile vifm)
+
+# Doom emacs files
+mkdir -p $HOME/.doom.d
+ln -sf $HOME/repos/dotfiles/.doom.d/init.el $HOME/.doom.d/init.el
+ln -sf $HOME/repos/dotfiles/.doom.d/config.el $HOME/.doom.d/config.el
+ln -sf $HOME/repos/dotfiles/.doom.d/packages.el $HOME/.doom.d/packages.el
 
 for i in ${configFiles[@]}; do
     echo "$i"
     if [[ ! -e $HOME/$i ]]; then
-        cp -r $i $HOME
+        ln -sf $HOME/repos/dotfiles/$i $HOME/$i
     fi
 done
 
 for i in ${configFolders[@]}; do
-    if [[ ! -d $HOME/$i ]]; then
-        cp -r $i $HOME/.config
+    if [[ ! -d $HOME/.config/$i ]]; then
+        for file in $i/*; do
+            ln -sf $HOME/repos/dotfiles/.config/$i $HOME/$i/$file
+        done
     fi
 done
 
@@ -103,4 +113,5 @@ if [[ ! -d nvim ]]; then
     python -m venv nvim
     source nvim/bin/activate
     pip install pynvim
+    deactivate
 fi
