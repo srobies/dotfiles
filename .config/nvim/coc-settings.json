@@ -1,7 +1,5 @@
 {
-    "diagnostic.displayByAle": true,
-    "clangd.semanticHighlighting": true,
-
+    "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
     "languageserver": {
         "hdlChecker": {
             "command": "hdl_checker",
