@@ -1,0 +1,9 @@
+bitwarden
+discord_arch_electron
+dropbox
+dropbox-cli
+i3lock-color
+paru
+spicetify-cli
+spotify
+zoom
