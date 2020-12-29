@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Roboto mono" :size 15 :weight 'medium)
+(setq doom-font (font-spec :family "Fantasque Sans Mono" :size 18 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -29,7 +29,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/repos/org/")
+(setq org-directory "~/Dropbox/org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -82,6 +82,17 @@
         :desc "Remove" "d" #'dap-breakpoint-delete
         :desc "Toggle" "t" #'dap-breakpoint-toggle
         :desc "Conditional" "c" #'dap-breakpoint-condition)))
+
+;; mu4e config
+(setq mail-user-agent 'mu4e-user-agent)
+(setq
+ mu4e-sent-folder "/sprobie1@gmail.com/[Gmail].Sent Mail"
+ mu4e-drafts-folder "/sprobie1@gmail.com/[Gmail].Drafts"
+ user-mail-address "sprobie1@gmail.com"
+ mu4e-trash-folder "/sprobie1@gmail.com/[Gmail].Trash")
+
+(setq mu4e-sent-messages-behavior 'delete)
+(setq mu4e-get-mail-command "isync")
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').

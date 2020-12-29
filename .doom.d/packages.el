@@ -10,6 +10,8 @@
 ;(package! some-package)
 (package! tree-sitter)
 (package! tree-sitter-langs)
+(package! ledger-mode)
+(package! evil-ledger)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
