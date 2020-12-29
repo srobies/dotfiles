@@ -2,6 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
+Plug 'ledger/vim-ledger'
 Plug 'kshenoy/vim-signature'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'szw/vim-maximizer'
@@ -10,6 +11,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
+Plug 'lithammer/vim-eighties'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
@@ -70,7 +72,7 @@ endif
 "Change color scheme to one colorscheme
 set background=dark
 set t_Co=256
-colorscheme one
+colorscheme eighties
 "Enable the mouse. Just using for adjusting window sizes
 set mouse=a
 " Lightline config
@@ -100,7 +102,7 @@ endif
 
 "Rebinds
 let mapleader=' '
-" nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 "Bind esc to jk
 inoremap jk <esc>
 "Clear search highlight
@@ -117,7 +119,8 @@ nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
-nnoremap <leader>u :MundoToggle<CR>
+nnoremap <silent><leader>wq :close<CR>
+nnoremap <silent><leader>u :MundoToggle<CR>
 nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
@@ -305,64 +308,64 @@ endif
 " provide custom statusline: lightline.vim, vim-airline.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-""Vim which key stuff
-"let g:which_key_use_floating_win = 0
-"" Hide status line
-"autocmd! FileType which_key
-"autocmd  FileType which_key set laststatus=0 noshowmode noruler
-"  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-"call which_key#register('<Space>', "g:which_key_map")
-"let g:which_key_map = {}
-"let g:which_key_map.u = [ 'Mundotoggle', 'Undotree' ]
-"" let g:which_key_map.e = 'File Explorer' 
-"let g:which_key_map.e = 'vifm' 
-"let g:which_key_map.t = 'Terminal' 
-"let g:which_key_map.r = 'Ripgrep' 
-"let g:which_key_map['-'] = 'which_key_ignore' 
-"let g:which_key_map['|'] =  'which_key_ignore' 
-"let g:which_key_map.m = 'Maximizer' 
-"let g:which_key_map.c = 'Highlights off' 
-"let g:which_key_map['`'] = 'Last file' 
-"let g:which_key_map.a =  'Codeaction' 
-"let g:which_key_map['rn'] = 'Rename' 
-"let g:which_key_map['db'] = 'which_key_ignore' 
-"let g:which_key_map.o = 'Outline' 
-"let g:which_key_map['w'] = {
-"    \ 'name' : '+windows',
-"    \ 'h' : 'Left buffer',
-"    \ 'l' : 'Right buffer',
-"    \ 'j' : 'Down buffer',
-"    \ 'k' : 'Up buffer',
-"    \ }
-"let g:which_key_map['d'] = {
-"    \ 'name' : '+debugger',
-"    \ 'h' : 'Step out',
-"    \ 'l' : 'Step into',
-"    \ 'j' : 'Step over',
-"    \ 'd' : 'Launch',
-"    \ 'e' : 'Reset',
-"    \ 'c' : 'Continue',
-"    \ 'r' : 'Restart',
-"    \ 'rc' : 'Run to cursor',
-"    \ 'bt' : 'Toggle breakpoint',
-"    \ 'bc' : 'Toggle conditional breakpoint',
-"    \ }
-"let g:which_key_map.f = {
-"    \ 'name' : '+fzf preview',
-"    \ 'f' : 'File Search',
-"    \ 'p' : 'Project Search',
-"    \ 'b' : 'Buffers',
-"    \ 'j' : 'Jump list',
-"    \ 'm' : 'Mark list',
-"    \ 'c' : 'Change list',
-"    \ '/' : 'Line search',
-"    \ '*' : 'Search this line',
-"    \ 'r' : 'Project Rg',
-"    \ 'q' : 'Quickfix',
-"    \ 'gs' : 'Git status',
-"    \ 'ga' : 'Git action',
-"    \ 'g' : 'which_key_ignore',
-"    \ }
+"Vim which key stuff
+let g:which_key_use_floating_win = 0
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+call which_key#register('<Space>', "g:which_key_map")
+let g:which_key_map = {}
+let g:which_key_map.u = [ 'Mundotoggle', 'Undotree' ]
+" let g:which_key_map.e = 'File Explorer' 
+let g:which_key_map.e = 'vifm' 
+let g:which_key_map.t = 'Terminal' 
+let g:which_key_map.r = 'Ripgrep' 
+let g:which_key_map['-'] = 'which_key_ignore' 
+let g:which_key_map['|'] =  'which_key_ignore' 
+let g:which_key_map.m = 'Maximizer' 
+let g:which_key_map.c = 'Highlights off' 
+let g:which_key_map['`'] = 'Last file' 
+let g:which_key_map.a =  'Codeaction' 
+let g:which_key_map['rn'] = 'Rename' 
+let g:which_key_map['db'] = 'which_key_ignore' 
+let g:which_key_map.o = 'Outline' 
+let g:which_key_map['w'] = {
+    \ 'name' : '+windows',
+    \ 'h' : 'Left buffer',
+    \ 'l' : 'Right buffer',
+    \ 'j' : 'Down buffer',
+    \ 'k' : 'Up buffer',
+    \ }
+let g:which_key_map['d'] = {
+    \ 'name' : '+debugger',
+    \ 'h' : 'Step out',
+    \ 'l' : 'Step into',
+    \ 'j' : 'Step over',
+    \ 'd' : 'Launch',
+    \ 'e' : 'Reset',
+    \ 'c' : 'Continue',
+    \ 'r' : 'Restart',
+    \ 'rc' : 'Run to cursor',
+    \ 'bt' : 'Toggle breakpoint',
+    \ 'bc' : 'Toggle conditional breakpoint',
+    \ }
+let g:which_key_map.f = {
+    \ 'name' : '+fzf preview',
+    \ 'f' : 'File Search',
+    \ 'p' : 'Project Search',
+    \ 'b' : 'Buffers',
+    \ 'j' : 'Jump list',
+    \ 'm' : 'Mark list',
+    \ 'c' : 'Change list',
+    \ '/' : 'Line search',
+    \ '*' : 'Search this line',
+    \ 'r' : 'Project Rg',
+    \ 'q' : 'Quickfix',
+    \ 'gs' : 'Git status',
+    \ 'ga' : 'Git action',
+    \ 'g' : 'which_key_ignore',
+    \ }
 
 " Treesitter config
 lua <<EOF
