@@ -10,12 +10,12 @@ sudo pacman -S --noconfirm --needed \
     firefox \
     fzf \
     git \
-    i3lock \
     libnotify \
     lightdm \
     lightdm-gtk-greeter \
     noto-fonts-emoji \
     openssh \
+    playerctl \
     pulseaudio \
     pulseaudio-alsa \
     python-pip \
@@ -91,20 +91,21 @@ ln -sf $HOME/repos/dotfiles/.doom.d/init.el $HOME/.doom.d/init.el
 ln -sf $HOME/repos/dotfiles/.doom.d/config.el $HOME/.doom.d/config.el
 ln -sf $HOME/repos/dotfiles/.doom.d/packages.el $HOME/.doom.d/packages.el
 
-for i in ${configFiles[@]}; do
-    echo "$i"
-    if [[ ! -e $HOME/$i ]]; then
-        ln -sf $HOME/repos/dotfiles/$i $HOME/$i
-    fi
-done
+# Need to fix this
+# for i in ${configFiles[@]}; do
+#     echo "$i"
+#     if [[ ! -e $HOME/$i ]]; then
+#         ln -sf $HOME/repos/dotfiles/$i $HOME/$i
+#     fi
+# done
 
-for i in ${configFolders[@]}; do
-    if [[ ! -d $HOME/.config/$i ]]; then
-        for file in $i/*; do
-            ln -sf $HOME/repos/dotfiles/.config/$i $HOME/$i/$file
-        done
-    fi
-done
+# for i in ${configFolders[@]}; do
+#     if [[ ! -d $HOME/.config/$i ]]; then
+#         for file in $i/*; do
+#             ln -sf $HOME/repos/dotfiles/.config/$i $HOME/$i/$file
+#         done
+#     fi
+# done
 
 cd $HOME
 mkdir python_venvs
