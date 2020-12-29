@@ -1,3 +1,7 @@
 #!/bin/bash
 
-feh --bg-scale ~/Downloads/530895_souredapple_clouds.png &
+feh --bg-scale $HOME/Pictures/wallpapers/souredapple.png &
+nm-applet &
+# blueman-applet &
+emacs --daemon &
+dropbox &

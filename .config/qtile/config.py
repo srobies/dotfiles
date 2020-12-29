@@ -29,19 +29,78 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
+# from libqtile.utils import guess_terminal
 from libqtile import hook
+from Xlib import display
 import os 
 import subprocess
 
+
+colors = dict(
+    magenta='#c678dd',
+    black='#282c34',
+    red='#e06c75',
+    green='#98c379',
+    yellow='#e5c07b',
+    blue='#61afef',
+    cyan='#56b6c2',
+    white='#dcdfe4',
+    foreground='#dcdfe4',
+    background='#282c34',
+)
+
+@hook.subscribe.screen_change # change the number of bars when screens change
+def screen_change():
+    d = display.Display()
+    screen_count = d.screen_count()
+    screens = []
+    for i in range(screen_count):
+        screens.append(
+            Screen(
+                top=bar.Bar(
+                    [
+                        widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
+                        widget.CurrentLayout(),
+                        widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
+                        widget.GroupBox(highlight_method='block',
+                            this_current_screen_border=colors['blue'],
+                            urgent_alert_method='block',
+                            urgent_border=colors['red']),
+                        widget.WindowName(),
+                        widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                        widget.Sep(),
+                        widget.TextBox(text='Volume'),
+                        widget.PulseVolume(),
+                        widget.Sep(),
+                        widget.TextBox(text='Brightness'),
+                        widget.Backlight(backlight_name='intel_backlight'),
+                        widget.Sep(),
+                        widget.Battery(format='{char} {percent:2.0%} {hour:d}:{min:02d}'),
+                        widget.BatteryIcon(),
+                        widget.Sep(),
+                        widget.Wlan(interface = 'wlp2s0', format = '{essid} {percent:2.0%}'),
+                        widget.Systray(),
+                        widget.Sep(),
+                        widget.Clock(format='%m-%d %a %I:%M %p'),
+                        widget.Sep(),
+                        widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                    ],
+                    24,
+                ),
+            ),
+        )
+    return screens
+screens=screen_change()
+
 mod = "mod4"
-terminal = guess_terminal()
+terminal = 'alacritty'
+home = os.path.expanduser('~')
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down(),
+    Key([mod], "k", lazy.layout.up(),
         desc="Move focus down in stack pane"),
-    Key([mod], "j", lazy.layout.up(),
+    Key([mod], "j", lazy.layout.down(),
         desc="Move focus up in stack pane"),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
@@ -52,11 +111,12 @@ keys = [
     Key([mod], "o", lazy.layout.maximize()),
 
     # Move windows up or down in current stack
-    Key([mod, "control"], "k", lazy.layout.shuffle_down(),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(),
         desc="Move window down in current stack "),
-    Key([mod, "control"], "j", lazy.layout.shuffle_up(),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
         desc="Move window up in current stack "),
-
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next(),
         desc="Switch window focus to other pane(s) of stack"),
@@ -85,8 +145,9 @@ keys = [
     
     Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 
-    Key([mod], "i", lazy.spawn("rofi run -show run")),
+    Key([mod], "i", lazy.spawn(home + '/.config/rofi/launchers/colorful/launcher.sh')),
 
+    Key([mod, "control"], "l", lazy.spawn(home + '/repos/scripts/i3lock.sh')),
     # Backlight keys
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
@@ -118,12 +179,12 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(),
-    layout.Max(),
-    layout.Stack(num_stacks=2),
-    layout.Matrix(),
-    layout.Tile(),
-    layout.TreeTab(),
+    layout.MonadTall(border_focus=colors['cyan']),
+    layout.Max(border_focus=colors['cyan']),
+    layout.Stack(num_stacks=2, border_focus=colors['cyan']),
+    layout.Matrix(border_focus=colors['cyan']),
+    layout.Tile(border_focus=colors['cyan']),
+    layout.TreeTab(border_focus=colors['cyan']),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Columns(),
@@ -134,46 +195,19 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
+    font='Fantasque Sans Mono',
+    fontsize=15,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.CurrentScreen(),
-                widget.GroupBox(),
-                widget.WindowName(),
-                widget.PulseVolume(),
-                widget.Sep(),
-                widget.Backlight(backlight_name='intel_backlight'),
-                widget.Sep(),
-                widget.Battery(format='{char} {percent:2.0%} {hour:d}:{min:02d}'),
-                widget.BatteryIcon(),
-                widget.Sep(),
-                widget.Wlan(interface = 'wlp2s0', format = '{essid} {percent:2.0%}'),
-                widget.Sep(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.Systray(),
-                widget.Sep(),
-                widget.QuickExit(default_text='[ Logout ]'),
-            ],
-            24,
-        ),
-    ),
-]
 
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([mod], "Button2", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([mod], "Button3", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
@@ -214,5 +248,6 @@ wmname = "qtile"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.call([home])
+    autostart = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call([autostart])
+
