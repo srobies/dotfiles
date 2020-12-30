@@ -53,32 +53,58 @@ def screen_change():
     screen_number = len(os.popen(r"xrandr | grep '\sconnected\s'").readlines())
     screens = []
     for i in range(screen_number):
-        screens.append(
-            Screen(
-                top=bar.Bar(
-                    [
-                        widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
-                        widget.CurrentLayout(),
-                        widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
-                        widget.GroupBox(highlight_method='block',
-                            this_current_screen_border=colors['blue'],
-                            urgent_alert_method='block',
-                            urgent_border=colors['red']),
-                        widget.WindowName(),
-                        widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
-                        widget.Sep(),
-                        widget.TextBox(text='Volume'),
-                        widget.PulseVolume(),
-                        widget.Sep(),
-                        widget.Systray(),
-                        widget.Clock(format='%m-%d %a %I:%M %p'),
-                        widget.Sep(),
-                        widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
-                    ],
-                    24,
+        if(i==0): # Systray on primary screen
+            screens.append(
+                Screen(
+                    top=bar.Bar(
+                        [
+                            widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
+                            widget.CurrentLayout(),
+                            widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                            widget.GroupBox(highlight_method='block',
+                                this_current_screen_border=colors['blue'],
+                                urgent_alert_method='block',
+                                urgent_border=colors['red']),
+                            widget.WindowName(),
+                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                            widget.Sep(),
+                            widget.TextBox(text='Volume'),
+                            widget.PulseVolume(),
+                            widget.Sep(),
+                            widget.Systray(),
+                            widget.Clock(format='%m-%d %a %I:%M %p'),
+                            widget.Sep(),
+                            widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                        ],
+                        24,
+                    ),
                 ),
-            ),
-        )
+            )
+        else:
+            screens.append(
+                Screen(
+                    top=bar.Bar(
+                        [
+                            widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
+                            widget.CurrentLayout(),
+                            widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                            widget.GroupBox(highlight_method='block',
+                                this_current_screen_border=colors['blue'],
+                                urgent_alert_method='block',
+                                urgent_border=colors['red']),
+                            widget.WindowName(),
+                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                            widget.Sep(),
+                            widget.TextBox(text='Volume'),
+                            widget.PulseVolume(),
+                            widget.Clock(format='%m-%d %a %I:%M %p'),
+                            widget.Sep(),
+                            widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                        ],
+                        24,
+                    ),
+                ),
+            )
     return screens
 screens=screen_change()
 
