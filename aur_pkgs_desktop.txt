@@ -1,0 +1,5 @@
+discord_arch_electron
+dropbox-cli
+paru
+spotify
+zoom
