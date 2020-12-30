@@ -36,9 +36,6 @@ sudo pacman -S --noconfirm --needed \
 
 sudo systemctl enable lightdm
 sudo systemctl enable NetworkManager
-if !(pip list | rg dbus-python); then
-    pip install dbus-python
-fi
 
 xdg-user-dirs-update # Create user directories
 
@@ -46,7 +43,6 @@ mkdir -p $HOME/repos;
 cd ~/repos
 
 reposFolder="$HOME/repos"
-dotfiles="$HOME/repos/dotfiles"
 # Build neovim
 neovimRepo="https://github.com/neovim/neovim.git"
 sudo pacman -S --noconfirm --needed base-devel cmake unzip ninja tree-sitter
@@ -62,8 +58,7 @@ sudo pacman -S --noconfirm --needed npm nodejs
 vimPlug=~/.local/share/nvim/site/autoload/plug.vim
 if [[ ! -f $vimPlug ]]; then
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-   cp -r $HOME/repos/dotfiles/.config/nvim $/.config/
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
 # Install paru
@@ -79,39 +74,54 @@ fi
 
 # Check which dotfiles are needed
 if [[ $HOSTNAME == ARCH ]]; then
-    machine = _desktop
+    machine=_desktop
 else
-    machine = _laptop
+    machine=_laptop
 fi
+
+cd $HOME
+ln -sf $HOME/repos/dotfiles/.gitconfig .gitconfig
 
 # Symlink .config folders/files
 cd $HOME/repos/dotfiles
 configFiles=(.bash_profile .bashrc .tmux.conf)
-configFolders=(nvim rclone dunst alacritty rofi qtile vifm)
+configFolders=(nvim alacritty qtile rclone dunst rofi vifm)
 
 # Doom emacs files
-mkdir -p $HOME/.doom.d
-ln -sf $HOME/repos/dotfiles/.doom.d/init.el $HOME/.doom.d/init.el
-ln -sf $HOME/repos/dotfiles/.doom.d/config.el $HOME/.doom.d/config.el
-ln -sf $HOME/repos/dotfiles/.doom.d/packages.el $HOME/.doom.d/packages.el
+if [[ ! -e $HOME/.doom.d ]]; then # Check if doom emacs is installed
+    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
+fi
+ln -sT $HOME/repos/dotfiles/.doom.d $HOME/.doom.d
 
-# Need to fix this
+# Cp these files. Don't work well with symlinks
 for i in ${configFiles[@]}; do
     if [[ ! -e $HOME/$i ]]; then
         cp $i $HOME
     fi
 done
 
-# for i in ${configFolders[@]}; do
-#     if [[ ! -d $HOME/.config/$i ]]; then
-#         for file in $i/*; do
-#             ln -sf $HOME/repos/dotfiles/.config/$i $HOME/$i/$file
-#         done
-#     fi
-# done
+repoConfigFolder=$HOME/repos/dotfiles/.config
+homeConfigFolder=$HOME/.config
+
+for i in ${configFolders[@]}; do
+    if [[ $i == nvim ]]; then
+        mkdir -p $HOME/.config/$i
+        ln -sT $repoConfigFolder/$i/init.vim $homeConfigFolder/$i/init.vim
+        ln -sT $repoConfigFolder/$i/coc-settings.json $homeConfigFolder/$i/coc-settings.json
+    elif [[ $i == alacritty ]]; then
+        mkdir -p $HOME/.config/$i
+        ln -sT $repoConfigFolder/$i/alacritty$machine.yml $homeConfigFolder/$i/alacritty.yml
+    elif [[ $i == qtile ]]; then
+        mkdir -p $HOME/.config/$i
+        ln -sT $repoConfigFolder/$i/config$machine.py $homeConfigFolder/$i/config.py
+    else
+        ln -sT $repoConfigFolder/$i $homeConfigFolder/$i
+    fi
+done
 
 cd $HOME
-mkdir python_venvs
+mkdir -p python_venvs
 cd python_venvs
 if [[ ! -d nvim ]]; then
     python -m venv nvim

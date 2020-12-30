@@ -82,17 +82,6 @@
         :desc "Remove" "d" #'dap-breakpoint-delete
         :desc "Toggle" "t" #'dap-breakpoint-toggle
         :desc "Conditional" "c" #'dap-breakpoint-condition)))
-
-;; mu4e config
-(setq mail-user-agent 'mu4e-user-agent)
-(setq
- mu4e-sent-folder "/sprobie1@gmail.com/[Gmail].Sent Mail"
- mu4e-drafts-folder "/sprobie1@gmail.com/[Gmail].Drafts"
- user-mail-address "sprobie1@gmail.com"
- mu4e-trash-folder "/sprobie1@gmail.com/[Gmail].Trash")
-
-(setq mu4e-sent-messages-behavior 'delete)
-(setq mu4e-get-mail-command "isync")
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
