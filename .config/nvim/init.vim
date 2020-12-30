@@ -80,7 +80,7 @@ function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 let g:lightline = {
-	  \ 'colorscheme': 'eighties',
+	  \ 'colorscheme': 'one',
 	  \ 'active': {
 	  \   'left': [ [ 'mode', 'paste' ],
 	  \             [ 'readonly', 'filename', 'modified' ] ],
@@ -93,7 +93,7 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
 	  \ },
 	  \ }
-
+let g:vimsyn_embed = 'lP'
 let g:python_highlight_all = 1
 let g:python3_host_prog = '~/python_venvs/nvim/bin/python3'
 if executable('rg')
@@ -159,22 +159,6 @@ nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 "fzf-preview
 " nnoremap <leader>ff :Files<Cr>
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
-" nmap <Leader>f [fzf-p]
-" xmap <Leader>f [fzf-p]
-
-" nnoremap <silent> [fzf-p]f     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
-" nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
-" nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-" nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
-" nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
-" nnoremap <silent> [fzf-p]j     :<C-u>CocCommand fzf-preview.Jumps<CR>
-" nnoremap <silent> [fzf-p]m     :<C-u>CocCommand fzf-preview.Marks<CR>
-" nnoremap <silent> [fzf-p]c     :<C-u>CocCommand fzf-preview.Changes<CR>
-" nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-" nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-" nnoremap          [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-" nnoremap          [fzf-p]r     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
-" xnoremap          [fzf-p]r     "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
 nnoremap <silent> <leader>ff     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
 nnoremap <silent> <leader>fp     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
 nnoremap <silent> <leader>fgs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
@@ -364,7 +348,6 @@ let g:which_key_map.f = {
     \ 'q' : 'Quickfix',
     \ 'gs' : 'Git status',
     \ 'ga' : 'Git action',
-    \ 'g' : 'which_key_ignore',
     \ }
 
 " Treesitter config
@@ -377,4 +360,3 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-

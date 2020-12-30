@@ -51,10 +51,9 @@ colors = dict(
 
 @hook.subscribe.screen_change # change the number of bars when screens change
 def screen_change():
-    d = display.Display()
-    screen_count = d.screen_count()
+    screen_number = len(os.popen(r"xrandr | grep '\sconnected\s'").readlines())
     screens = []
-    for i in range(screen_count):
+    for i in range(screen_number):
         screens.append(
             Screen(
                 top=bar.Bar(
