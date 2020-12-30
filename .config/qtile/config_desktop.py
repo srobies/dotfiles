@@ -76,7 +76,7 @@ def screen_change():
                             widget.Sep(),
                             widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                         ],
-                        24,
+                        16,
                     ),
                 ),
             )
@@ -101,7 +101,7 @@ def screen_change():
                             widget.Sep(),
                             widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                         ],
-                        24,
+                        16,
                     ),
                 ),
             )

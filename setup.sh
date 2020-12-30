@@ -46,7 +46,7 @@ mkdir -p $HOME/repos;
 cd ~/repos
 
 reposFolder="$HOME/repos"
-dotfiles="/$HOME/repos/dotfiles"
+dotfiles="$HOME/repos/dotfiles"
 # Build neovim
 neovimRepo="https://github.com/neovim/neovim.git"
 sudo pacman -S --noconfirm --needed base-devel cmake unzip ninja tree-sitter
@@ -60,7 +60,7 @@ fi
 sudo pacman -S --noconfirm --needed npm nodejs
 # Install vim-plug
 vimPlug=~/.local/share/nvim/site/autoload/plug.vim
-if [[ ! -f "$vimPlug" ]]; then
+if [[ ! -f $vimPlug ]]; then
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
    cp -r $HOME/repos/dotfiles/.config/nvim $/.config/
@@ -75,15 +75,19 @@ if !(pacman -Q paru); then
 fi
 
 # AUR applications
-paru --needed --noconfirm discord_arch_electron
-paru --needed --noconfirm spotify
-paru --needed --noconfirm polybar
-paru --needed --noconfirm zoom
+# paru --needed --noconfirm discord_arch_electron spotify zoom
+
+# Check which dotfiles are needed
+if [[ $HOSTNAME == ARCH ]]; then
+    machine = _desktop
+else
+    machine = _laptop
+fi
 
 # Symlink .config folders/files
 cd $HOME/repos/dotfiles
-configFiles=(.bash_profile .bashrc .tmux.conf .gitconfig .ssh)
-configFolders=(dunst alacritty polybar rofi qtile vifm)
+configFiles=(.bash_profile .bashrc .tmux.conf)
+configFolders=(nvim rclone dunst alacritty rofi qtile vifm)
 
 # Doom emacs files
 mkdir -p $HOME/.doom.d
@@ -92,12 +96,11 @@ ln -sf $HOME/repos/dotfiles/.doom.d/config.el $HOME/.doom.d/config.el
 ln -sf $HOME/repos/dotfiles/.doom.d/packages.el $HOME/.doom.d/packages.el
 
 # Need to fix this
-# for i in ${configFiles[@]}; do
-#     echo "$i"
-#     if [[ ! -e $HOME/$i ]]; then
-#         ln -sf $HOME/repos/dotfiles/$i $HOME/$i
-#     fi
-# done
+for i in ${configFiles[@]}; do
+    if [[ ! -e $HOME/$i ]]; then
+        cp $i $HOME
+    fi
+done
 
 # for i in ${configFolders[@]}; do
 #     if [[ ! -d $HOME/.config/$i ]]; then
