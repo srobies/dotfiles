@@ -47,6 +47,17 @@
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
 
+;; enable Babel languages in org-mode
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (C . t)
+   (C++ . t)
+   (calc . t)
+   (latex . t)
+   (ledger . t)
+   (org . t)
+   (python .t)))
 ;; install tree-sitter for better highlighting
 (use-package! tree-sitter
   :config(require 'tree-sitter-langs)

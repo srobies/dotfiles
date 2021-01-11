@@ -31,7 +31,6 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 # from libqtile.utils import guess_terminal
 from libqtile import hook
-from Xlib import display
 import os 
 import subprocess
 
@@ -176,7 +175,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
     # Key([mod], "r", lazy.spawncmd(),
     #     desc="Spawn a command using a prompt widget"),
-    
+
     Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 
     Key([mod], "i", lazy.spawn(home + '/.config/rofi/launchers/colorful/launcher.sh')),

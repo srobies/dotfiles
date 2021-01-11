@@ -2,6 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
+Plug 'justinmk/vim-sneak'
 Plug 'ledger/vim-ledger'
 Plug 'kshenoy/vim-signature'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -9,11 +10,10 @@ Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
 Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 Plug 'rakr/vim-one'
 Plug 'lithammer/vim-eighties'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
@@ -33,6 +33,12 @@ set timeoutlen=500
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+" C/Cpp specific tabsize
+au FileType c,cpp set tabstop=2
+au FileType c,cpp set softtabstop=2
+au FileType c,cpp set shiftwidth=2
 set expandtab
 syntax on
 set undodir=~/.config/nvim/undodir
@@ -51,14 +57,10 @@ set smartcase
 set number relativenumber
 set nu rnu
 set nowrap
-"Spell check for English
-"set spell spelllang=en_us
 "Identify open and close brace positions
 set showmatch
-"Searches are you type
+"Searches as you type
 set incsearch
-"Change to using system clipboard instead of unnamed register
-"set clipboard=unnamedplus
 "Visual autocomplete for command menu
 set wildmenu
 "Enable true color support
@@ -103,6 +105,36 @@ endif
 "Rebinds
 let mapleader=' '
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+"Sneak config
+nmap <leader>s <Plug>Sneak_s
+nmap <leader>S <Plug>Sneak_S
+" repeat motion
+nmap ; <Plug>Sneak_;
+nmap , <Plug>Sneak_,
+" visual-mode
+xmap <leader>s <Plug>Sneak_s
+xmap <leader>S <Plug>Sneak_S
+" operator-pending-mode
+omap <leader>s <Plug>Sneak_s
+omap <leader>S <Plug>Sneak_S
+" 1-character enhanced 'f'
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+" visual-mode
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+" operator-pending-mode
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+" 1-character enhanced 't'
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+" visual-mode
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+" operator-pending-mode
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 "Bind esc to jk
 inoremap jk <esc>
 "Clear search highlight
@@ -119,17 +151,13 @@ nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
+nnoremap + <C-w>+
+nnoremap - <C-w>-
 nnoremap <silent><leader>wq :close<CR>
 nnoremap <silent><leader>u :MundoToggle<CR>
 nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
-" Make tab behave as expected in visual and normal mode
-nnoremap <Tab>   >>
-nnoremap <S-Tab> <<
-vnoremap <Tab>   >><Esc>gv
-vnoremap <S-Tab> <<<Esc>gv
-"Maps :Files to <leader>-f binding
 "Go to last buffer
 nnoremap <leader>` <C-^> 
 "Toggle terminal
@@ -155,7 +183,6 @@ nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-"floaterm binds
 "fzf-preview
 " nnoremap <leader>ff :Files<Cr>
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
@@ -181,6 +208,8 @@ let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 
 let g:indentLine_char = '|'
+
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
 " Toggles netrw with <leader>e
 function! ToggleVExplorer()
@@ -214,7 +243,7 @@ let g:netrw_banner = 0
 " set autochdir
 
 "coc.nvim config
-let g:coc_global_extensions = ['coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp']
+let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -275,6 +304,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:coc_snippet_next = '<tab>'
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -291,6 +321,21 @@ endif
 " NOTE: Pease see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 "Vim which key stuff
 let g:which_key_use_floating_win = 0
@@ -358,5 +403,8 @@ require'nvim-treesitter.configs'.setup {
     enable = {"bash","c","cpp","lua","python","verilog"},              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
   },
+  indent = {
+    enable = true
+  }
 }
 EOF
