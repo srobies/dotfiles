@@ -57,7 +57,8 @@
    (latex . t)
    (ledger . t)
    (org . t)
-   (python .t)))
+   (python .t)
+   (sh .t)))
 ;; install tree-sitter for better highlighting
 (use-package! tree-sitter
   :config(require 'tree-sitter-langs)
