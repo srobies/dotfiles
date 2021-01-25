@@ -34,13 +34,11 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-(setq ein:output-area-inlined-images t) ;; show images inline. Emacs support for jupyter is kinda half-baked. Best to stay with the browser for now
+(setq ein:output-area-inlined-images t) ;; show images inline.
 
 ;; dap debugger settings
-(setq dap-auto-configure-features '(sessions locals controls tooltip))
 (require 'dap-python)
 (require 'dap-cpptools)
-;; (require 'dap-cpptools) can't figure out how to make this work
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -57,14 +55,14 @@
    (latex . t)
    (ledger . t)
    (org . t)
-   (python .t)
-   (sh .t)))
+   (python . t)))
 ;; install tree-sitter for better highlighting
 (use-package! tree-sitter
   :config(require 'tree-sitter-langs)
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-;; - `after!' for running code after a package has loaded
+
+;; `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', relative to
 ;;   this file. Emacs searches the `load-path' when you load packages with
 ;;   `require' or `use-package'.

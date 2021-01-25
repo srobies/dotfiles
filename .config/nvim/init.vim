@@ -2,6 +2,9 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'lervag/vimtex'
+Plug 'tpope/vim-repeat'
 Plug 'justinmk/vim-sneak'
 Plug 'ledger/vim-ledger'
 Plug 'kshenoy/vim-signature'
@@ -25,6 +28,12 @@ Plug 'voldikss/vim-floaterm'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+let g:sneak#use_ic_scs = 1
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_syntax_conceal_default=0
+" let fc = g:firenvim_config['localSettings']
+" let fc[',*'] = { 'takeover': 'never'}
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
 " shiftwidth        Determines the amount of whitespace to add in normal mode
@@ -43,7 +52,7 @@ set expandtab
 syntax on
 set undodir=~/.config/nvim/undodir
 set undofile
-set colorcolumn=120
+set colorcolumn=80
 "New lines inherit indentation of previous lines
 set autoindent
 set cindent
@@ -141,11 +150,6 @@ inoremap jk <esc>
 nnoremap <leader>c :nohlsearch<CR>
 " Map terminal exit to esc
 tnoremap <Esc> <C-\><C-n>
-" Insert mode navigation keys
-" inoremap <C-k> <Up>
-" inoremap <C-j> <Down>
-" inoremap <C-h> <Left>
-" inoremap <C-l> <Right>
 " Better navigation keys
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
@@ -243,7 +247,7 @@ let g:netrw_banner = 0
 " set autochdir
 
 "coc.nvim config
-let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua']
+let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -400,7 +404,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
-    enable = {"bash","c","cpp","lua","python","verilog"},              -- false will disable the whole extension
+    enable = true,              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
   },
   indent = {
