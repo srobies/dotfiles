@@ -2,7 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Declare the list of plugins.
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'glepnir/zephyr-nvim'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-repeat'
 Plug 'justinmk/vim-sneak'
@@ -13,9 +13,6 @@ Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
 Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'
-" Plug 'christoomey/vim-tmux-navigator'
-Plug 'rakr/vim-one'
-Plug 'lithammer/vim-eighties'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
@@ -23,7 +20,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'lambdalisue/suda.vim'
-Plug 'liuchengxu/vim-which-key'
 Plug 'voldikss/vim-floaterm'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -32,60 +28,42 @@ let g:sneak#use_ic_scs = 1
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_syntax_conceal_default=0
-" let fc = g:firenvim_config['localSettings']
-" let fc[',*'] = { 'takeover': 'never'}
-" tabstop:          Width of tab character
-" softtabstop:      Fine tunes the amount of white space to be added
-" shiftwidth        Determines the amount of whitespace to add in normal mode
-" expandtab:        When this option is enabled, vi will use spaces instead of tabs
 set timeoutlen=500
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
+set autoindent
+set cindent
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 " C/Cpp specific tabsize
-au FileType c,cpp set tabstop=2
-au FileType c,cpp set softtabstop=2
-au FileType c,cpp set shiftwidth=2
+autocmd FileType c,cpp set tabstop=2
+autocmd FileType c,cpp set softtabstop=2
+autocmd FileType c,cpp set shiftwidth=2
 set expandtab
 syntax on
 set undodir=~/.config/nvim/undodir
 set undofile
 set colorcolumn=80
-"New lines inherit indentation of previous lines
-set autoindent
-set cindent
-"Enable search highlighting
 set hlsearch
-"Ignore case when searching
 set ignorecase
-"Switch to case-sensitive when query contains uppercase letter
 set smartcase
-"Hybrid line number
 set number relativenumber
 set nu rnu
 set nowrap
-"Identify open and close brace positions
 set showmatch
-"Searches as you type
 set incsearch
-"Visual autocomplete for command menu
 set wildmenu
-"Enable true color support
-" set termguicolors
-" Enable true color
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-"Change color scheme to one colorscheme
 set background=dark
 set t_Co=256
-colorscheme eighties
-"Enable the mouse. Just using for adjusting window sizes
+colorscheme zephyr
 set mouse=a
+
 " Lightline config
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
@@ -104,6 +82,7 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
 	  \ },
 	  \ }
+
 let g:vimsyn_embed = 'lP'
 let g:python_highlight_all = 1
 let g:python3_host_prog = '~/python_venvs/nvim/bin/python3'
@@ -113,82 +92,55 @@ endif
 
 "Rebinds
 let mapleader=' '
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-"Sneak config
-nmap <leader>s <Plug>Sneak_s
+nmap <leader>s <Plug>Sneak_
 nmap <leader>S <Plug>Sneak_S
-" repeat motion
 nmap ; <Plug>Sneak_;
 nmap , <Plug>Sneak_,
-" visual-mode
 xmap <leader>s <Plug>Sneak_s
 xmap <leader>S <Plug>Sneak_S
-" operator-pending-mode
 omap <leader>s <Plug>Sneak_s
 omap <leader>S <Plug>Sneak_S
-" 1-character enhanced 'f'
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
-" visual-mode
 xmap f <Plug>Sneak_f
 xmap F <Plug>Sneak_F
-" operator-pending-mode
 omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
-" 1-character enhanced 't'
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
-" visual-mode
 xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
-" operator-pending-mode
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
-"Bind esc to jk
+
 inoremap jk <esc>
-"Clear search highlight
 nnoremap <leader>c :nohlsearch<CR>
-" Map terminal exit to esc
 tnoremap <Esc> <C-\><C-n>
-" Better navigation keys
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
 nnoremap + <C-w>+
 nnoremap - <C-w>-
-nnoremap <silent><leader>wq :close<CR>
 nnoremap <silent><leader>u :MundoToggle<CR>
 nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
-"Go to last buffer
-nnoremap <leader>` <C-^> 
-"Toggle terminal
+
 nnoremap <silent> <leader>t :FloatermToggle<CR>
-"Debugger rebinds
+
 nnoremap <leader>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
-" nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
-" nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
-" nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
-" nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
-" nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
-" nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
 nnoremap <leader>de :call vimspector#Reset()<CR>
-
 nnoremap <leader>dl <Plug>VimspectorStepInto
 nnoremap <leader>dj <Plug>VimspectorStepOver
 nnoremap <leader>dh <Plug>VimspectorStepOut
 nnoremap <leader>dr <Plug>VimspectorRestart
 nnoremap <leader>dc :call vimspector#Continue()<CR>
-
 nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-"fzf-preview
-" nnoremap <leader>ff :Files<Cr>
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
 nnoremap <silent> <leader>ff     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
 nnoremap <silent> <leader>fp     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
@@ -204,16 +156,23 @@ nnoremap <silent> <leader>fq     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap          <leader>fr     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
 xnoremap          <leader>fr     "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
 
-" Suda.vim config
-let g:suda#prefix = ['suda:/', 'sudo:/']
-
-"Mundo config
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 
 let g:indentLine_char = '|'
 
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
+
+" Highlight TODO, FIXME, NOTE, etc.
+if has('autocmd') && v:version > 701
+    augroup todo
+        autocmd!
+        autocmd Syntax * call matchadd(
+                    \ 'Debug',
+                    \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|XXX|BUG|HACK|TRICKY)>'
+                    \ )
+    augroup END
+endif
 
 " Toggles netrw with <leader>e
 function! ToggleVExplorer()
@@ -236,15 +195,11 @@ function! ToggleVExplorer()
 endfunction
 " nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
 nnoremap <silent> <leader>e :FloatermNew vifm<CR>
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
 let g:netrw_browse_split = 4
 " let g:netrw_altv = 1
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 18
 let g:netrw_banner = 0
-" Change directory to the current buffer when opening files.
-" set autochdir
 
 "coc.nvim config
 let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
@@ -340,64 +295,6 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-"Vim which key stuff
-let g:which_key_use_floating_win = 0
-" Hide status line
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-call which_key#register('<Space>', "g:which_key_map")
-let g:which_key_map = {}
-let g:which_key_map.u = [ 'Mundotoggle', 'Undotree' ]
-" let g:which_key_map.e = 'File Explorer' 
-let g:which_key_map.e = 'vifm' 
-let g:which_key_map.t = 'Terminal' 
-let g:which_key_map.r = 'Ripgrep' 
-let g:which_key_map['-'] = 'which_key_ignore' 
-let g:which_key_map['|'] =  'which_key_ignore' 
-let g:which_key_map.m = 'Maximizer' 
-let g:which_key_map.c = 'Highlights off' 
-let g:which_key_map['`'] = 'Last file' 
-let g:which_key_map.a =  'Codeaction' 
-let g:which_key_map['rn'] = 'Rename' 
-let g:which_key_map['db'] = 'which_key_ignore' 
-let g:which_key_map.o = 'Outline' 
-let g:which_key_map['w'] = {
-    \ 'name' : '+windows',
-    \ 'h' : 'Left buffer',
-    \ 'l' : 'Right buffer',
-    \ 'j' : 'Down buffer',
-    \ 'k' : 'Up buffer',
-    \ }
-let g:which_key_map['d'] = {
-    \ 'name' : '+debugger',
-    \ 'h' : 'Step out',
-    \ 'l' : 'Step into',
-    \ 'j' : 'Step over',
-    \ 'd' : 'Launch',
-    \ 'e' : 'Reset',
-    \ 'c' : 'Continue',
-    \ 'r' : 'Restart',
-    \ 'rc' : 'Run to cursor',
-    \ 'bt' : 'Toggle breakpoint',
-    \ 'bc' : 'Toggle conditional breakpoint',
-    \ }
-let g:which_key_map.f = {
-    \ 'name' : '+fzf preview',
-    \ 'f' : 'File Search',
-    \ 'p' : 'Project Search',
-    \ 'b' : 'Buffers',
-    \ 'j' : 'Jump list',
-    \ 'm' : 'Mark list',
-    \ 'c' : 'Change list',
-    \ '/' : 'Line search',
-    \ '*' : 'Search this line',
-    \ 'r' : 'Project Rg',
-    \ 'q' : 'Quickfix',
-    \ 'gs' : 'Git status',
-    \ 'ga' : 'Git action',
-    \ }
 
 " Treesitter config
 lua <<EOF
