@@ -15,7 +15,7 @@ env:
 # So that font isn't massive on laptop
 font:
   normal: 
-    family: Fantasque Sans Mono 
+    family: Fantasque Sans Mono Nerd Font
     style: Regular
   size: 12.5
 #   
@@ -133,9 +133,8 @@ colors:
     teal:    '0x1abc9c'
     grey:    '0x928374'
 
-    normal:
   # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: true
+save_to_clipboard: true
 
 cursor:
   # Cursor style

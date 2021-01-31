@@ -18,6 +18,26 @@ font:
     family: Fantasque Sans Mono 
     style: Regular
   size: 10
+# Zephyr
+colors:
+  # Default colors
+  primary:
+    background: '0x282c34'
+    foreground: '0xbbc2cf'
+
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0xff6c6b'
+    green:   '0x98be65'
+    yellow:  '0xECEB7B'
+    blue:    '0x51afef'
+    magenta: '0xd16d9e'
+    cyan:    '0x3bb6c4'
+    orange:  '0xda8548'
+    violet:  '0xa9a1e1'
+    teal:    '0x1abc9c'
+    grey:    '0x928374'
 #   
 # Colors (One Half Dark)
 # colors:
@@ -45,47 +65,47 @@ font:
 #     cyan: '0x56b6c2'
 #     white: '0xdcdfe4'
 # (Eighties themes)
-colors:
-  primary:
-    background: '0x2d2d2d'
-    foreground: '0xd3d0c8'
+# colors:
+#   primary:
+#     background: '0x2d2d2d'
+#     foreground: '0xd3d0c8'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x2d2d2d'
-    cursor: '0xd3d0c8'
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '0x2d2d2d'
+#     cursor: '0xd3d0c8'
 
-  # Normal colors
-  normal:
-    black:   '0x2d2d2d'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xd3d0c8'
+#   # Normal colors
+#   normal:
+#     black:   '0x2d2d2d'
+#     red:     '0xf2777a'
+#     green:   '0x99cc99'
+#     yellow:  '0xffcc66'
+#     blue:    '0x6699cc'
+#     magenta: '0xcc99cc'
+#     cyan:    '0x66cccc'
+#     white:   '0xd3d0c8'
 
-  # Bright colors
-  bright:
-    black:   '0x747369'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xf2f0ec'
+#   # Bright colors
+#   bright:
+#     black:   '0x747369'
+#     red:     '0xf2777a'
+#     green:   '0x99cc99'
+#     yellow:  '0xffcc66'
+#     blue:    '0x6699cc'
+#     magenta: '0xcc99cc'
+#     cyan:    '0x66cccc'
+#     white:   '0xf2f0ec'
 
-  indexed_colors:
-    - { index: 16, color: '0xf99157' }
-    - { index: 17, color: '0xd27b53' }
-    - { index: 18, color: '0x393939' }
-    - { index: 19, color: '0x515151' }
-    - { index: 20, color: '0xa09f93' }
-    - { index: 21, color: '0xe8e6df' }
+#   indexed_colors:
+#     - { index: 16, color: '0xf99157' }
+#     - { index: 17, color: '0xd27b53' }
+#     - { index: 18, color: '0x393939' }
+#     - { index: 19, color: '0x515151' }
+#     - { index: 20, color: '0xa09f93' }
+#     - { index: 21, color: '0xe8e6df' }
   # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: true
+save_to_clipboard: true
 
 cursor:
   # Cursor style
