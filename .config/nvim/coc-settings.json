@@ -1,6 +1,6 @@
 {
-    "snippets.userSnippetsDirectory" : "~/.config/nvim/snips",
-    "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+    "snippets.userSnippetsDirectory" : "~/.local/share/nvim/snips",
+    "pairs.enableCharacters": ["(", "[", "{", "'", "\""],
     "languageserver": {
         "hdlChecker": {
             "command": "hdl_checker",

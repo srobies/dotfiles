@@ -1,28 +1,4 @@
-" Plugins will be downloaded under the specified directory.
-call plug#begin('~/.config/nvim/plugged')
-
-" Declare the list of plugins.
-Plug 'glepnir/zephyr-nvim'
-Plug 'lervag/vimtex'
-Plug 'tpope/vim-repeat'
-Plug 'justinmk/vim-sneak'
-Plug 'ledger/vim-ledger'
-Plug 'kshenoy/vim-signature'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'szw/vim-maximizer'
-Plug 'puremourning/vimspector'
-Plug 'Yggdroot/indentLine'
-Plug 'simnalamburt/vim-mundo'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-commentary'
-Plug 'lambdalisue/suda.vim'
-Plug 'voldikss/vim-floaterm'
-" List ends here. Plugins become visible to Vim after this call.
-call plug#end()
+lua require('init')
 
 let g:sneak#use_ic_scs = 1
 let g:vimtex_view_general_viewer = 'zathura'
@@ -42,7 +18,7 @@ autocmd FileType c,cpp set softtabstop=2
 autocmd FileType c,cpp set shiftwidth=2
 set expandtab
 syntax on
-set undodir=~/.config/nvim/undodir
+set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
 set hlsearch
@@ -53,7 +29,9 @@ set nu rnu
 set nowrap
 set showmatch
 set incsearch
+set noshowmode
 set wildmenu
+set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -63,25 +41,6 @@ set background=dark
 set t_Co=256
 colorscheme zephyr
 set mouse=a
-
-" Lightline config
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
-let g:lightline = {
-	  \ 'colorscheme': 'one',
-	  \ 'active': {
-	  \   'left': [ [ 'mode', 'paste' ],
-	  \             [ 'readonly', 'filename', 'modified' ] ],
-      \ 'right':[ [ 'lineinfo' ],
-      \           [ 'percent ' ],
-      \           [ 'cocstatus','currentfunction','fileformat', 'fileencoding', 'filetype']]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
-	  \ },
-	  \ }
 
 let g:vimsyn_embed = 'lP'
 let g:python_highlight_all = 1
@@ -127,7 +86,7 @@ nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 
-nnoremap <silent> <leader>t :FloatermToggle<CR>
+nnoremap <leader>t :ToggleTerm<cr>
 
 nnoremap <leader>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
@@ -141,20 +100,18 @@ nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
-nnoremap <silent> <leader>ff     :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
-nnoremap <silent> <leader>fp     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru git<CR>
-nnoremap <silent> <leader>fgs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-nnoremap <silent> <leader>fga    :<C-u>CocCommand fzf-preview.GitActions<CR>
-nnoremap <silent> <leader>fb     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
-nnoremap <silent> <leader>fj     :<C-u>CocCommand fzf-preview.Jumps<CR>
-nnoremap <silent> <leader>fm     :<C-u>CocCommand fzf-preview.Marks<CR>
-nnoremap <silent> <leader>fc     :<C-u>CocCommand fzf-preview.Changes<CR>
-nnoremap <silent> <leader>f/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-nnoremap <silent> <leader>f*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-nnoremap <silent> <leader>fq     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-nnoremap          <leader>fr     :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
-xnoremap          <leader>fr     "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <leader>ff :Telescope find_files<cr>
+nnoremap <leader>fg :Telescope live_grep<cr>
+nnoremap <leader>fb  :Telescope buffers<cr>
+nnoremap <leader>fm  :Telescope marks<cr>
+nnoremap <leader>gc :Telescope git_commits<cr>
+nnoremap <leader>gb :Telescope git_branches<cr>
+nnoremap <leader>gs :Telescope git_status<cr>
+
+nnoremap <leader>gd :SignifyDiff<cr>
+nnoremap <leader>gh :SignifyHunkDiff<cr>
+nnoremap <leader>gu :SignifyHunkUndo<cr>
+nnoremap <leader>gf :SignifyFold<cr>
 
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
@@ -164,15 +121,13 @@ let g:indentLine_char = '|'
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
 " Highlight TODO, FIXME, NOTE, etc.
-if has('autocmd') && v:version > 701
-    augroup todo
-        autocmd!
-        autocmd Syntax * call matchadd(
-                    \ 'Debug',
-                    \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|XXX|BUG|HACK|TRICKY)>'
-                    \ )
-    augroup END
-endif
+augroup todo
+    autocmd!
+    autocmd Syntax * call matchadd(
+                \ 'Debug',
+                \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK|TRICKY)>'
+                \ )
+augroup END
 
 " Toggles netrw with <leader>e
 function! ToggleVExplorer()
@@ -194,7 +149,6 @@ function! ToggleVExplorer()
   endif
 endfunction
 " nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
-nnoremap <silent> <leader>e :FloatermNew vifm<CR>
 let g:netrw_browse_split = 4
 " let g:netrw_altv = 1
 let g:netrw_liststyle = 3
@@ -202,7 +156,8 @@ let g:netrw_winsize = 18
 let g:netrw_banner = 0
 
 "coc.nvim config
-let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright', 'coc-fzf-preview', 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
+let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
+            \  'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -229,11 +184,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Formatting
-" xmap <leader>gf <Plug>(coc-format-selected)
-" nmap <leader>gf <Plug>(coc-format-selected)
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>qf  <Plug>(coc-fix-current)
+xmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>gf <Plug>(coc-format-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>qf  <Plug>(coc-fix-current)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Find symbol of current document.
@@ -245,6 +200,9 @@ nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<
 inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
+" Jumping to errors
+nmap <leader>n <Plug>(coc-diagnostic-next)
+nmap <leader>p <Plug>(coc-diagnostic-prev)
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
@@ -279,7 +237,7 @@ endif
 " Add (Neo)Vim's native statusline support.
 " NOTE: Pease see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -295,17 +253,3 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-" Treesitter config
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
-  },
-  indent = {
-    enable = true
-  }
-}
-EOF
