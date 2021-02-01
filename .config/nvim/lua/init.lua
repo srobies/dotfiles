@@ -6,6 +6,7 @@ paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
 
+paq 'b3nj5m1n/kommentary'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 paq 'nvim-telescope/telescope.nvim'
@@ -24,10 +25,13 @@ paq 'Yggdroot/indentLine'
 paq 'simnalamburt/vim-mundo'
 paq 'mhinz/vim-signify'
 paq 'tpope/vim-fugitive'
-paq 'tpope/vim-commentary'
 paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
+
+require"toggleterm".setup{
+    open_mapping = [[ t]]
+}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -93,7 +97,7 @@ local python_venv = function()
         handle:close()
         local venvName = string.gsub(fullPath, "/.*/", "")
         local output = string.gsub(venvName, "%c", "")
-        return output
+        return "venv:" .. output
     end
 end
 
@@ -200,6 +204,7 @@ gls.right[2] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
+    separator = ' ',
     highlight = {colors.violet,colors.bg,'bold'},
   }
 }

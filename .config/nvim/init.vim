@@ -86,27 +86,30 @@ nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 
-nnoremap <leader>t :ToggleTerm<cr>
+nnoremap <silent><leader>e :NvimTreeToggle<cr>
 
 nnoremap <leader>m :MaximizerToggle!<CR>
-nnoremap <leader>dd :call vimspector#Launch()<CR>
-nnoremap <leader>de :call vimspector#Reset()<CR>
-nnoremap <leader>dl <Plug>VimspectorStepInto
-nnoremap <leader>dj <Plug>VimspectorStepOver
-nnoremap <leader>dh <Plug>VimspectorStepOut
-nnoremap <leader>dr <Plug>VimspectorRestart
-nnoremap <leader>dc :call vimspector#Continue()<CR>
-nnoremap <leader>drc <Plug>VimspectorRunToCursor
-nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
-nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-nnoremap <leader>ff :Telescope find_files<cr>
-nnoremap <leader>fg :Telescope live_grep<cr>
-nnoremap <leader>fb  :Telescope buffers<cr>
-nnoremap <leader>fm  :Telescope marks<cr>
-nnoremap <leader>gc :Telescope git_commits<cr>
-nnoremap <leader>gb :Telescope git_branches<cr>
-nnoremap <leader>gs :Telescope git_status<cr>
+" nnoremap <leader>dd :call vimspector#Launch()<CR>
+" nnoremap <leader>de :call vimspector#Reset()<CR>
+" nnoremap <leader>dl <Plug>VimspectorStepInto
+" nnoremap <leader>dj <Plug>VimspectorStepOver
+" nnoremap <leader>dh <Plug>VimspectorStepOut
+" nnoremap <leader>dr <Plug>VimspectorRestart
+" nnoremap <leader>dc :call vimspector#Continue()<CR>
+" nnoremap <leader>drc <Plug>VimspectorRunToCursor
+" nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
+" nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
+
+nnoremap <silent><leader>ff :Telescope find_files<cr>
+nnoremap <silent><leader>fg :Telescope live_grep<cr>
+nnoremap <silent><leader>fb :Telescope buffers<cr>
+nnoremap <silent><leader>fm :Telescope marks<cr>
+nnoremap <silent><leader>fq :Telescope quickfix<cr>
+nnoremap <silent><leader>fl :Telescope loclist<cr>
+nnoremap <silent><leader>gc :Telescope git_commits<cr>
+nnoremap <silent><leader>gb :Telescope git_branches<cr>
+nnoremap <silent><leader>gs :Telescope git_status<cr>
 
 nnoremap <leader>gd :SignifyDiff<cr>
 nnoremap <leader>gh :SignifyHunkDiff<cr>
@@ -157,7 +160,8 @@ let g:netrw_banner = 0
 
 "coc.nvim config
 let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
-            \  'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
+            \ 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex',
+            \ 'coc-discord-rpc', 'coc-tabnine',]
 " TextEdit might fail if hidden is not set.
 set hidden
 
