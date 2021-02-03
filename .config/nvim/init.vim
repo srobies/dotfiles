@@ -51,7 +51,7 @@ endif
 
 "Rebinds
 let mapleader=' '
-nmap <leader>s <Plug>Sneak_
+nmap <leader>s <Plug>Sneak_s
 nmap <leader>S <Plug>Sneak_S
 nmap ; <Plug>Sneak_;
 nmap , <Plug>Sneak_,
@@ -161,7 +161,7 @@ let g:netrw_banner = 0
 "coc.nvim config
 let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
             \ 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex',
-            \ 'coc-discord-rpc', 'coc-tabnine',]
+            \ 'coc-discord-rpc', 'coc-tabnine']
 " TextEdit might fail if hidden is not set.
 set hidden
 

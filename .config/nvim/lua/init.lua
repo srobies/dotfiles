@@ -22,6 +22,7 @@ paq 'szw/vim-maximizer'
 paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
 paq 'Yggdroot/indentLine'
+paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 paq 'simnalamburt/vim-mundo'
 paq 'mhinz/vim-signify'
 paq 'tpope/vim-fugitive'
@@ -30,7 +31,7 @@ paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
 
 require"toggleterm".setup{
-    open_mapping = [[ t]]
+    open_mapping = [[<C-t>]]
 }
 
 require'nvim-treesitter.configs'.setup {
