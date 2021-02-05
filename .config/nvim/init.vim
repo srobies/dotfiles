@@ -1,4 +1,5 @@
 lua require('init')
+lua require('my_debug')
 
 let g:sneak#use_ic_scs = 1
 let g:vimtex_view_general_viewer = 'zathura'
@@ -90,6 +91,13 @@ nnoremap <silent><leader>e :NvimTreeToggle<cr>
 
 nnoremap <leader>m :MaximizerToggle!<CR>
 
+nnoremap <leader>dc :lua require'dap'.continue()<cr>
+nnoremap <leader>dj :lua require'dap'.step_over()<cr>
+nnoremap <leader>dl :lua require'dap'.step_into()<cr>
+nnoremap <leader>dh :lua require'dap'.step_out()<cr>
+nnoremap <leader>db :lua require'dap'.toggle_breakpoint()<cr>
+nnoremap <leader>dbc :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 " nnoremap <leader>dd :call vimspector#Launch()<CR>
 " nnoremap <leader>de :call vimspector#Reset()<CR>
 " nnoremap <leader>dl <Plug>VimspectorStepInto
@@ -101,7 +109,7 @@ nnoremap <leader>m :MaximizerToggle!<CR>
 " nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 " nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-nnoremap <silent><leader>ff :Telescope find_files<cr>
+nnoremap <silent><leader>ff :lua require('telescope').extensions.fzf_writer.files()<cr>
 nnoremap <silent><leader>fg :Telescope live_grep<cr>
 nnoremap <silent><leader>fb :Telescope buffers<cr>
 nnoremap <silent><leader>fm :Telescope marks<cr>
@@ -111,17 +119,17 @@ nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
 
-nnoremap <leader>gd :SignifyDiff<cr>
-nnoremap <leader>gh :SignifyHunkDiff<cr>
+nnoremap <silent><leader>gd :SignifyDiff<cr>
+nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
-nnoremap <leader>gf :SignifyFold<cr>
+nnoremap <silent><leader>gf :SignifyFold<cr>
 
 let g:mundo_preview_bottom = 1
 let g:mundo_width = 30
 
 let g:indentLine_char = '|'
 
-let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
+" let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
 " Highlight TODO, FIXME, NOTE, etc.
 augroup todo
@@ -160,8 +168,8 @@ let g:netrw_banner = 0
 
 "coc.nvim config
 let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
-            \ 'coc-pairs', 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex',
-            \ 'coc-discord-rpc', 'coc-tabnine']
+            \ 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex',
+            \ 'coc-discord-rpc']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -188,8 +196,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Formatting
-xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader>gf <Plug>(coc-format-selected)
+" xmap <leader>gf <Plug>(coc-format-selected)
+" nmap <leader>gf <Plug>(coc-format-selected)
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)

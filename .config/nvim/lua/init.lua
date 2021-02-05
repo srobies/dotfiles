@@ -7,6 +7,7 @@ paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
 
 paq 'b3nj5m1n/kommentary'
+paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 paq 'nvim-telescope/telescope.nvim'
@@ -44,6 +45,28 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
+-- dap config
+local dap = require('dap')
+dap.adapters.cpp = {
+  type = 'executable',
+  attach = {
+    pidProperty = "pid",
+    pidSelect = "ask"
+  },
+  command = 'lldb-vscode', -- my binary was called 'lldb-vscode-11'
+  env = {
+    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+  },
+  name = "lldb"
+}
+vim.cmd [[
+    command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
+]]
+vim.cmd [[
+    command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+]]
+
 
 local gl = require('galaxyline')
 local gls = gl.section
