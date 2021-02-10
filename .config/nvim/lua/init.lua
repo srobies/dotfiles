@@ -41,9 +41,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
   },
-  indent = {
+  --[[ indent = {
     enable = true
-  }
+  } ]]
 }
 
 -- dap config
@@ -121,7 +121,11 @@ local python_venv = function()
         handle:close()
         local venvName = string.gsub(fullPath, "/.*/", "")
         local output = string.gsub(venvName, "%c", "")
-        return "venv:" .. output
+        if output ~= "" then
+            return "venv:" .. output
+        else
+            return ""
+        end
     end
 end
 

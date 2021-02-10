@@ -62,6 +62,13 @@
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
+;;;;; * evil custom ex-cmd settings
+    ;; :q should kill the current buffer rather than quitting emacs entirely
+    (evil-ex-define-cmd "q" 'kill-this-buffer)
+    (evil-ex-define-cmd "wq" 'save-and-kill-this-buffer)
+    ;; Need to type out :quit to close emacs
+    (evil-ex-define-cmd "quit" 'kill-buffer-and-window)
+
 ;; `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', relative to
 ;;   this file. Emacs searches the `load-path' when you load packages with

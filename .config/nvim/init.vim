@@ -56,6 +56,8 @@ nmap <leader>s <Plug>Sneak_s
 nmap <leader>S <Plug>Sneak_S
 nmap ; <Plug>Sneak_;
 nmap , <Plug>Sneak_,
+vmap ; <Plug>Sneak_;
+vmap , <Plug>Sneak_,
 xmap <leader>s <Plug>Sneak_s
 xmap <leader>S <Plug>Sneak_S
 omap <leader>s <Plug>Sneak_s
