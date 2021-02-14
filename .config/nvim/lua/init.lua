@@ -3,10 +3,10 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
-
-paq 'b3nj5m1n/kommentary'
+paq 'terrortylor/nvim-comment'
 paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
@@ -30,6 +30,8 @@ paq 'tpope/vim-fugitive'
 paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
+
+require('nvim_comment').setup()
 
 require"toggleterm".setup{
     open_mapping = [[<C-t>]]
