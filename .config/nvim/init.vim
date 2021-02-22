@@ -17,6 +17,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 autocmd FileType c,cpp set tabstop=2
 autocmd FileType c,cpp set softtabstop=2
 autocmd FileType c,cpp set shiftwidth=2
+autocmd FileType c,cpp setlocal commentstring=//%s
 set expandtab
 syntax on
 set undodir=~/.local/share/nvim/undodir
@@ -180,7 +181,7 @@ set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=2
+" set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.

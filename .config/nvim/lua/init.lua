@@ -1,4 +1,4 @@
-vim.cmd 'packadd paq-nvim'         -- Load package
+vim.cmd 'packadd paq-nvim'         -- Load package local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
@@ -6,7 +6,7 @@ paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
-paq 'terrortylor/nvim-comment'
+paq 'tpope/vim-commentary'
 paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
@@ -30,8 +30,6 @@ paq 'tpope/vim-fugitive'
 paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
-
-require('nvim_comment').setup()
 
 require"toggleterm".setup{
     open_mapping = [[<C-t>]]
@@ -323,32 +321,32 @@ gls.right[12] = {
   }
 }
 
-gls.short_line_left[1] = {
-    ViMode = {
-        provider = function()
-            local alias = {
-                n = 'NORMAL',
-                i = 'INSERT',
-                c = 'COMMAND',
-                v = 'VISUAL',
-                V = 'V-LINE',
-                [''] = 'VISUAL',
-                R = 'REPLACE',
-                t = 'TERMINAL',
-                s = 'SELECT',
-                S = 'S-LINE'
-            }
-            vim.api.nvim_command('hi GalaxyViMode guibg=' .. mode_color())
-            if alias[vim.fn.mode()] ~= nil then
-                return '  ' .. alias[vim.fn.mode()] .. ' '
-            else
-                return '  V-BLOCK '
-            end
-        end,
-        highlight = {colors.bg,'bold'},
-        separator = ' '
-  },
-}
+-- gls.short_line_left[1] = {
+--     ViMode = {
+--         provider = function()
+--             local alias = {
+--                 n = 'NORMAL',
+--                 i = 'INSERT',
+--                 c = 'COMMAND',
+--                 v = 'VISUAL',
+--                 V = 'V-LINE',
+--                 [''] = 'VISUAL',
+--                 R = 'REPLACE',
+--                 t = 'TERMINAL',
+--                 s = 'SELECT',
+--                 S = 'S-LINE'
+--             }
+--             vim.api.nvim_command('hi GalaxyViMode guibg=' .. mode_color())
+--             if alias[vim.fn.mode()] ~= nil then
+--                 return '  ' .. alias[vim.fn.mode()] .. ' '
+--             else
+--                 return '  V-BLOCK '
+--             end
+--         end,
+--         highlight = {colors.bg,'bold'},
+--         separator = ' '
+--   },
+-- }
 gls.short_line_left[2] = {
   BufferType = {
     provider = 'FileTypeName',
