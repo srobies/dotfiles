@@ -4,6 +4,7 @@ paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
 
+paq 'gennaro-tedesco/nvim-peekup'
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
 paq 'tpope/vim-commentary'
@@ -22,7 +23,6 @@ paq 'nvim-treesitter/nvim-treesitter'
 paq 'szw/vim-maximizer'
 paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
-paq 'Yggdroot/indentLine'
 paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 paq 'simnalamburt/vim-mundo'
 paq 'mhinz/vim-signify'
@@ -347,7 +347,7 @@ gls.right[12] = {
 --         separator = ' '
 --   },
 -- }
-gls.short_line_left[2] = {
+gls.short_line_left[1] = {
   BufferType = {
     provider = 'FileTypeName',
     separator = ' ',
@@ -356,7 +356,7 @@ gls.short_line_left[2] = {
   }
 }
 
-gls.short_line_left[3] = {
+gls.short_line_left[2] = {
   SFileName = {
     provider = function ()
       local fileinfo = require('galaxyline.provider_fileinfo')
