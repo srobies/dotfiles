@@ -5,7 +5,7 @@ let g:sneak#use_ic_scs = 1
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_syntax_conceal_default=0
-set timeoutlen=500
+set timeoutlen=1000
 set tabstop     =4
 set softtabstop =4
 set shiftwidth  =4
@@ -85,7 +85,7 @@ nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
 nnoremap + <C-w>+
 nnoremap - <C-w>-
-nnoremap <silent><leader>u :MundoToggle<CR>
+nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader>r :Rg<SPACE>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
@@ -122,15 +122,32 @@ nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
 
+function! QuickFix_toggle()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            cclose
+            return
+        endif
+    endfor
+
+    botright copen 7
+endfunction
+nnoremap <silent><leader>qf :call QuickFix_toggle()<cr>
+nnoremap <silent>]q :cnext<cr>
+nnoremap <silent>[q :cprevious<cr>
+nnoremap <silent><leader>qn :cnext<cr>
+nnoremap <silent><leader>qp :cprevious<cr>
+nnoremap <silent><leader>qc :cc<cr>
+
 nnoremap <silent><leader>gd :SignifyDiff<cr>
 nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
 nnoremap <silent><leader>gf :SignifyFold<cr>
 
-let g:mundo_preview_bottom = 1
-let g:mundo_width = 30
-
 let g:indentLine_char = '|'
+
+let g:undotree_WindowLayout = 2
 
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
@@ -203,7 +220,7 @@ nmap <silent> gr <Plug>(coc-references)
 " nmap <leader>gf <Plug>(coc-format-selected)
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Find symbol of current document.

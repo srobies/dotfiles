@@ -24,7 +24,7 @@ paq 'szw/vim-maximizer'
 paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
 paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
-paq 'simnalamburt/vim-mundo'
+paq 'mbbill/undotree'
 paq 'mhinz/vim-signify'
 paq 'tpope/vim-fugitive'
 paq 'lambdalisue/suda.vim'
