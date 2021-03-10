@@ -145,9 +145,13 @@ nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
 nnoremap <silent><leader>gf :SignifyFold<cr>
 
+let g:peekup_paste_before = '<leader>P'
+let g:peekup_paste_after = '<leader>p'
+
 let g:indentLine_char = '|'
 
 let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1
 
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
@@ -216,8 +220,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Formatting
-" xmap <leader>gf <Plug>(coc-format-selected)
-" nmap <leader>gf <Plug>(coc-format-selected)
+xmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>gf <Plug>(coc-format-selected)
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 " nmap <leader>qf  <Plug>(coc-fix-current)

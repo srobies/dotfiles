@@ -27,17 +27,33 @@ colors:
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xff6c6b'
-    green:   '0x98be65'
-    yellow:  '0xECEB7B'
-    blue:    '0x51afef'
+    red: '0xe95678'
     magenta: '0xd16d9e'
-    cyan:    '0x3bb6c4'
-    orange:  '0xda8548'
-    violet:  '0xa9a1e1'
-    teal:    '0x1abc9c'
-    grey:    '0x928374'
+    orange: '0xD98E48'
+    yellow: '0xf0c674'
+    light_green: '0xabcf84'
+    green: '0xafd700'
+    dark_green: '0x98be65'
+    cyan: '0x4ad2e0'
+    blue: '0x51afef'
+    violet: '0xaf87d7'
+    purple: '0xb877db'
+    teal: '0x1abc9c'
+    grey: '0x928374'
+    brown: '0xc78665'
+    black: '0x000000'
+
+    # black:   '0x000000'
+    # red:     '0xff6c6b'
+    # green:   '0x98be65'
+    # yellow:  '0xECEB7B'
+    # blue:    '0x51afef'
+    # magenta: '0xd16d9e'
+    # cyan:    '0x3bb6c4'
+    # orange:  '0xda8548'
+    # violet:  '0xa9a1e1'
+    # teal:    '0x1abc9c'
+    # grey:    '0x928374'
 #   
 # Colors (One Half Dark)
 # colors:
