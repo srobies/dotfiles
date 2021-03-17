@@ -18,12 +18,13 @@ autocmd FileType c,cpp set tabstop=2
 autocmd FileType c,cpp set softtabstop=2
 autocmd FileType c,cpp set shiftwidth=2
 autocmd FileType c,cpp setlocal commentstring=//%s
+autocmd TermOpen * IndentBlanklineDisable
 set expandtab
 syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
-set hlsearch
+set nohlsearch
 set ignorecase
 set smartcase
 set number relativenumber
@@ -133,6 +134,7 @@ function! QuickFix_toggle()
 
     botright copen 7
 endfunction
+
 nnoremap <silent><leader>qf :call QuickFix_toggle()<cr>
 nnoremap <silent>]q :cnext<cr>
 nnoremap <silent>[q :cprevious<cr>
@@ -140,10 +142,24 @@ nnoremap <silent><leader>qn :cnext<cr>
 nnoremap <silent><leader>qp :cprevious<cr>
 nnoremap <silent><leader>qc :cc<cr>
 
+function! s:BlameToggle() abort
+  let found = 0
+  for winnr in range(1, winnr('$'))
+    if getbufvar(winbufnr(winnr), '&filetype') ==# 'fugitiveblame'
+      exe winnr . 'close'
+      let found = 1
+    endif
+  endfor
+  if !found
+    Git blame
+  endif
+endfunction
+
 nnoremap <silent><leader>gd :SignifyDiff<cr>
 nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
 nnoremap <silent><leader>gf :SignifyFold<cr>
+nnoremap <silent><Leader>gb :call <SID>BlameToggle()<CR>
 
 let g:peekup_paste_before = '<leader>P'
 let g:peekup_paste_after = '<leader>p'
@@ -237,8 +253,10 @@ inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 " Jumping to errors
-nmap <leader>n <Plug>(coc-diagnostic-next)
-nmap <leader>p <Plug>(coc-diagnostic-prev)
+" nmap <leader>n <Plug>(coc-diagnostic-next)
+" nmap <leader>p <Plug>(coc-diagnostic-prev)
+nmap <c-n> <Plug>(coc-diagnostic-next)
+nmap <c-p> <Plug>(coc-diagnostic-prev)
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 

@@ -27,7 +27,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.config import Click, Drag, DropDown, Group, Key, ScratchPad, Screen
 from libqtile.lazy import lazy
 # from libqtile.utils import guess_terminal
 from libqtile import hook
@@ -247,6 +247,10 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
 
+    Key([mod], 't', lazy.group['scratchpad'].dropdown_toggle('term')),
+    Key([mod], 'l', lazy.group['scratchpad'].dropdown_toggle('todo')),
+    Key([mod], 's', lazy.group['scratchpad'].dropdown_toggle('music')),
+
     # Switch monitor focus
     Key([mod], "o", lazy.to_screen(0)),
     Key([mod], "a", lazy.to_screen(1)),
@@ -269,6 +273,13 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
     ])
+
+groups.append(ScratchPad("scratchpad", [
+        DropDown("term", "alacritty", opacity=0.8),
+        DropDown("todo", "emacs ~/Dropbox/org/school.org",
+                 width=0.5, height=0.5, opacity=0.8, x=0.24),
+        DropDown("music", "spotify", opacity=0.8,width=0.5, height=0.8, x=0.24),
+        ]))
 
 layouts = [
     layout.MonadTall(border_focus=colors['cyan']),

@@ -1,4 +1,4 @@
-vim.cmd 'packadd paq-nvim'         -- Load package local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
+vim.cmd 'packadd paq-nvim'         -- Load package local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function0
 local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
@@ -160,7 +160,8 @@ gls.left[1] = {
             end
         end,
         highlight = {colors.bg,'bold'},
-        separator = ' '
+        separator = ' ',
+        separator_highlight = {'NONE',colors.bg},
   },
 }
 gls.left[2] ={
@@ -233,6 +234,7 @@ gls.right[2] = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.violet,colors.bg,'bold'},
   }
 }
@@ -283,6 +285,7 @@ gls.right[8] = {
     PythonVenv = {
         provider = python_venv,
         separator = ' ',
+        separator_highlight = {'NONE',colors.bg},
         condition = python_check,
         highlight = {colors.fg, colors.bg, "bold"}
     }
@@ -293,6 +296,7 @@ gls.right[9] = {
     provider = 'FileSize',
     condition = buffer_not_empty,
     separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.fg,colors.bg,'bold'}
   }
 }
@@ -301,6 +305,7 @@ gls.right[10] = {
     BufferType = {
         provider = 'FileTypeName',
         separator = ' ',
+        separator_highlight = {'NONE',colors.bg},
         highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.bg}
     }
 }
@@ -308,6 +313,7 @@ gls.right[11] = {
   FileEncode = {
     provider = 'FileEncode',
     separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.cyan,colors.bg,'bold'}
   }
 }
