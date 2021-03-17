@@ -73,6 +73,7 @@ def screen_change():
     screen_number = len(os.popen(r"xrandr | grep '\sconnected\s'").readlines())
     # Changes widget based on laptop vs desktop
     if(os.uname()[1].lower().find("laptop") == -1): # desktop config
+        bar_height = 20
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
@@ -112,6 +113,7 @@ def screen_change():
                                 widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                             ]
     else: # laptop config
+        bar_height = 24
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
@@ -169,11 +171,11 @@ def screen_change():
     screens = []
     for i in range(screen_number):
         if(i==0): # Systray on primary screen
-            screens.append(Screen(top=bar.Bar(primary_widgets, 20,),),)
+            screens.append(Screen(top=bar.Bar(primary_widgets, bar_height,),),)
         else:
             screens.append(
                 Screen(
-                    top=bar.Bar(secondary_widgets, 20,),),)
+                    top=bar.Bar(secondary_widgets, bar_height,),),)
     return screens
 screens=screen_change()
 
