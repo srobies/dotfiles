@@ -36,28 +36,44 @@ import subprocess
 
 
 colors = dict(
-    magenta='#c678dd',
-    black='#282c34',
-    red='#e06c75',
-    green='#98c379',
-    yellow='#e5c07b',
-    blue='#61afef',
-    cyan='#56b6c2',
-    white='#dcdfe4',
-    foreground='#dcdfe4',
-    background='#282c34',
+    # one-half colors
+    # magenta='#c678dd',
+    # black='#282c34',
+    # red='#e06c75',
+    # green='#98c379',
+    # yellow='#e5c07b',
+    # blue='#61afef',
+    # cyan='#56b6c2',
+    # white='#dcdfe4',
+    # foreground='#dcdfe4',
+    # background='#282c34',
+
+    #zephyr colors
+    foreground ='#bbc2cf',
+    background = '#282a36',
+    red = '#e95678',
+    redwine = '#d16d9e',
+    orange = '#D98E48',
+    yellow = '#f0c674',
+    light_green = '#abcf84',
+    green = '#afd700',
+    dark_green = '#98be65',
+    cyan = '#36d0e0',
+    blue = '#42a8ed',
+    violet = '#b294bb',
+    magenta = '#c678dd',
+    teal = '#1abc9c',
+    grey = '#928374',
+    brown = '#c78665',
+    black = '#000000',
 )
 
 @hook.subscribe.screen_change # change the number of bars when screens change
 def screen_change():
     screen_number = len(os.popen(r"xrandr | grep '\sconnected\s'").readlines())
-    screens = []
-    for i in range(screen_number):
-        if(i==0): # Systray on primary screen
-            screens.append(
-                Screen(
-                    top=bar.Bar(
-                        [
+    # Changes widget based on laptop vs desktop
+    if(os.uname()[1].lower().find("laptop") == -1): # desktop config
+        primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
                             widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
@@ -76,19 +92,30 @@ def screen_change():
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
                             widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
-                        ],
-                        20,
-                    ),
-                ),
-            )
-        else:
-            screens.append(
-                Screen(
-                    top=bar.Bar(
-                        [
+                          ]
+        secondary_widgets = [
+                                widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
+                                widget.CurrentLayout(),
+                                widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                                widget.GroupBox(highlight_method='block',
+                                    this_current_screen_border=colors['blue'],
+                                    urgent_alert_method='block',
+                                    urgent_border=colors['red']),
+                                widget.WindowName(),
+                                widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                                widget.Sep(),
+                                widget.TextBox(text='Volume'),
+                                widget.PulseVolume(),
+                                widget.Sep(),
+                                widget.Clock(format='%m-%d %a %I:%M %p'),
+                                widget.Sep(),
+                                widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                            ]
+    else: # laptop config
+        primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                            widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
@@ -99,14 +126,54 @@ def screen_change():
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
                             widget.Sep(),
+                            widget.TextBox(text='Brightness'),
+                            widget.Backlight(backlight_name='intel_backlight'),
+                            widget.Sep(),
+                            widget.Battery(format='{char} {percent:2.0%} {hour:d}:{min:02d}'),
+                            widget.BatteryIcon(),
+                            widget.Sep(),
+                            widget.Wlan(interface = 'wlp2s0', format = '{essid} {percent:2.0%}'),
+                            widget.Systray(),
+                            widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
                             widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
-                        ],
-                        20,
-                    ),
-                ),
-            )
+                        ]
+        secondary_widgets = [
+                            widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
+                            widget.CurrentLayout(),
+                            widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
+                            widget.GroupBox(highlight_method='block',
+                                this_current_screen_border=colors['blue'],
+                                urgent_alert_method='block',
+                                urgent_border=colors['red']),
+                            widget.WindowName(),
+                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                            widget.Sep(),
+                            widget.TextBox(text='Volume'),
+                            widget.PulseVolume(),
+                            widget.Sep(),
+                            widget.TextBox(text='Brightness'),
+                            widget.Backlight(backlight_name='intel_backlight'),
+                            widget.Sep(),
+                            widget.Battery(format='{char} {percent:2.0%} {hour:d}:{min:02d}'),
+                            widget.BatteryIcon(),
+                            widget.Sep(),
+                            widget.Wlan(interface = 'wlp2s0', format = '{essid} {percent:2.0%}'),
+                            widget.Sep(),
+                            widget.Clock(format='%m-%d %a %I:%M %p'),
+                            widget.Sep(),
+                            widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                        ]
+         
+    screens = []
+    for i in range(screen_number):
+        if(i==0): # Systray on primary screen
+            screens.append(Screen(top=bar.Bar(primary_widgets, 20,),),)
+        else:
+            screens.append(
+                Screen(
+                    top=bar.Bar(secondary_widgets, 20,),),)
     return screens
 screens=screen_change()
 
@@ -153,7 +220,7 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Next layout"),
-    Key([mod, "shift"], "Tab", lazy.next_layout(), desc="Last layout"),
+    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Last layout"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
@@ -177,6 +244,11 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+
+    # Switch monitor focus
+    Key([mod], "o", lazy.to_screen(0)),
+    Key([mod], "a", lazy.to_screen(1)),
+    Key([mod], "e", lazy.to_screen(2)),
 ]
 
 groups = [Group(i) for i in "1234567890"]
@@ -202,9 +274,9 @@ layouts = [
     layout.Stack(num_stacks=2, border_focus=colors['cyan']),
     layout.Matrix(border_focus=colors['cyan']),
     layout.Tile(border_focus=colors['cyan']),
-    layout.TreeTab(border_focus=colors['cyan']),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
+    # layout.TreeTab(border_focus=colors['cyan']),
     # layout.Columns(),
     # layout.MonadWide(),
     # layout.RatioTile(),
@@ -213,7 +285,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Fantasque Sans Mono',
+    font='Fantasque Sans Mono Nerd Font',
     fontsize=15,
     padding=3,
 )
@@ -233,7 +305,7 @@ dgroups_app_rules = []  # type: List
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     {'wmclass': 'confirm'},
@@ -268,4 +340,3 @@ wmname = "qtile"
 def autostart():
     autostart = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([autostart])
-
