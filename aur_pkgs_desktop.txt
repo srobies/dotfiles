@@ -1,5 +1,14 @@
+bitwarden-bin
+cisco-anyconnect
 discord_arch_electron
-dropbox-cli
-paru
+dropbox
+hledger-bin
+i3lock-color
+mail-query
+ncurses5-compat-libs
+nerd-fonts-fantasque-sans-mono
+pandoc-bin
+paru-bin
+qtile-git
 spotify
 zoom
