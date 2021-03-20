@@ -253,10 +253,8 @@ inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 " Jumping to errors
-" nmap <leader>n <Plug>(coc-diagnostic-next)
-" nmap <leader>p <Plug>(coc-diagnostic-prev)
-nmap <c-n> <Plug>(coc-diagnostic-next)
-nmap <c-p> <Plug>(coc-diagnostic-prev)
+nmap <leader>dn <Plug>(coc-diagnostic-next)
+nmap <leader>dp <Plug>(coc-diagnostic-prev)
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 

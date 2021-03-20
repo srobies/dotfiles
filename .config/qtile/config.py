@@ -83,7 +83,8 @@ def screen_change():
                                 urgent_alert_method='block',
                                 urgent_border=colors['red']),
                             widget.WindowName(),
-                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                            widget.Sep(),
+                            widget.KhalCalendar(max_chars = 63, foreground=colors['yellow']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -103,7 +104,6 @@ def screen_change():
                                     urgent_alert_method='block',
                                     urgent_border=colors['red']),
                                 widget.WindowName(),
-                                widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
                                 widget.Sep(),
                                 widget.TextBox(text='Volume'),
                                 widget.PulseVolume(),
@@ -123,7 +123,7 @@ def screen_change():
                                 urgent_alert_method='block',
                                 urgent_border=colors['red']),
                             widget.WindowName(),
-                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
+                            widget.KhalCalendar(max_chars = 63, foreground=colors['yellow']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -150,7 +150,6 @@ def screen_change():
                                 urgent_alert_method='block',
                                 urgent_border=colors['red']),
                             widget.WindowName(),
-                            widget.Mpris2(objname='org.mpris.MediaPlayer2.spotify',display_metadata=['xesam:title', 'xesam:artist']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -248,8 +247,8 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
 
     Key([mod], 't', lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key([mod], 'l', lazy.group['scratchpad'].dropdown_toggle('todo')),
-    Key([mod], 's', lazy.group['scratchpad'].dropdown_toggle('music')),
+    Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('todo')),
+    Key([mod], 'm', lazy.group['scratchpad'].dropdown_toggle('music')),
 
     # Switch monitor focus
     Key([mod], "o", lazy.to_screen(0)),
@@ -278,7 +277,7 @@ groups.append(ScratchPad("scratchpad", [
         DropDown("term", "alacritty", opacity=0.8),
         DropDown("todo", "emacs ~/Dropbox/org/school.org",
                  width=0.5, height=0.5, opacity=0.8, x=0.24),
-        DropDown("music", "spotify", opacity=0.8,width=0.5, height=0.8, x=0.24),
+        DropDown("music", "spotify", opacity=0.8,width=0.5, height=1.0, x=0.24),
         ]))
 
 layouts = [

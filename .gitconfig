@@ -7,3 +7,9 @@
     helper = cache --timeout=3600
 [init]
 	defaultBranch = master
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[merge]
+    tool = nvim
+[mergetool]
+    prompt = false

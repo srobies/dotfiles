@@ -1,0 +1,13 @@
+[calendars]
+
+[[calendar_local]]
+path = ~/.calendars/sprobie1@gmail.com
+type = discover
+color = dark green
+
+[locale]
+timeformat = %H:%M
+dateformat = %m/%d/%Y
+longdateformat = %m/%d/%Y
+datetimeformat = %m/%d/%Y %H:%M
+longdatetimeformat = %m/%d/%Y %H:%M
