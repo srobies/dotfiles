@@ -9,6 +9,7 @@ ncurses5-compat-libs
 nerd-fonts-fantasque-sans-mono
 pandoc-bin
 paru-bin
+python-coveralls
 qtile-git
 spotify
 zoom

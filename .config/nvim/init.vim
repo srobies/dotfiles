@@ -164,7 +164,8 @@ nnoremap <silent><Leader>gb :call <SID>BlameToggle()<CR>
 let g:peekup_paste_before = '<leader>P'
 let g:peekup_paste_after = '<leader>p'
 
-let g:indentLine_char = '|'
+let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_show_current_context = v:true
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
@@ -253,8 +254,8 @@ inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 " Jumping to errors
-nmap <leader>dn <Plug>(coc-diagnostic-next)
-nmap <leader>dp <Plug>(coc-diagnostic-prev)
+nmap <leader>cn <Plug>(coc-diagnostic-next)
+nmap <leader>cp <Plug>(coc-diagnostic-prev)
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
