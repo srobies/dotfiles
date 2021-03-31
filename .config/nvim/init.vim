@@ -156,11 +156,6 @@ function! s:BlameToggle() abort
 endfunction
 
 nnoremap <silent><leader>gd :Gdiff<cr>
-nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
-nnoremap <leader>gu :SignifyHunkUndo<cr>
-nnoremap <silent><leader>gf :SignifyFold<cr>
-nnoremap <silent><Leader>gb :call <SID>BlameToggle()<CR>
-nnoremap <leader>gs :diffput<cr>
 
 let g:peekup_paste_before = '<leader>P'
 let g:peekup_paste_after = '<leader>p'

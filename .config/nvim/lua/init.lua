@@ -3,6 +3,7 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+paq 'lewis6991/gitsigns.nvim'
 
 paq 'kevinhwang91/nvim-bqf'
 paq 'cohama/lexima.vim'
@@ -27,7 +28,7 @@ paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
 paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 paq 'mbbill/undotree'
-paq 'mhinz/vim-signify'
+-- paq 'mhinz/vim-signify'
 paq 'tpope/vim-fugitive'
 paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
@@ -36,6 +37,8 @@ paq 'kyazdani42/nvim-web-devicons'
 require"toggleterm".setup{
     open_mapping = [[<C-t>]]
 }
+
+require('gitsigns').setup {}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
