@@ -4,11 +4,10 @@
 export EDITOR=nvim
 TERM="xterm-256color"
 alias school_sync="~/repos/scripts/rclone_cron.sh"
-alias todo_sync="~/repos/scripts/todo_sync.sh"
-alias todo_view='clear && todo view context'
-alias todo=todo.sh
-alias python=python3
-alias 2020_fall='cd ~/Documents/school/2020_fall'
+alias 2021_spring='cd ~/Documents/school/2021_spring'
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export LEDGER_FILE=$HOME/repos/finance/2021/2021-all.journal
+source $HOME/.config/alacritty/hledger-completion.bash
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -24,7 +23,55 @@ export PATH="$HOME/.local/bin:$PATH"
 # See bash(1) for more options
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 HISTCONTROL=ignoreboth
-export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[34m\]\w\[\e[m\]\\$ "
+# get current branch in git repo
+function parse_git_branch() {
+	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+	if [ ! "${BRANCH}" == "" ]
+	then
+		STAT=`parse_git_dirty`
+		echo "[${BRANCH}${STAT}]"
+	else
+		echo ""
+	fi
+}
+
+# get current status of git repo
+function parse_git_dirty {
+	status=`git status 2>&1 | tee`
+	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
+	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
+	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
+	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
+	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
+	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
+	bits=''
+	if [ "${renamed}" == "0" ]; then
+		bits=">${bits}"
+	fi
+	if [ "${ahead}" == "0" ]; then
+		bits="*${bits}"
+	fi
+	if [ "${newfile}" == "0" ]; then
+		bits="+${bits}"
+	fi
+	if [ "${untracked}" == "0" ]; then
+		bits="?${bits}"
+	fi
+	if [ "${deleted}" == "0" ]; then
+		bits="x${bits}"
+	fi
+	if [ "${dirty}" == "0" ]; then
+		bits="!${bits}"
+	fi
+	if [ ! "${bits}" == "" ]; then
+		echo " ${bits}"
+	else
+		echo ""
+	fi
+}
+
+
+export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[31m\]\`parse_git_branch\`\[\e[m\]:\[\e[34m\]\w\[\e[m\] "
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -75,4 +122,3 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-source ~/.bash_completion/alacritty/alacritty.bash
