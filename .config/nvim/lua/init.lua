@@ -3,14 +3,15 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+paq 'tversteeg/registers.nvim'
 paq 'lewis6991/gitsigns.nvim'
-
 paq 'kevinhwang91/nvim-bqf'
 paq 'cohama/lexima.vim'
-paq 'gennaro-tedesco/nvim-peekup'
+-- paq 'gennaro-tedesco/nvim-peekup'
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
-paq 'tpope/vim-commentary'
+paq 'b3nj5m1n/kommentary'
+paq 'kevinhwang91/nvim-hlslens'
 paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
@@ -28,7 +29,6 @@ paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
 paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 paq 'mbbill/undotree'
--- paq 'mhinz/vim-signify'
 paq 'tpope/vim-fugitive'
 paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
@@ -38,7 +38,11 @@ require"toggleterm".setup{
     open_mapping = [[<C-t>]]
 }
 
-require('gitsigns').setup {}
+require('kommentary.config').configure_language("default", {
+    prefer_single_line_comments = true,
+})
+
+require('gitsigns').setup{}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages

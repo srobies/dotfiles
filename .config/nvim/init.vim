@@ -1,10 +1,6 @@
 lua require('init')
 lua require('my_debug')
 
-let g:sneak#use_ic_scs = 1
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_syntax_conceal_default=0
 set timeoutlen=1000
 set tabstop     =4
 set softtabstop =4
@@ -24,7 +20,8 @@ syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
-set nohlsearch
+" set nohlsearch
+set hlsearch
 set ignorecase
 set smartcase
 set number relativenumber
@@ -79,6 +76,17 @@ omap T <Plug>Sneak_T
 
 inoremap jk <esc>
 nnoremap <leader>c :nohlsearch<CR>
+noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap * *<Cmd>lua require('hlslens').start()<CR>
+noremap # #<Cmd>lua require('hlslens').start()<CR>
+noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+highlight default link HlSearchLensCur IncSearch
+highlight default link HlSearchLens Folded
+highlight default link HlSearchCur Search
 tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
@@ -156,6 +164,12 @@ function! s:BlameToggle() abort
 endfunction
 
 nnoremap <silent><leader>gd :Gdiff<cr>
+
+let g:sneak#use_ic_scs = 1
+
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_syntax_conceal_default=0
 
 let g:peekup_paste_before = '<leader>P'
 let g:peekup_paste_after = '<leader>p'
