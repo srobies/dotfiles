@@ -155,17 +155,20 @@ function! s:BlameToggle() abort
   endif
 endfunction
 
-nnoremap <silent><leader>gd :SignifyDiff<cr>
+nnoremap <silent><leader>gd :Gdiff<cr>
 nnoremap <silent><leader>gh :SignifyHunkDiff<cr>
 nnoremap <leader>gu :SignifyHunkUndo<cr>
 nnoremap <silent><leader>gf :SignifyFold<cr>
 nnoremap <silent><Leader>gb :call <SID>BlameToggle()<CR>
+nnoremap <leader>gs :diffput<cr>
 
 let g:peekup_paste_before = '<leader>P'
 let g:peekup_paste_after = '<leader>p'
 
 let g:indent_blankline_use_treesitter = v:true
 let g:indent_blankline_show_current_context = v:true
+let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments']
+let g:indent_blankline_char = '▏'
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1

@@ -4,6 +4,8 @@ paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
 
+paq 'kevinhwang91/nvim-bqf'
+paq 'cohama/lexima.vim'
 paq 'gennaro-tedesco/nvim-peekup'
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
