@@ -3,6 +3,7 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+paq 'christoomey/vim-tmux-navigator'
 paq 'tversteeg/registers.nvim'
 paq 'lewis6991/gitsigns.nvim'
 paq 'kevinhwang91/nvim-bqf'
@@ -11,7 +12,6 @@ paq 'cohama/lexima.vim'
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
 paq 'b3nj5m1n/kommentary'
-paq 'kevinhwang91/nvim-hlslens'
 paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
@@ -22,15 +22,12 @@ paq 'lervag/vimtex'
 paq 'tpope/vim-repeat'
 paq 'justinmk/vim-sneak'
 paq 'ledger/vim-ledger'
-paq 'kshenoy/vim-signature'
 paq 'nvim-treesitter/nvim-treesitter'
-paq 'szw/vim-maximizer'
 paq 'akinsho/nvim-toggleterm.lua'
 -- paq 'puremourning/vimspector'
 paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 paq 'mbbill/undotree'
 paq 'tpope/vim-fugitive'
-paq 'lambdalisue/suda.vim'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
 
@@ -42,13 +39,15 @@ require('kommentary.config').configure_language("default", {
     prefer_single_line_comments = true,
 })
 
-require('gitsigns').setup{}
+require('gitsigns').setup{
+    -- numhl = true,
+    -- linehl = true
+}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
   },
   --[[ indent = {
     enable = true
@@ -252,7 +251,7 @@ gls.right[3] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.green,colors.bg},
   }
 }

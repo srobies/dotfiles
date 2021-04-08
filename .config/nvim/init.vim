@@ -9,6 +9,8 @@ set autoindent
 set cindent
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+autocmd BufNewFile,BufRead neomutt-* setf mail 
+autocmd FileType mail setlocal formatoptions+=w
 " C/Cpp specific tabsize
 autocmd FileType c,cpp set tabstop=2
 autocmd FileType c,cpp set softtabstop=2
@@ -20,8 +22,7 @@ syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
-" set nohlsearch
-set hlsearch
+set nohlsearch
 set ignorecase
 set smartcase
 set number relativenumber
@@ -76,17 +77,6 @@ omap T <Plug>Sneak_T
 
 inoremap jk <esc>
 nnoremap <leader>c :nohlsearch<CR>
-noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
-            \<Cmd>lua require('hlslens').start()<CR>
-noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
-            \<Cmd>lua require('hlslens').start()<CR>
-noremap * *<Cmd>lua require('hlslens').start()<CR>
-noremap # #<Cmd>lua require('hlslens').start()<CR>
-noremap g* g*<Cmd>lua require('hlslens').start()<CR>
-noremap g# g#<Cmd>lua require('hlslens').start()<CR>
-highlight default link HlSearchLensCur IncSearch
-highlight default link HlSearchLens Folded
-highlight default link HlSearchCur Search
 tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
@@ -189,7 +179,7 @@ augroup todo
     autocmd!
     autocmd Syntax * call matchadd(
                 \ 'Debug',
-                \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK|TRICKY)>'
+                \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK)>'
                 \ )
 augroup END
 
