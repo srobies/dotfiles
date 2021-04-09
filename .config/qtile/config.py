@@ -83,8 +83,12 @@ def screen_change():
                                 urgent_alert_method='block',
                                 urgent_border=colors['red']),
                             widget.WindowName(),
+                            widget.KhalCalendar(max_chars = 50, foreground=colors['yellow']),
                             widget.Sep(),
-                            widget.KhalCalendar(max_chars = 63, foreground=colors['yellow']),
+                            widget.Maildir(maildir_path='~/.local/share/mail',
+                                sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
+                                    {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'},
+                                    {'label': 'Professional', 'path': 'spencerrobieson@gmail.com/INBOX'}]),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -123,7 +127,11 @@ def screen_change():
                                 urgent_alert_method='block',
                                 urgent_border=colors['red']),
                             widget.WindowName(),
-                            widget.KhalCalendar(max_chars = 63, foreground=colors['yellow']),
+                            widget.Maildir(maildir_path='~/.local/share/mail',
+                                sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
+                                    {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'}]),
+                            widget.Sep(),
+                            widget.KhalCalendar(max_chars = 45, foreground=colors['yellow']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -229,7 +237,7 @@ keys = [
     # Key([mod], "r", lazy.spawncmd(),
     #     desc="Spawn a command using a prompt widget"),
     
-    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 
     Key([mod], "i", lazy.spawn(home + '/.config/rofi/launchers/colorful/launcher.sh')),
 
@@ -249,6 +257,7 @@ keys = [
     Key([mod], 't', lazy.group['scratchpad'].dropdown_toggle('term')),
     Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('todo')),
     Key([mod], 'm', lazy.group['scratchpad'].dropdown_toggle('music')),
+    Key([mod], 'f', lazy.group['scratchpad'].dropdown_toggle('browser')),
 
     # Switch monitor focus
     Key([mod], "o", lazy.to_screen(0)),
@@ -274,10 +283,11 @@ for i in groups:
     ])
 
 groups.append(ScratchPad("scratchpad", [
-        DropDown("term", "alacritty", opacity=0.8),
+        DropDown("term", "alacritty", opacity=0.8, height=0.5),
         DropDown("todo", "emacs ~/Dropbox/org/school.org",
                  width=0.5, height=0.5, opacity=0.8, x=0.24),
         DropDown("music", "spotify", opacity=0.8,width=0.5, height=1.0, x=0.24),
+        DropDown("browser", "firefox --new-instance", opacity=0.8, width=0.8, height=0.9),
         ]))
 
 layouts = [
@@ -285,9 +295,10 @@ layouts = [
     layout.Max(border_focus=colors['cyan']),
     layout.Stack(num_stacks=2, border_focus=colors['cyan']),
     layout.Matrix(border_focus=colors['cyan']),
-    layout.Tile(border_focus=colors['cyan']),
+    layout.Bsp(border_focus=colors['cyan']),
     # Try more layouts by unleashing below layouts.
-    # layout.Bsp(),
+    # layout.Slice()
+    # layout.Tile(border_focus=colors['cyan']),
     # layout.TreeTab(border_focus=colors['cyan']),
     # layout.Columns(),
     # layout.MonadWide(),
