@@ -31,7 +31,7 @@ paq 'tpope/vim-fugitive'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
 
-require"toggleterm".setup{
+require('toggleterm').setup{
     open_mapping = [[<C-t>]]
 }
 
@@ -40,8 +40,8 @@ require('kommentary.config').configure_language("default", {
 })
 
 require('gitsigns').setup{
-    -- numhl = true,
-    -- linehl = true
+    numhl = true,
+    linehl = true
 }
 
 require'nvim-treesitter.configs'.setup {
@@ -231,7 +231,7 @@ gls.right[1] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
-    separator = ' ',
+    separator = '',
     separator_highlight = {'NONE',colors.bg},
     highlight = {colors.violet,colors.bg,'bold'},
   }
@@ -241,7 +241,7 @@ gls.right[2] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
-    separator = ' ',
+    -- separator = '',
     separator_highlight = {'NONE',colors.bg},
     highlight = {colors.violet,colors.bg,'bold'},
   }
@@ -251,7 +251,9 @@ gls.right[3] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = '   ',
+    icon = ' ',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.green,colors.bg},
   }
 }
@@ -259,7 +261,8 @@ gls.right[4] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' 柳',
+    icon = '柳',
+    separator_highlight = {'NONE',colors.bg},
     highlight= {colors.orange,colors.bg},
   }
 }
@@ -267,7 +270,9 @@ gls.right[5] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
-    icon = '  ',
+    icon = ' ',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.red,colors.bg},
   }
 }
