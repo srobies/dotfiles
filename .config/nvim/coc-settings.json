@@ -1,18 +1,9 @@
 {
     "snippets.userSnippetsDirectory" : "~/.local/share/nvim/snips",
-    "pairs.enableCharacters": ["(", "[", "{", "'", "\""],
     "Lua.workspace.preloadFileSize" : 150,
-    "languageserver": {
-        "hdlChecker": {
-            "command": "hdl_checker",
-            "args": [
-                "--lsp"
-            ],
-            "filetypes": [
-                "vhdl",
-                "verilog",
-                "systemverilog"
-            ]
-        }
-    }
+    "diagnostic.virtualTextCurrentLineOnly": false,
+    "diagnostic.virtualText": true,
+    "diagnostic.warningSign": "",
+    "diagnostic.infoSign": "",
+    "diagnostic.errorSign": "",
 }

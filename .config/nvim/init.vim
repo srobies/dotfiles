@@ -111,7 +111,8 @@ nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log
 " nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 " nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
-nnoremap <silent><leader>ff :lua require('telescope').extensions.fzf_writer.files()<cr>
+" nnoremap <silent><leader>ff :lua require('telescope').extensions.fzf_writer.files()<cr>
+nnoremap <silent><leader>ff :Telescope find_files<cr>
 nnoremap <silent><leader>fg :Telescope live_grep<cr>
 nnoremap <silent><leader>fb :Telescope buffers<cr>
 nnoremap <silent><leader>fm :Telescope marks<cr>
@@ -211,8 +212,7 @@ let g:netrw_banner = 0
 
 "coc.nvim config
 let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
-            \ 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex',
-            \ 'coc-discord-rpc']
+            \ 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
 " TextEdit might fail if hidden is not set.
 set hidden
 

@@ -3,16 +3,16 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+paq 'andweeb/presence.nvim'
 paq 'christoomey/vim-tmux-navigator'
 paq 'tversteeg/registers.nvim'
 paq 'lewis6991/gitsigns.nvim'
 paq 'kevinhwang91/nvim-bqf'
-paq 'cohama/lexima.vim'
+paq 'jiangmiao/auto-pairs'
 -- paq 'gennaro-tedesco/nvim-peekup'
 paq 'kyazdani42/nvim-tree.lua'
 paq 'mfussenegger/nvim-dap'
 paq 'b3nj5m1n/kommentary'
-paq 'nvim-telescope/telescope-fzf-writer.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 paq 'nvim-telescope/telescope.nvim'
@@ -41,7 +41,7 @@ require('kommentary.config').configure_language("default", {
 
 require('gitsigns').setup{
     numhl = true,
-    linehl = true
+    -- linehl = true
 }
 
 require'nvim-treesitter.configs'.setup {
