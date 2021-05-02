@@ -1,8 +1,7 @@
-" " lua require('init')
+" lua require('init')
 lua require('nvim_lsp')
 lua require('my_debug')
 
-set completeopt=menuone,noselect
 set timeoutlen=1000
 set tabstop     =4
 set softtabstop =4
@@ -20,7 +19,7 @@ autocmd FileType c,cpp set shiftwidth=2
 autocmd FileType c,cpp setlocal commentstring=//%s
 autocmd TermOpen * IndentBlanklineDisable
 set expandtab
-" syntax on " This causes issue with diagnostics for some reason
+syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
@@ -90,7 +89,7 @@ nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 
-" nnoremap <silent><leader>e :NvimTreeToggle<cr>
+nnoremap <silent><leader>e :NvimTreeToggle<cr>
 
 nnoremap <leader>m :MaximizerToggle!<CR>
 
@@ -112,6 +111,7 @@ nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log
 " nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
 " nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
+" nnoremap <silent><leader>ff :lua require('telescope').extensions.fzf_writer.files()<cr>
 nnoremap <silent><leader>ff :Telescope find_files<cr>
 nnoremap <silent><leader>fg :Telescope live_grep<cr>
 nnoremap <silent><leader>fb :Telescope buffers<cr>
@@ -121,22 +121,6 @@ nnoremap <silent><leader>fl :Telescope loclist<cr>
 nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-nnoremap <silent> gh :Lspsaga lsp_finder<CR>
-nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-nnoremap <silent><leader>rn :Lspsaga rename<CR>
-nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> <leader>e :Lspsaga show_line_diagnostics<CR>
-nnoremap <silent> ]d :Lspsaga diagnostic_jump_next<CR>
-nnoremap <silent> [d :Lspsaga diagnostic_jump_prev<CR>
 
 function! QuickFix_toggle()
     for i in range(1, winnr('$'))
@@ -199,3 +183,128 @@ augroup todo
                 \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK)>'
                 \ )
 augroup END
+
+" Toggles netrw with <leader>e
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+" nnoremap <silent> <leader>e :call ToggleVExplorer()<CR>
+let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 18
+let g:netrw_banner = 0
+
+"coc.nvim config
+let g:coc_global_extensions = ['coc-snippets', 'coc-clangd', 'coc-pyright',
+            \ 'coc-sh', 'coc-vimlsp', 'coc-lua', 'coc-vimtex']
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+" set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Formatting
+xmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>gf <Plug>(coc-format-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>qf  <Plug>(coc-fix-current)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" Find symbol of current document.
+nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+" Jumping to errors
+nmap <leader>cn <Plug>(coc-diagnostic-next)
+nmap <leader>cp <Plug>(coc-diagnostic-prev)
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Pease see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
