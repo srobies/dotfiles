@@ -3,6 +3,10 @@ lua require('nvim_lsp')
 lua require('my_debug')
 
 set completeopt=menuone,noselect
+set updatetime=1000
+set signcolumn=yes
+set listchars=eol:
+set list
 set timeoutlen=1000
 set tabstop     =4
 set softtabstop =4
@@ -128,7 +132,16 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+nnoremap <silent><leader>hs :Gitsigns stage_hunk<cr>
+nnoremap <silent><leader>hu :Gitsigns undo_stage_hunk<cr>
+nnoremap <silent><leader>hr :Gitsigns reset_hunk<cr>
+nnoremap <silent><leader>hR :Gitsigns reset_buffer<cr>
+nnoremap <silent><leader>hb :Gitsigns blame_line<cr>
+nnoremap <silent><leader>hp :Gitsigns preview_hunk<cr>
+nnoremap ]h :Gitsigns next_hunk<cr>
+nnoremap [h :Gitsigns prev_hunk<cr>
+
+nnoremap <silent> gf :Lspsaga lsp_finder<CR>
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
 nnoremap <silent><leader>rn :Lspsaga rename<CR>
