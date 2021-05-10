@@ -3,10 +3,10 @@ local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
 paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
 
 -- Plugin testing
+paq 'windwp/nvim-autopairs'
 paq 'glepnir/lspsaga.nvim'
 paq 'neovim/nvim-lspconfig'
 paq 'hrsh7th/nvim-compe'
-paq 'jiangmiao/auto-pairs'
 paq 'hrsh7th/vim-vsnip'
 paq 'alexaandru/nvim-lspupdate'
 paq 'rafamadriz/friendly-snippets'
@@ -34,6 +34,33 @@ paq 'mbbill/undotree'
 paq 'tpope/vim-fugitive'
 paq 'glepnir/galaxyline.nvim'
 paq 'kyazdani42/nvim-web-devicons'
+
+require('nvim-autopairs').setup()
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+-- skip it, if you use another global object
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm=function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+    else
+      return npairs.esc("<cr>")
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+
+
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+
+require('nvim-treesitter.configs').setup {
+    autopairs = {enable = true}
+}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
