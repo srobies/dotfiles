@@ -1,43 +1,13 @@
-vim.cmd 'packadd paq-nvim'         -- Load package local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function0
-local paq = require'paq-nvim'.paq  -- Import module and bind `paq` function
-paq{'savq/paq-nvim', opt=true}     -- Let Paq manage itself
-
--- Plugin testing
-paq 'windwp/nvim-autopairs'
-paq 'glepnir/lspsaga.nvim'
-paq 'neovim/nvim-lspconfig'
-paq 'hrsh7th/nvim-compe'
-paq 'hrsh7th/vim-vsnip'
-paq 'alexaandru/nvim-lspupdate'
-paq 'rafamadriz/friendly-snippets'
-paq 'andweeb/presence.nvim'
-paq 'christoomey/vim-tmux-navigator'
-paq 'tversteeg/registers.nvim'
-paq 'lewis6991/gitsigns.nvim'
-paq 'kevinhwang91/nvim-bqf'
-paq 'kyazdani42/nvim-tree.lua'
-paq 'mfussenegger/nvim-dap'
-paq 'b3nj5m1n/kommentary'
-paq 'nvim-lua/popup.nvim'
-paq 'nvim-lua/plenary.nvim'
-paq 'nvim-telescope/telescope.nvim'
-paq 'glepnir/zephyr-nvim'
-paq 'lervag/vimtex'
-paq 'tpope/vim-repeat'
-paq 'justinmk/vim-sneak'
-paq 'ledger/vim-ledger'
-paq 'nvim-treesitter/nvim-treesitter'
-paq 'akinsho/nvim-toggleterm.lua'
--- -- paq 'puremourning/vimspector'
-paq {'lukas-reineke/indent-blankline.nvim', branch='lua'}
-paq 'mbbill/undotree'
-paq 'tpope/vim-fugitive'
-paq 'glepnir/galaxyline.nvim'
-paq 'kyazdani42/nvim-web-devicons'
-
 require('nvim-autopairs').setup()
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
+
+require'lspinstall'.setup() -- important
+
+local installed_servers = require'lspinstall'.installed_servers()
+for _, server in pairs(installed_servers) do
+  require'lspconfig'[server].setup{}
+end
 
 -- skip it, if you use another global object
 _G.MUtils= {}
@@ -69,7 +39,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'documentation',
     'detail',
     'additionalTextEdits',
-    'diagnostic',
   }
 }
 
@@ -78,12 +47,17 @@ require'lspconfig'.pyright.setup{
 }
 require'lspconfig'.clangd.setup{
     capabilities = capabilities,
+    vim.api.nvim_set_keymap('n', '<space>h', ':ClangdSwitchSourceHeader<cr>', {noremap = true}),
 }
 require'lspconfig'.bashls.setup{
     capabilities = capabilities,
 }
 require'lspconfig'.texlab.setup{
     capabilities = capabilities,
+}
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {"/home/spencer/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"},
+  capabilities = capabilities,
 }
 
 local nvim_lsp = require('lspconfig')
@@ -123,9 +97,9 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- Use a loop to conveniently both setup defined servers 
+-- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "pyright", "clangd", "bashls", "texlab" }
+local servers = { "pyright", "clangd", "bashls", "texlab",  "sumneko_lua"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
@@ -204,8 +178,8 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 local saga = require 'lspsaga'
 saga.init_lsp_saga {
     error_sign = '',
-    warn_sign = '',
-    infor_sign = '',
+    infor_sign = '',
+    warn_sign = '',
     finder_action_keys = {
       open = 'o', vsplit = '|',split = '-',quit = {'q', '<esc>'}, scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
     },
@@ -238,7 +212,7 @@ dap.adapters.cpp = {
     pidProperty = "pid",
     pidSelect = "ask"
   },
-  command = 'lldb-vscode', -- my binary was called 'lldb-vscode-11'
+  command = 'lldb-vscode-12', -- my binary was called 'lldb-vscode-11'
   env = {
     LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
   },

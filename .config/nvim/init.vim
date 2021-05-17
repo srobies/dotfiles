@@ -1,4 +1,5 @@
 " " lua require('init')
+lua require('plugins')
 lua require('nvim_lsp')
 lua require('my_debug')
 
@@ -46,12 +47,11 @@ if exists('+termguicolors')
 endif
 set background=dark
 set t_Co=256
-colorscheme zephyr
+colorscheme tokyonight
 set mouse=a
 
 let g:vimsyn_embed = 'lP'
 let g:python_highlight_all = 1
-let g:python3_host_prog = '~/python_venvs/nvim/bin/python3'
 if executable('rg')
     let g:rg_derive_root='true'
 endif
@@ -105,16 +105,6 @@ nnoremap <leader>dh :lua require'dap'.step_out()<cr>
 nnoremap <leader>db :lua require'dap'.toggle_breakpoint()<cr>
 nnoremap <leader>dbc :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-" nnoremap <leader>dd :call vimspector#Launch()<CR>
-" nnoremap <leader>de :call vimspector#Reset()<CR>
-" nnoremap <leader>dl <Plug>VimspectorStepInto
-" nnoremap <leader>dj <Plug>VimspectorStepOver
-" nnoremap <leader>dh <Plug>VimspectorStepOut
-" nnoremap <leader>dr <Plug>VimspectorRestart
-" nnoremap <leader>dc :call vimspector#Continue()<CR>
-" nnoremap <leader>drc <Plug>VimspectorRunToCursor
-" nnoremap <leader>dbt <Plug>VimspectorToggleBreakpoint
-" nnoremap <leader>dbc <Plug>VimspectorToggleConditionalBreakpoint
 
 nnoremap <silent><leader>ff :Telescope find_files<cr>
 nnoremap <silent><leader>fg :Telescope live_grep<cr>
