@@ -18,6 +18,40 @@ font:
     family: Fantasque Sans Mono Nerd Font
     style: Regular
   size: 12.5
+# TokyoNight Alacritty Colors
+colors:
+  # Default colors
+  primary:
+    background: '0x24283b'
+    foreground: '0xc0caf5'
+
+  # Normal colors
+  normal:
+    black:   '0x1D202F'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xa9b1d6'
+
+  # Bright colors
+  bright:
+    black:   '0x414868'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
+    
+
 #   
 # Colors (One Half Dark)
 # colors:
@@ -113,42 +147,29 @@ font:
 #     cyan:    '0x5fb3b3'
 #     white:   '0xadb5c0'
 # Zephyr
-colors:
-  # Default colors
-  primary:
-    background: '0x282a36'
-    foreground: '0xbbc2cf'
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x282a36'
+#     foreground: '0xbbc2cf'
 
-  # Normal colors
-  normal:
-    red: '0xe95678'
-    magenta: '0xd16d9e'
-    orange: '0xD98E48'
-    yellow: '0xf0c674'
-    light_green: '0xabcf84'
-    green: '0xafd700'
-    dark_green: '0x98be65'
-    cyan: '0x4ad2e0'
-    blue: '0x51afef'
-    violet: '0xaf87d7'
-    purple: '0xb877db'
-    teal: '0x1abc9c'
-    grey: '0x928374'
-    brown: '0xc78665'
-    black: '0x000000'
-    # old zephyr colorscheme
-    # black:   '0x000000'
-    # red:     '0xff6c6b'
-    # green:   '0x98be65'
-    # yellow:  '0xECEB7B'
-    # blue:    '0x51afef'
-    # magenta: '0xd16d9e'
-    # cyan:    '0x3bb6c4'
-    # orange:  '0xda8548'
-    # violet:  '0xa9a1e1'
-    # teal:    '0x1abc9c'
-    # grey:    '0x928374'
-
+#   # Normal colors
+#   normal:
+#     red: '0xe95678'
+#     magenta: '0xd16d9e'
+#     orange: '0xD98E48'
+#     yellow: '0xf0c674'
+#     light_green: '0xabcf84'
+#     green: '0xafd700'
+#     dark_green: '0x98be65'
+#     cyan: '0x4ad2e0'
+#     blue: '0x51afef'
+#     violet: '0xaf87d7'
+#     purple: '0xb877db'
+#     teal: '0x1abc9c'
+#     grey: '0x928374'
+#     brown: '0xc78665'
+#     black: '0x000000'
   # When set to `true`, selected text will be copied to the primary clipboard.
 save_to_clipboard: true
 
