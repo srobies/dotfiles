@@ -94,16 +94,27 @@ nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 
-" nnoremap <silent><leader>e :NvimTreeToggle<cr>
-
-nnoremap <leader>m :MaximizerToggle!<CR>
-
-nnoremap <leader>dc :lua require'dap'.continue()<cr>
-nnoremap <leader>dj :lua require'dap'.step_over()<cr>
-nnoremap <leader>dl :lua require'dap'.step_into()<cr>
-nnoremap <leader>dh :lua require'dap'.step_out()<cr>
-nnoremap <leader>db :lua require'dap'.toggle_breakpoint()<cr>
-nnoremap <leader>dbc :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nmap <Plug>Continue :lua require'dap'.continue()<cr>
+            \ :call repeat#set("\<Plug>Continue")<CR>
+            \ :echo "Continue"<CR>
+nmap <Plug>StepOver :lua require'dap'.step_over()<cr>
+            \ :call repeat#set("\<Plug>StepOver")<CR>
+            \ :echo "Step over"<CR>
+nmap <Plug>StepInto :lua require'dap'.step_into()<cr>
+            \ :call repeat#set("\<Plug>StepInto")<CR>
+            \ :echo "Step into"<CR>
+nmap <Plug>StepOut  :lua require'dap'.step_out()<cr>
+            \ :call repeat#set("\<Plug>StepOut")<CR>
+            \ :echo "Step out"<CR>
+nmap <Plug>Breakpoint :lua require'dap'.toggle_breakpoint()<cr>
+            \ :call repeat#set("\<Plug>Breakpoint")<CR>
+            \ :echo "Toggle breakpoint"<CR>
+nmap <leader>dc <Plug>Continue
+nmap <leader>dj <Plug>StepOver              
+nmap <leader>dl <Plug>StepInto              
+nmap <leader>dh <Plug>StepOut               
+nmap <leader>db <Plug>Breakpoint            
+nnoremap <leader>dB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 
 nnoremap <silent><leader>ff :Telescope find_files<cr>
