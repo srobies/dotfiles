@@ -110,6 +110,25 @@ vim.cmd [[
     command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 ]]
 
+dap.repl.commands = vim.tbl_extend('force', dap.repl.commands, {
+    continue = {'.continue', '.c', 'c'},
+    next_ = {'.next', '.n', 'n', 'next'},
+    back = {'.back', '.b', 'b'},
+    reverse_continue = {'.reverse-continue', '.rc', 'rc'},
+    into = {'.into', 'step', 's'},
+    into_target = {'.into_target'},
+    out = {'.out', 'finish', 'fin'},
+    scopes = {'.scopes'},
+    threads = {'.threads'},
+    frames = {'.frames'},
+    exit = {'exit', '.exit'},
+    up = {'.up', 'up'},
+    down = {'.down', 'down'},
+    goto_ = {'.goto', 'until'},
+    capabilities = {'.capabilities'},
+    -- add your own commands
+})
+
 -- galaxyline config
 local gl = require('galaxyline')
 local gls = gl.section

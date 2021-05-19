@@ -7,6 +7,20 @@ return require('packer').startup(function()
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
     use 'mfussenegger/nvim-dap'
+    use {
+        'rcarriga/nvim-dap-ui',
+        requires = {'mfussenegger/nvim-dap'},
+        config = function()
+            require('dapui').setup{
+                sidebar = {
+                    width = 60
+                },
+                tray = {
+                    elements = {},
+                }
+            }
+        end
+    }
     use 'folke/tokyonight.nvim'
     use {
         'kevinhwang91/nvim-bqf',
