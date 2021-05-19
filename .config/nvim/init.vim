@@ -1,7 +1,7 @@
-" " lua require('init')
 lua require('plugins')
-lua require('nvim_lsp')
+lua require('plugin-config')
 lua require('my_debug')
+lua require('which-key-bindings')
 
 set completeopt=menuone,noselect
 set updatetime=1000
@@ -82,17 +82,22 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
 inoremap jk <esc>
-nnoremap <leader>c :nohlsearch<CR>
 tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>wh :wincmd h<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wl :wincmd l<CR>
+noremap <silent> <m-h> :TmuxNavigateLeft<cr>
+noremap <silent> <m-j> :TmuxNavigateDown<cr>
+noremap <silent> <m-k> :TmuxNavigateUp<cr>
+noremap <silent> <m-l> :TmuxNavigateRight<cr>
 nnoremap + <C-w>+
 nnoremap - <C-w>-
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
+
+nnoremap <C-t> :ToggleTerm<CR>
 
 nmap <Plug>Continue :lua require'dap'.continue()<cr>
             \ :call repeat#set("\<Plug>Continue")<CR>
@@ -122,10 +127,18 @@ nnoremap <silent><leader>fg :Telescope live_grep<cr>
 nnoremap <silent><leader>fb :Telescope buffers<cr>
 nnoremap <silent><leader>fm :Telescope marks<cr>
 nnoremap <silent><leader>fq :Telescope quickfix<cr>
-nnoremap <silent><leader>fl :Telescope loclist<cr>
+nnoremap <silent><leader>ft :TodoTelescope<cr>
 nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
+nnoremap <silent><leader>gd :Gdiff<cr>
+
+nnoremap <silent><leader>to :TroubleToggle<cr>
+nnoremap <silent><leader>tt :TodoTrouble<cr>
+nnoremap <silent><leader>tw :TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <silent><leader>td :TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <silent><leader>tq :TroubleToggle quickfix<cr>
+nnoremap <silent><leader>tr :TroubleRefresh<cr>
 
 inoremap <silent><expr> <C-Space> compe#complete()
 " inoremap <silent><expr> <CR>      compe#confirm('<CR>')
@@ -142,7 +155,10 @@ nnoremap <silent><leader>hp :Gitsigns preview_hunk<cr>
 nnoremap ]h :Gitsigns next_hunk<cr>
 nnoremap [h :Gitsigns prev_hunk<cr>
 
-nnoremap <silent> gf :Lspsaga lsp_finder<CR>
+nnoremap <silent>K :Lspsaga hover_doc<CR>
+nnoremap <silent>gs :Lspsaga signature_help<CR>
+nnoremap <silent>gf :Lspsaga lsp_finder<CR>
+nnoremap <silent>gp :Lspsaga preview_definition<CR>
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
 nnoremap <silent><leader>rn :Lspsaga rename<CR>
@@ -169,7 +185,6 @@ nnoremap <silent>]q :cnext<cr>
 nnoremap <silent>[q :cprevious<cr>
 nnoremap <silent><leader>qn :cnext<cr>
 nnoremap <silent><leader>qp :cprevious<cr>
-nnoremap <silent><leader>qc :cc<cr>
 
 function! s:BlameToggle() abort
   let found = 0
@@ -184,9 +199,10 @@ function! s:BlameToggle() abort
   endif
 endfunction
 
-nnoremap <silent><leader>gd :Gdiff<cr>
 
 let g:sneak#use_ic_scs = 1
+
+let g:vsnip_snippet_dir = '~/.config/nvim/snips'
 
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
@@ -206,16 +222,16 @@ let g:undotree_SetFocusWhenToggle = 1
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
 
 " Highlight TODO, FIXME, NOTE, etc.
-augroup todo
-    autocmd!
-    autocmd Syntax * call matchadd(
-                \ 'Debug',
-                \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK)>'
-                \ )
-augroup END
+" augroup todo
+"     autocmd!
+"     autocmd Syntax * call matchadd(
+"                 \ 'Debug',
+"                 \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK)>'
+"                 \ )
+" augroup END
 
 augroup numbertoggle
   autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+  autocmd BufEnter,FocusGained,WinEnter * if &nu | set rnu   | endif
+  autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
 augroup END
