@@ -1,0 +1,29 @@
+{
+    "Rent": {
+        "prefix": "rent",
+        "body": [
+            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Rent",
+            "\texpenses:rent \\$533",
+            "\tassets:checking \\$-533"
+        ],
+        "description": "Monthly rent"
+    },
+    "Electric": {
+        "prefix": "electric",
+        "body": [
+            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Rent",
+            "\texpenses:rent \\$${1}",
+            "\tassets:checking \\$-${1}"
+        ],
+        "description": "Monthly electric bill"
+    },
+    "Venmo": {
+        "prefix": "Venmo",
+        "body": [
+            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Venmo Payment",
+            "\texpenses:venmo \\$${1}",
+            "\tassets:checking \\$-${1}"
+        ],
+        "description": "Venmo payment"
+    }
+}
