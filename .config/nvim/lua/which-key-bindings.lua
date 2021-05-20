@@ -13,14 +13,11 @@ wk.register({
         name = "Code action",
         a = "Code action",
         s = "Clangd Switch Source Header",
-    },
-    r = {
-        name = "Rename",
-        n = "Rename",
+        r = "Rename"
     },
     q = {
         name = "Quickfix",
-        f = "Quickfix toggle",
+        f = "Toggle",
         n = "Next quickfix",
         p = "Previous quickfix"
     },

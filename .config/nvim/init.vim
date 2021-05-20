@@ -162,7 +162,7 @@ nnoremap <silent>gf :Lspsaga lsp_finder<CR>
 nnoremap <silent>gp :Lspsaga preview_definition<CR>
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-nnoremap <silent><leader>rn :Lspsaga rename<CR>
+nnoremap <silent><leader>cr :Lspsaga rename<CR>
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
 nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
 nnoremap <silent> <leader>e :Lspsaga show_line_diagnostics<CR>
@@ -209,9 +209,6 @@ let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_syntax_conceal_default=0
 
-let g:peekup_paste_before = '<leader>P'
-let g:peekup_paste_after = '<leader>p'
-
 let g:indent_blankline_use_treesitter = v:true
 let g:indent_blankline_show_current_context = v:true
 let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments']
@@ -219,17 +216,6 @@ let g:indent_blankline_char = '▏'
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
-
-" let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'vscode-bash-debug' ]
-
-" Highlight TODO, FIXME, NOTE, etc.
-" augroup todo
-"     autocmd!
-"     autocmd Syntax * call matchadd(
-"                 \ 'Debug',
-"                 \ '\v\W\zs<(NOTE|INFO|IDEA|TODO|FIXME|CHANGED|BUG|HACK)>'
-"                 \ )
-" augroup END
 
 augroup numbertoggle
   autocmd!
