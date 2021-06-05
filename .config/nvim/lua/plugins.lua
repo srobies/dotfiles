@@ -74,9 +74,6 @@ return require('packer').startup(function()
     use {'glepnir/galaxyline.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
     use {
       "folke/trouble.nvim",
-      opt = true,
-      cmd = {'TroubleToggle', 'TodoTrouble', 'TroubleToggle lsp_workspace_diagnostics',
-  'TroubleToggle lsp_document_highlight', 'TroubleToggle quickfix', 'TroubleRefresh'},
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("trouble").setup {}
@@ -85,8 +82,6 @@ return require('packer').startup(function()
     use {
       "folke/todo-comments.nvim",
       requires = {{"nvim-lua/plenary.nvim"}, {'folke/trouble.nvim'}},
-      opt = true,
-      cmd = {'TodoTrouble', 'TodoTelescope'},
       config = function()
         require("todo-comments").setup {}
       end

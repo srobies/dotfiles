@@ -4,6 +4,7 @@ lua require('my_debug')
 lua require('which-key-bindings')
 
 set completeopt=menuone,noselect
+set hidden
 set updatetime=1000
 set signcolumn=yes
 set listchars=eol:
