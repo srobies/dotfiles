@@ -63,16 +63,15 @@ end
 require("lspinstall").setup{}
 local installed_servers = require'lspinstall'.installed_servers()
 for _, server in pairs(installed_servers) do
-    if server ~= 'cpp' then
-        require'lspconfig'[server].setup{}
-    else -- special setup for clangd
+    if server == 'cpp' then -- special setup for clangd
         require'lspconfig'.cpp.setup{
             vim.api.nvim_set_keymap('n', '<space>cs', ':ClangdSwitchSourceHeader<cr>', {noremap = true}),
         }
+    else
+        require'lspconfig'[server].setup{}
     end
     nvim_lsp[server].setup { on_attach = on_attach }
 end
-
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga {

@@ -3,9 +3,12 @@ _G.MUtils= {}
 
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
-require('nvim-autopairs').setup()
 npairs.setup({
     check_ts = true
+})
+require('nvim-autopairs').setup({
+    enable_check_bracket_line = true,
+    ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
 })
 vim.g.completion_confirm_key = ""
 MUtils.completion_confirm=function()
@@ -41,6 +44,7 @@ require('compe').setup{
     path = true;
     buffer = true;
     calc = true;
+    omni = true;
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = true;
