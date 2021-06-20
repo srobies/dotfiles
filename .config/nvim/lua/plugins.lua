@@ -83,8 +83,6 @@ return require('packer').startup(function()
     use {
       "folke/todo-comments.nvim",
       requires = {{"nvim-lua/plenary.nvim"}, {'folke/trouble.nvim'}},
-      opt = true,
-      cmd = {'TodoTrouble', 'TodoTelescope'},
       config = function()
         require("todo-comments").setup {}
       end

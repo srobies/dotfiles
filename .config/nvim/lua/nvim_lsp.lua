@@ -87,6 +87,6 @@ saga.init_lsp_saga {
       quit = {'q', '<Esc>'}, exec = '<CR>'
     },
     rename_action_keys = {
-      quit = {'<C-c>', '<Esc>'}, exec = '<CR>'  -- quit can be a table
+      quit = {'<C-c>', '<Esc>'}, exec = '<CR>'
     },
 }

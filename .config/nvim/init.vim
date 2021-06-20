@@ -5,6 +5,7 @@ lua require('which-key-bindings')
 
 set hidden
 set completeopt=menuone,noselect
+set hidden
 set updatetime=1000
 set signcolumn=yes
 set listchars=eol:
