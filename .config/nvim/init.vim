@@ -2,6 +2,7 @@ lua require('plugins')
 lua require('plugin-config')
 lua require('my_debug')
 lua require('which-key-bindings')
+lua require('nvim_lsp')
 
 set completeopt=menuone,noselect
 set hidden

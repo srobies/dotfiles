@@ -70,7 +70,7 @@ return require('packer').startup(function()
         }
         end
     }
-    use {'lukas-reineke/indent-blankline.nvim', branch='lua'}
+    use 'lukas-reineke/indent-blankline.nvim'
     use {'glepnir/galaxyline.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
     use {
       "folke/trouble.nvim",
@@ -86,13 +86,7 @@ return require('packer').startup(function()
         require("todo-comments").setup {}
       end
     }
-    use {'neovim/nvim-lspconfig',
-        opt = true,
-        ft = {'tex', 'sh', 'c', 'cpp', 'py', 'lua'},
-        config = function()
-            require('nvim_lsp')
-        end
-    }
+    use 'neovim/nvim-lspconfig'
     use {
         'hrsh7th/nvim-compe',
         requires = {{'hrsh7th/vim-vsnip'},{'rafamadriz/friendly-snippets'}},

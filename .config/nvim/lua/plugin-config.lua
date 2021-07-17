@@ -5,7 +5,8 @@ local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 require('nvim-autopairs').setup()
 npairs.setup({
-    check_ts = true
+    check_ts = true,
+    ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
 })
 vim.g.completion_confirm_key = ""
 MUtils.completion_confirm=function()
