@@ -4,6 +4,7 @@ lua require('my_debug')
 lua require('which-key-bindings')
 lua require('nvim_lsp')
 
+set hidden
 set completeopt=menuone,noselect
 set hidden
 set updatetime=1000
@@ -224,3 +225,8 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
 augroup END
+
+sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning numhl=LspDiagnosticsSignWarning
+sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation numhl=LspDiagnosticsSignInformation
+sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint numhl=LspDiagnosticsSignHint
+sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError numhl=LspDiagnosticsSignError

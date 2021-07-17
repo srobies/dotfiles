@@ -3,7 +3,7 @@ return require('packer').startup(function()
     use 'windwp/nvim-autopairs'
     use 'glepnir/lspsaga.nvim'
     use 'christoomey/vim-tmux-navigator'
-    use 'tversteeg/registers.nvim'
+    -- use 'tversteeg/registers.nvim'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
     use 'mfussenegger/nvim-dap'
@@ -58,12 +58,13 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'ledger/vim-ledger', ft={'ledger'}, opt=true}
+    use {'ledger/vim-ledger'}
+    -- , ft={'ledger','journal'}, opt=true}
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         config = function ()
-            require'nvim-treesitter.configs'.setup {
+            require('nvim-treesitter.configs').setup {
               ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
               highlight = { enable = true },
               autopairs = { enable = true }
@@ -94,6 +95,13 @@ return require('packer').startup(function()
     use {
         'kabouzeid/nvim-lspinstall',
         requires = {'neovim/nvim-lspconfig'},
+        config = function ()
+            require'lspinstall'.setup() -- important
+            local servers = require'lspinstall'.installed_servers()
+            for _, server in pairs(servers) do
+              require'lspconfig'[server].setup{}
+            end
+        end
     }
     use {'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
