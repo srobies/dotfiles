@@ -1,0 +1,8 @@
+# vim: filetype=neomuttrc
+set text_flowed
+source /usr/share/mutt-wizard/mutt-wizard.muttrc
+source /home/spencer/.config/mutt/accounts/1-sprobie1@gmail.com.muttrc
+macro index,pager i1 '<sync-mailbox><enter-command>source /home/spencer/.config/mutt/accounts/1-sprobie1@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to sprobie1@gmail.com"
+macro index,pager i2 '<sync-mailbox><enter-command>source /home/spencer/.config/mutt/accounts/2-slr6@illinois.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to slr6@illinois.edu"
+macro index,pager i3 '<sync-mailbox><enter-command>source /home/spencer/.config/mutt/accounts/3-spencerrobieson@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to spencerrobieson@gmail.com"
+set mailcap_path=/home/spencer/.config/mutt/mailcap
