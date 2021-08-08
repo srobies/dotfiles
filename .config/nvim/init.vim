@@ -4,7 +4,6 @@ lua require('my_debug')
 lua require('which-key-bindings')
 lua require('nvim_lsp')
 
-set hidden
 set completeopt=menuone,noselect
 set hidden
 set updatetime=1000
