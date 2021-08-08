@@ -15,33 +15,65 @@ env:
 # So that font isn't massive on laptop
 font:
   normal: 
-    family: Fantasque Sans Mono 
+    family: FantasqueSansMono Nerd Font Mono
     style: Regular
   size: 10
-# Zephyr
+# TokyoNight Alacritty Colors
 colors:
   # Default colors
   primary:
-    background: '0x282a36'
-    foreground: '0xbbc2cf'
+    background: '0x24283b'
+    foreground: '0xc0caf5'
 
   # Normal colors
   normal:
-    red: '0xe95678'
-    redwine: '0xd16d9e'
-    orange: '0xD98E48'
-    yellow: '0xf0c674'
-    light_green: '0xabcf84'
-    green: '0xafd700'
-    dark_green: '0x98be65'
-    cyan: '0x36d0e0'
-    blue: '0x61afef'
-    violet: '0xb294bb'
-    magenta: '0xc678dd'
-    teal: '0x1abc9c'
-    grey: '0x928374'
-    brown: '0xc78665'
-    black: '0x000000'
+    black:   '0x1D202F'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xa9b1d6'
+
+  # Bright colors
+  bright:
+    black:   '0x414868'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
+# Zephyr
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x282a36'
+#     foreground: '0xbbc2cf'
+
+#   # Normal colors
+#   normal:
+#     red: '0xe95678'
+#     redwine: '0xd16d9e'
+#     orange: '0xD98E48'
+#     yellow: '0xf0c674'
+#     light_green: '0xabcf84'
+#     green: '0xafd700'
+#     dark_green: '0x98be65'
+#     cyan: '0x36d0e0'
+#     blue: '0x61afef'
+#     violet: '0xb294bb'
+#     magenta: '0xc678dd'
+#     teal: '0x1abc9c'
+#     grey: '0x928374'
+#     brown: '0xc78665'
+#     black: '0x000000'
 #   
 # Colors (One Half Dark)
 # colors:
