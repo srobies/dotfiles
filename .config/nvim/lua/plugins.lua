@@ -39,8 +39,6 @@ return require('packer').startup(function()
     use 'justinmk/vim-sneak'
     use {
         'akinsho/nvim-toggleterm.lua',
-        opt = true,
-        cmd = 'ToggleTerm',
         config = function ()
             require('toggleterm').setup{
                 open_mapping = [[<C-t>]]
