@@ -1,19 +1,20 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+export LEDGER_FILE=~/repos/finance/2021/2021-all.journal
 export EDITOR=nvim
+export TERM=alacritty
 TERM="xterm-256color"
+# alias ssh-agent="eval '$(ssh-agent)'"
 alias school_sync="~/repos/scripts/rclone_cron.sh"
+alias python=python3
 alias 2021_spring='cd ~/Documents/school/2021_spring'
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-export LEDGER_FILE=$HOME/repos/finance/2021/2021-all.journal
-source $HOME/.config/alacritty/hledger-completion.bash
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
@@ -70,7 +71,6 @@ function parse_git_dirty {
 	fi
 }
 
-
 export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[31m\]\`parse_git_branch\`\[\e[m\]:\[\e[34m\]\w\[\e[m\] "
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -122,3 +122,8 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+# source ~/.bash_completion/alacritty/alacritty.bash
+source ~/.hledger-completion.bash
+
+eval "$(direnv hook bash)"
+eval $(keychain --eval --quiet id_ed25519)

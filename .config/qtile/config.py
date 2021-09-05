@@ -77,19 +77,20 @@ def screen_change():
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
-                                urgent_border=colors['red']),
+                                urgent_border=colors['red'],
+                                disable_drag=True),
                             widget.WindowName(),
                             widget.KhalCalendar(max_chars = 50, foreground=colors['yellow']),
                             widget.Sep(),
-                            widget.Maildir(maildir_path='~/.local/share/mail',
-                                sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
-                                    {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'},
-                                    {'label': 'Professional', 'path': 'spencerrobieson@gmail.com/INBOX'}]),
-                            widget.Sep(),
+                            # widget.Maildir(maildir_path='~/.local/share/mail',
+                            #     sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
+                            #         {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'},
+                            #         {'label': 'Professional', 'path': 'spencerrobieson@gmail.com/INBOX'}]),
+                            # widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
                             widget.Sep(),
@@ -97,16 +98,18 @@ def screen_change():
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
-                            widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                            # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                            widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3, padding=8),
                           ]
         secondary_widgets = [
                                 widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                                 widget.CurrentLayout(),
-                                widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
+                                # widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
                                 widget.GroupBox(highlight_method='block',
                                     this_current_screen_border=colors['blue'],
                                     urgent_alert_method='block',
-                                    urgent_border=colors['red']),
+                                    urgent_border=colors['red'],
+                                    disable_drag=True),
                                 widget.WindowName(),
                                 widget.Sep(),
                                 widget.TextBox(text='Volume'),
@@ -114,23 +117,25 @@ def screen_change():
                                 widget.Sep(),
                                 widget.Clock(format='%m-%d %a %I:%M %p'),
                                 widget.Sep(),
-                                widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                                # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                                widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3, padding=5),
                             ]
     else: # laptop config
         bar_height = 24
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
+                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
-                                urgent_border=colors['red']),
+                                urgent_border=colors['red'],
+                                disable_drag=True),
                             widget.WindowName(),
-                            widget.Maildir(maildir_path='~/.local/share/mail',
-                                sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
-                                    {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'}]),
-                            widget.Sep(),
+                            # widget.Maildir(maildir_path='~/.local/share/mail',
+                            #     sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
+                            #         {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'}]),
+                            # widget.Sep(),
                             widget.KhalCalendar(max_chars = 45, foreground=colors['yellow']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
@@ -152,11 +157,12 @@ def screen_change():
         secondary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
+                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
-                                urgent_border=colors['red']),
+                                urgent_border=colors['red'],
+                                disable_drag=True),
                             widget.WindowName(),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
@@ -172,17 +178,16 @@ def screen_change():
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
-                            widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                            # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
+                            widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3),
                         ]
          
     screens = []
     for i in range(screen_number):
         if(i==0): # Systray on primary screen
-            screens.append(Screen(top=bar.Bar(primary_widgets, bar_height,),),)
+            screens.append(Screen(top=bar.Bar(primary_widgets, bar_height, background=colors['background'])))
         else:
-            screens.append(
-                Screen(
-                    top=bar.Bar(secondary_widgets, bar_height,),),)
+            screens.append(Screen(top=bar.Bar(secondary_widgets, bar_height, background=colors['background'])))
     return screens
 screens=screen_change()
 
@@ -239,7 +244,7 @@ keys = [
     
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 
-    Key([mod], "i", lazy.spawn(home + '/.config/rofi/launchers/colorful/launcher.sh')),
+    Key([mod], "i", lazy.spawn(home + '/repos/rofi/1080p/launchers/colorful/launcher.sh')),
 
     Key([mod, "control"], "l", lazy.spawn(home + '/repos/scripts/i3lock.sh')),
     # Backlight keys
@@ -308,7 +313,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Fantasque Sans Mono Nerd Font',
+    # font='Fantasque Sans Mono Nerd Font',
+    font='Ubuntu Mono Nerd Font',
     fontsize=15,
     padding=3,
 )

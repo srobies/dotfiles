@@ -119,13 +119,3 @@ for i in ${configFolders[@]}; do
         ln -sT $repoConfigFolder/$i $homeConfigFolder/$i
     fi
 done
-
-cd $HOME
-mkdir -p python_venvs
-cd python_venvs
-if [[ ! -d nvim ]]; then
-    python -m venv nvim
-    source nvim/bin/activate
-    pip install pynvim
-    deactivate
-fi
