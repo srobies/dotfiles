@@ -90,17 +90,6 @@ return require('packer').startup(function()
         'hrsh7th/nvim-compe',
         requires = {{'hrsh7th/vim-vsnip'},{'rafamadriz/friendly-snippets'}},
     }
-    use {
-        'kabouzeid/nvim-lspinstall',
-        requires = {'neovim/nvim-lspconfig'},
-        config = function ()
-            require'lspinstall'.setup() -- important
-            local servers = require'lspinstall'.installed_servers()
-            for _, server in pairs(servers) do
-              require'lspconfig'[server].setup{}
-            end
-        end
-    }
     use {'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
     }
