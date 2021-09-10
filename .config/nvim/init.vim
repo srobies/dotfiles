@@ -144,12 +144,6 @@ nnoremap <silent><leader>td :TroubleToggle lsp_document_diagnostics<cr>
 nnoremap <silent><leader>tq :TroubleToggle quickfix<cr>
 nnoremap <silent><leader>tr :TroubleRefresh<cr>
 
-inoremap <silent><expr> <C-Space> compe#complete()
-" inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
 nnoremap <silent><leader>hs :Gitsigns stage_hunk<cr>
 nnoremap <silent><leader>hu :Gitsigns undo_stage_hunk<cr>
 nnoremap <silent><leader>hr :Gitsigns reset_hunk<cr>

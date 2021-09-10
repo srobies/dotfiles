@@ -28,11 +28,11 @@ return require('packer').startup(function()
         ft = {'c', 'cpp', 'py', 'tex', 'sh'}
     }
     use {
-        'b3nj5m1n/kommentary',
+        'terrortylor/nvim-comment',
         config = function ()
-            require('kommentary.config').configure_language("default", {
-                prefer_single_line_comments = true,
-            })
+            require('nvim_comment').setup {
+                comment_empty = false
+            }
         end
     }
     use 'tpope/vim-repeat'
@@ -87,8 +87,18 @@ return require('packer').startup(function()
     }
     use 'neovim/nvim-lspconfig'
     use {
-        'hrsh7th/nvim-compe',
-        requires = {{'hrsh7th/vim-vsnip'},{'rafamadriz/friendly-snippets'}},
+        'hrsh7th/nvim-cmp',
+        requires = {
+            'hrsh7th/vim-vsnip',
+            'rafamadriz/friendly-snippets',
+            'ray-x/cmp-treesitter',
+            'hrsh7th/cmp-vsnip',
+            'kdheepak/cmp-latex-symbols',
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-calc',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path'
+        }
     }
     use {'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
