@@ -63,7 +63,7 @@ npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 require("nvim-autopairs.completion.cmp").setup({
     map_cr = true,
     map_complete = true,
-    auto_select = true
+    auto_select = false
 })
 
 -- dap config
