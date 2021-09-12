@@ -80,7 +80,7 @@ end
 -- map buffer local keybindings when the language server attaches
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-local servers = { 'pyright', 'clangd', 'tsserver', 'svls'}
+local servers = { 'pyright', 'clangd', 'tsserver', 'svls', 'texlab'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,

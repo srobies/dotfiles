@@ -13,7 +13,7 @@ return require('packer').startup(function()
         config = function()
             require('dapui').setup{
                 sidebar = {
-                    width = 60
+                    size = 60
                 },
                 tray = {
                     elements = {},
