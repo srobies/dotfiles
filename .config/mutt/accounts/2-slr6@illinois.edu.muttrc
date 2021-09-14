@@ -22,7 +22,7 @@ unset signature
 unmacro index o
 macro index o "<shell-escape>mw -y slr6@illinois.edu<enter>" "run mbsync to sync slr6@illinois.edu"
 
-mailboxes "=Archive" "=Archives/2020" "=Calendar/Birthdays" "=Calendar/United States holidays" "=Deleted Items" "=Drafts" "=INBOX" "=Journal" "=Junk Email" "=Notes" "=Outbox" "=Piazza" "=Sent" "=Sent Items" "=Tasks" "=Track" "=Trash"
+mailboxes "=INBOX" "=Deleted Items" "=Drafts" "=Junk Email" "=Outbox" "=Piazza" "=Sent" "=Sent Items" "=Track" "=Trash"
 macro index,pager ga "<change-folder>=Archive<enter>" "go to archive"
 macro index,pager Ma ";<save-message>=Archive<enter>" "move mail to archive"
 macro index,pager Ca ";<copy-message>=Archive<enter>" "copy mail to archive"

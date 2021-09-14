@@ -22,7 +22,7 @@ unset signature
 unmacro index o
 macro index o "<shell-escape>mw -y sprobie1@gmail.com<enter>" "run mbsync to sync sprobie1@gmail.com"
 
-mailboxes "=Bogus Promos" "=INBOX" "=Spam" "=Treasurer" "=[Gmail]/All Mail" "=[Gmail]/Drafts" "=[Gmail]/Important" "=[Gmail]/Sent" "=[Gmail]/Sent Mail" "=[Gmail]/Starred" "=[Gmail]/Trash"
+mailboxes "=INBOX" "=Spam" "=Treasurer" "=Bogus Promos" "=[Gmail]/All Mail" "=[Gmail]/Drafts" "=[Gmail]/Important" "=[Gmail]/Sent" "=[Gmail]/Sent Mail" "=[Gmail]/Starred" "=[Gmail]/Trash"
 macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
 macro index,pager Mi ";<save-message>=INBOX<enter>" "move mail to inbox"
 macro index,pager Ci ";<copy-message>=INBOX<enter>" "copy mail to inbox"
