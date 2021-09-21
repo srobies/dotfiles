@@ -9,7 +9,7 @@ set completeopt=menuone,noselect
 set hidden
 set updatetime=1000
 set signcolumn=yes
-set listchars=eol:
+set listchars=tab:\ \ ,eol:
 set list
 set timeoutlen=1000
 set tabstop     =4
@@ -210,6 +210,7 @@ let g:indent_blankline_use_treesitter = v:true
 let g:indent_blankline_show_current_context = v:true
 let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments']
 let g:indent_blankline_char = '▏'
+" let g:indent_blankline_filetype_exclude = ['systemverilog']
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
