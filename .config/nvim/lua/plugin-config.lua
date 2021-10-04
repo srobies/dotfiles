@@ -46,10 +46,19 @@ cmp.setup({
       { name = 'path'},
       { name = 'calc'},
       { name = 'nvim_lsp'},
-      { name = 'nvim_lua'}
+      { name = 'nvim_lua'},
+      { name = 'omni' },
+      { name = 'orgmode' }
     }
 })
---
+-- orgmode config
+require('orgmode').setup{
+    org_agenda_file = '~/Dropbox/org/*',
+    org_default_notes_file = '~/Dropbox/org/school.org',
+}
+require("org-bullets").setup {
+    symbols = { "◉", "○", "✸", "✿" }
+}
 -- nvim-autopairs config
 _G.MUtils= {}
 local npairs = require('nvim-autopairs')
@@ -63,7 +72,11 @@ npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 require("nvim-autopairs.completion.cmp").setup({
     map_cr = true,
     map_complete = true,
-    auto_select = false
+    auto_select = false,
+    map_char = {
+        all = '(',
+        tex = '{'
+    }
 })
 
 -- dap config

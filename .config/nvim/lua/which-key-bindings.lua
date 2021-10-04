@@ -52,7 +52,14 @@ wk.register({
         c = "Commits",
         b = "Branches",
         s = "Status",
-        d = "Diff"
+        d = "Diff",
+        f = {
+            name = "Fugitive",
+            s = "Status",
+            v = "Vertical Diff",
+            m = "Merge tool",
+            d = "Diff tool",
+        }
     },
     t = {
         name = "Trouble",
@@ -66,12 +73,19 @@ wk.register({
     h = {
         name = "Gitsigns",
         s = "Stage hunk",
+        S = "Stage buffer",
+        U = "Unstage buffer",
         u = "Undo stage hunk",
         r = "Reset hunk",
         R = "Reset buffer",
         b = "Blame",
         p = "Preview hunk",
     },
+    o = {
+        name = 'org',
+        a = "Agenda prompt",
+        c = "Capture prompt",
+    }
 }, { prefix = "<leader>" })
 
 wk.register({

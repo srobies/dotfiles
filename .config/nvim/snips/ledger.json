@@ -3,8 +3,8 @@
         "prefix": "rent",
         "body": [
             "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Rent",
-            "\texpenses:rent  \\$570",
-            "\tassets:checking  \\$-570"
+            "\texpenses:rent  \\$533.34",
+            "\tassets:checking  \\$-533.34"
         ],
         "description": "Monthly rent"
     },
@@ -20,9 +20,9 @@
     "Venmo": {
         "prefix": "Venmo",
         "body": [
-            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Venmo Payment",
-            "\texpenses:venmo  \\$${1}",
-            "\tassets:checking  \\$-${1}"
+            "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE {1}",
+            "\texpenses:venmo  \\$${2}",
+            "\tassets:checking  \\$-${2}"
         ],
         "description": "Venmo payment"
     }

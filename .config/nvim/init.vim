@@ -4,8 +4,24 @@ lua require('my_debug')
 lua require('which-key-bindings')
 lua require('nvim_lsp')
 
+let g:firenvim_config = { 
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'content': 'text',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'never',
+        \ },
+    \ }
+   \ }
+
 filetype plugin on
-set completeopt=menuone,noselect
+
+set completeopt=menu,menuone,noselect
 set hidden
 set updatetime=1000
 set signcolumn=yes
@@ -153,8 +169,8 @@ nnoremap <silent><leader>hp :Gitsigns preview_hunk<cr>
 nnoremap ]h :Gitsigns next_hunk<cr>
 nnoremap [h :Gitsigns prev_hunk<cr>
 
-nnoremap <silent>K :Lspsaga hover_doc<CR>
-nnoremap <silent>gs :Lspsaga signature_help<CR>
+" nnoremap <silent>K :Lspsaga hover_doc<CR>
+" nnoremap <silent>gs :Lspsaga signature_help<CR>
 nnoremap <silent>gf :Lspsaga lsp_finder<CR>
 nnoremap <silent>gp :Lspsaga preview_definition<CR>
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
@@ -184,7 +200,13 @@ nnoremap <silent>[q :cprevious<cr>
 nnoremap <silent><leader>qn :cnext<cr>
 nnoremap <silent><leader>qp :cprevious<cr>
 
-function! s:BlameToggle() abort
+
+nnoremap <silent><leader>gfs :Git<cr>
+nnoremap <silent><leader>gfd :Git difftool<cr>
+nnoremap <silent><leader>gfm :Git mergetool<cr>
+nnoremap <silent><leader>gfv :Gvdiffsplit<cr>
+
+function! BlameToggle()
   let found = 0
   for winnr in range(1, winnr('$'))
     if getbufvar(winbufnr(winnr), '&filetype') ==# 'fugitiveblame'

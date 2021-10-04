@@ -1,9 +1,17 @@
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
+    use {'kristijanhusak/orgmode.nvim',
+        requires = {
+            'akinsho/org-bullets.nvim',
+        }
+    }
     use 'windwp/nvim-autopairs'
-    use 'glepnir/lspsaga.nvim'
+    use 'tami5/lspsaga.nvim'
     use 'christoomey/vim-tmux-navigator'
-    -- use 'tversteeg/registers.nvim'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
     use 'mfussenegger/nvim-dap'
@@ -24,8 +32,8 @@ return require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use {
         'kevinhwang91/nvim-bqf',
-        opt = true,
-        ft = {'c', 'cpp', 'py', 'tex', 'sh'}
+        -- opt = true,
+        -- ft = {'c', 'cpp', 'py', 'tex', 'sh'}
     }
     use {
         'terrortylor/nvim-comment',
@@ -57,7 +65,6 @@ return require('packer').startup(function()
         end
     }
     use {'ledger/vim-ledger'}
-    -- , ft={'ledger','journal'}, opt=true}
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
@@ -99,6 +106,7 @@ return require('packer').startup(function()
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-omni'
         }
     }
     use {'nvim-telescope/telescope.nvim',
