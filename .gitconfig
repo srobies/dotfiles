@@ -1,15 +1,15 @@
 [user]
 	email = sprobie1@gmail.com
-	name = LrobieProject
+	name = srobies
 [pull]
-	rebase = false
-[credential]
-    helper = cache --timeout=3600
-[init]
-	defaultBranch = master
-[mergetool "nvim"]
-  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+    rebase = false
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
-    tool = nvim
-[mergetool]
-    prompt = false
+	tool = fugitive
