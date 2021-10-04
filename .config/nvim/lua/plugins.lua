@@ -10,7 +10,7 @@ return require('packer').startup(function()
         }
     }
     use 'windwp/nvim-autopairs'
-    use 'tami5/lspsaga.nvim'
+    use 'rinx/lspsaga.nvim'
     use 'christoomey/vim-tmux-navigator'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
