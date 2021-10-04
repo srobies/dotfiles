@@ -119,319 +119,171 @@ dap.repl.commands = vim.tbl_extend('force', dap.repl.commands, {
     -- add your own commands
 })
 
--- galaxyline config
-local gl = require('galaxyline')
-local gls = gl.section
-local io = require('io')
-local string = require('string')
+local windline = require('windline')
+local b_components = require('windline.components.basic')
+local state = _G.WindLine.state
 
-local colors = {
-  bg = '#202328',
-  fg = '#bbc2cf',
-  yellow = '#fabd2f',
-  cyan = '#008080',
-  darkblue = '#081633',
-  green = '#98be65',
-  orange = '#FF8800',
-  violet = '#a9a1e1',
-  magenta = '#c678dd',
-  blue = '#51afef';
-  red = '#ec5f67';
-}
-local mode_color = function()
-    local mode_colors = {
-        n = colors.green,
-        i = colors.blue,
-        c = colors.cyan,
-        V = colors.violet,
-        [''] = colors.violet,
-        v = colors.violet,
-        R = colors.red,
-        t = colors.blue
-    }
-    if mode_colors[vim.fn.mode()] ~= nil then
-        return mode_colors[vim.fn.mode()]
-    else
-        print(vim.fn.mode())
-        return colors.violet
-    end
-end
+local lsp_comps = require('windline.components.lsp')
+local git_comps = require('windline.components.git')
 
-local buffer_not_empty = function()
-  if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
-    return true
-  end
-  return false
-end
+local hl_list = {
+    Black = { 'white', 'black' },
+    White = { 'black', 'white' },
+    Inactive = { 'InactiveFg', 'InactiveBg' },
+    Active = { 'ActiveFg', 'ActiveBg' },
+}
+local basic = {}
 
-local python_venv = function()
-    local handle = io.popen("echo \"$VIRTUAL_ENV\"")
-    if handle == nil then
-        return
-    else
-        local fullPath = handle:read("*a")
-        handle:close()
-        local venvName = string.gsub(fullPath, "/.*/", "")
-        local output = string.gsub(venvName, "%c", "")
-        if output ~= "" then
-            return "venv:" .. output
-        else
-            return ""
-        end
-    end
-end
+local breakpoint_width = 90
+basic.divider = { b_components.divider, '' }
+basic.bg = { ' ', 'StatusLine' }
 
-local python_check = function ()
-    local filetype = vim.bo.filetype
-    if string.match(filetype, 'python') ~= nil then
-        return true
-    end
-    return false
-end
-
-gls.left[1] = {
-    ViMode = {
-        provider = function()
-            local alias = {
-                n = 'NORMAL',
-                i = 'INSERT',
-                c = 'COMMAND',
-                v = 'VISUAL',
-                V = 'V-LINE',
-                [''] = 'VISUAL',
-                R = 'REPLACE',
-                t = 'TERMINAL',
-                s = 'SELECT',
-                S = 'S-LINE'
-            }
-            vim.api.nvim_command('hi GalaxyViMode guibg=' .. mode_color())
-            if alias[vim.fn.mode()] ~= nil then
-                return '  ' .. alias[vim.fn.mode()] .. ' '
-            else
-                return '  V-BLOCK '
-            end
-        end,
-        highlight = {colors.bg,'bold'},
-        separator = ' ',
-        separator_highlight = {'NONE',colors.bg},
-  },
-}
-gls.left[2] ={
-  FileIcon = {
-    provider = 'FileIcon',
-    condition = buffer_not_empty,
-    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.bg},
-  },
-}
-
-gls.left[3] = {
-  FileName = {
-    provider = {'FileName'},
-    condition = buffer_not_empty,
-    highlight = {colors.fg,colors.bg,'bold'}
-  }
-}
-
-gls.left[4] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
-  }
-}
-gls.left[5] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-}
-
-gls.left[6] = {
-  DiagnosticHint = {
-    provider = 'DiagnosticHint',
-    icon = '  ',
-    highlight = {colors.cyan,colors.bg},
-  }
-}
-
-gls.left[7] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = {colors.blue,colors.bg},
-  }
-}
-
-local checkwidth = function()
-  local squeeze_width  = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
-
-gls.right[1] = {
-  GitIcon = {
-    provider = function() return '  ' end,
-    condition = require('galaxyline.provider_vcs').check_git_workspace,
-    separator = '',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.violet,colors.bg,'bold'},
-  }
-}
-
-gls.right[2] = {
-  GitBranch = {
-    provider = 'GitBranch',
-    condition = require('galaxyline.provider_vcs').check_git_workspace,
-    -- separator = '',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.violet,colors.bg,'bold'},
-  }
-}
-
-gls.right[3] = {
-  DiffAdd = {
-    provider = 'DiffAdd',
-    condition = checkwidth,
-    icon = ' ',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.green,colors.bg},
-  }
-}
-gls.right[4] = {
-  DiffModified = {
-    provider = 'DiffModified',
-    condition = checkwidth,
-    icon = '柳',
-    separator_highlight = {'NONE',colors.bg},
-    highlight= {colors.orange,colors.bg},
-  }
-}
-gls.right[5] = {
-  DiffRemove = {
-    provider = 'DiffRemove',
-    condition = checkwidth,
-    icon = ' ',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.red,colors.bg},
-  }
-}
-
-gls.right[6] = {
-  LineInfo = {
-    provider = 'LineColumn',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg},
-  },
-}
-
-gls.right[7] = {
-  PerCent = {
-    provider = 'LinePercent',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg,'bold'},
-  }
-}
-
-gls.right[8] = {
-    PythonVenv = {
-        provider = python_venv,
-        separator = ' ',
-        separator_highlight = {'NONE',colors.bg},
-        condition = python_check,
-        highlight = {colors.fg, colors.bg, "bold"}
-    }
-}
-
-gls.right[9] = {
-  FileSize = {
-    provider = 'FileSize',
-    condition = buffer_not_empty,
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg,'bold'}
-  }
-}
-
-gls.right[10] = {
-    BufferType = {
-        provider = 'FileTypeName',
-        separator = ' ',
-        separator_highlight = {'NONE',colors.bg},
-        highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.bg}
-    }
-}
-gls.right[11] = {
-  FileEncode = {
-    provider = 'FileEncode',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.cyan,colors.bg,'bold'}
-  }
-}
-
-gls.right[12] = {
-  FileFormat = {
-    provider = 'FileFormat',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.cyan,colors.bg,'bold'}
-  }
-}
-
--- gls.short_line_left[1] = {
---     ViMode = {
---         provider = function()
---             local alias = {
---                 n = 'NORMAL',
---                 i = 'INSERT',
---                 c = 'COMMAND',
---                 v = 'VISUAL',
---                 V = 'V-LINE',
---                 [''] = 'VISUAL',
---                 R = 'REPLACE',
---                 t = 'TERMINAL',
---                 s = 'SELECT',
---                 S = 'S-LINE'
---             }
---             vim.api.nvim_command('hi GalaxyViMode guibg=' .. mode_color())
---             if alias[vim.fn.mode()] ~= nil then
---                 return '  ' .. alias[vim.fn.mode()] .. ' '
---             else
---                 return '  V-BLOCK '
---             end
---         end,
---         highlight = {colors.bg,'bold'},
---         separator = ' '
---   },
--- }
-gls.short_line_left[1] = {
-  BufferType = {
-    provider = 'FileTypeName',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.blue,colors.bg,'bold'}
-  }
-}
-
-gls.short_line_left[2] = {
-  SFileName = {
-    provider = function ()
-      local fileinfo = require('galaxyline.provider_fileinfo')
-      local fname = fileinfo.get_current_file_name()
-      for _,v in ipairs(gl.short_line_list) do
-        if v == vim.bo.filetype then
-          return ''
-        end
-      end
-      return fname
+basic.vi_mode = {
+    name = 'vi_mode',
+    hl_colors = {
+        Normal = { 'black', 'red', 'bold' },
+        Insert = { 'black', 'green', 'bold' },
+        Visual = { 'black', 'yellow', 'bold' },
+        Replace = { 'black', 'blue_light', 'bold' },
+        Command = { 'black', 'magenta', 'bold' },
+    },
+    text = function()
+        return {
+            { " " .. state.mode[1] .. " ", state.mode[2] },
+        }
     end,
-    condition = buffer_not_empty,
-    highlight = {colors.white,colors.bg,'bold'}
-  }
 }
+
+basic.lsp_diagnos = {
+    name = 'diagnostic',
+    hl_colors = {
+        red = { 'red', 'black' },
+        yellow = { 'yellow', 'black' },
+        blue = { 'blue', 'black' },
+    },
+    width = breakpoint_width,
+    text = function(bufnr)
+        if lsp_comps.check_lsp(bufnr) then
+            return {
+                { ' ', 'red' },
+                { lsp_comps.lsp_error({ format = ' %s', show_zero = true }), 'red' },
+                { lsp_comps.lsp_warning({ format = '  %s', show_zero = true }), 'yellow' },
+                { lsp_comps.lsp_hint({ format = '  %s', show_zero = true }), 'blue' },
+            }
+        end
+        return ''
+    end,
+}
+basic.file = {
+    name = 'file',
+    hl_colors = {
+        default = hl_list.Black,
+        white = { 'white', 'black' },
+        magenta = { 'magenta', 'black' },
+    },
+    text = function(_, _, width)
+        if width > breakpoint_width then
+            return {
+                { b_components.cache_file_name('[No Name]', 'unique'), 'magenta' },
+                { b_components.cache_file_size(), 'default' },
+                { b_components.line_col_lua, 'white' },
+                { b_components.progress_lua, '' },
+                { ' ', '' },
+                { b_components.file_modified(' '), 'magenta' },
+            }
+        else
+            return {
+                { b_components.cache_file_size(), 'default' },
+                { ' ', '' },
+                { b_components.cache_file_name('[No Name]', 'unique'), 'magenta' },
+                { ' ', '' },
+                { b_components.file_modified(' '), 'magenta' },
+            }
+        end
+    end,
+}
+basic.git = {
+    name = 'git',
+    hl_colors = {
+        green = { 'green', 'black' },
+        red = { 'red', 'black' },
+        blue = { 'blue', 'black' },
+    },
+    width = breakpoint_width,
+    text = function(bufnr)
+        if git_comps.is_git(bufnr) then
+            return {
+                { ' ', '' },
+                { git_comps.diff_added({ format = ' %s', show_zero = true }), 'green' },
+                { git_comps.diff_removed({ format = '  %s', show_zero = true }), 'red' },
+                { git_comps.diff_changed({ format = ' 柳%s', show_zero = true }), 'blue' },
+            }
+        end
+        return ''
+    end,
+}
+
+basic.venv = {
+    name = 'venv',
+    hl_colors = {
+        blue = { 'blue', 'black' }
+    },
+    width = breakpoint_width,
+    text = function()
+        local handle = io.popen("echo \"$VIRTUAL_ENV\"")
+        if handle == nil then
+            return
+        else
+            local fullPath = handle:read("*a")
+            handle:close()
+            local venvName = string.gsub(fullPath, "/.*/", "")
+            local output = string.gsub(venvName, "%c", "")
+            if output ~= "" then
+                return {
+                    {"venv:" .. output .. " ", "blue"}
+                }
+            end
+        end
+    end
+}
+
+local quickfix = {
+    filetypes = { 'qf', 'Trouble' },
+    active = {
+        { '🚦 Quickfix ', { 'white', 'black' } },
+    },
+
+    always_active = true,
+    show_last_status = true,
+}
+
+local default = {
+    filetypes = { 'default' },
+    active = {
+        basic.square_mode,
+        basic.vi_mode,
+        { git_comps.git_branch(), { 'magenta', 'black' }, breakpoint_width },
+        basic.git,
+        basic.lsp_diagnos,
+        basic.divider,
+        basic.venv,
+        basic.file,
+        { ' ', hl_list.Black },
+        basic.square_mode,
+    },
+    inactive = {
+        { b_components.full_file_name, hl_list.Inactive },
+        basic.file_name_inactive,
+        basic.divider,
+        { b_components.line_col, hl_list.Inactive },
+        { b_components.progress, hl_list.Inactive },
+    },
+}
+
+windline.setup({
+    statuslines = {
+        default,
+        quickfix,
+    },
+})
+require('wlfloatline').setup()

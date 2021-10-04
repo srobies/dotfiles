@@ -68,6 +68,7 @@ function +vi-git-st() {
 }
 
 alias ls="ls --color=auto"
+alias 2021_fall="cd ~/Documents/school/2021_fall"
 export LEDGER_FILE=~/repos/finance/2021/2021-all.journal
 export EDITOR=nvim
 export TERM=alacritty

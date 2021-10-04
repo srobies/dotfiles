@@ -77,7 +77,9 @@ return require('packer').startup(function()
         end
     }
     use 'lukas-reineke/indent-blankline.nvim'
-    use {'glepnir/galaxyline.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+    -- use {'glepnir/galaxyline.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+    use {'windwp/windline.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}}
     use {
       "folke/trouble.nvim",
       requires = "kyazdani42/nvim-web-devicons",
