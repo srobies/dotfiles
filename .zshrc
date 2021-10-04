@@ -25,9 +25,9 @@ zstyle ':vcs_info:*' check-for-changes true
 # Set custom strings for an unstaged vcs repo changes (*) and staged changes (+)
 zstyle ':vcs_info:*' unstagedstr '!'
 zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
 # Set the format of the Git information for vcs_info
-zstyle ':vcs_info:git:*' formats       '(%b %u%c)'
+zstyle ':vcs_info:git:*' formats       '(%b %u%c%m)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c%m)'
 +vi-git-untracked(){
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
@@ -40,6 +40,32 @@ zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c%m)'
     fi
 }
 
+function +vi-git-st() {
+    local ahead behind
+    local -a gitstatus
+
+    # Exit early in case the worktree is on a detached HEAD
+    git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
+
+    local -a ahead_and_behind=(
+        $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+    )
+
+    ahead=${ahead_and_behind[1]}
+    behind=${ahead_and_behind[2]}
+
+    if [[ "${ahead}" == "0" && ${behind} == "0" ]] then
+        gitstatus+=()
+    elif [[ ${ahead} > "0" && ${behind} == "0" ]] then
+        (( ${behind} )) && gitstatus+=( " -${behind}" )
+    elif [[ ${behind} > "0" && $ahead == "0" ]] then
+        (( ${ahead} )) && gitstatus+=( " +${ahead}" )
+    else
+        gitstatus+=(" +${ahead}-${behind}")
+    fi
+
+    hook_com[misc]+=${(j:/:)gitstatus}
+}
 
 alias ls="ls --color=auto"
 export LEDGER_FILE=~/repos/finance/2021/2021-all.journal
