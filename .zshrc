@@ -57,9 +57,9 @@ function +vi-git-st() {
     if [[ "${ahead}" == "0" && ${behind} == "0" ]] then
         gitstatus+=()
     elif [[ ${ahead} > "0" && ${behind} == "0" ]] then
-        (( ${behind} )) && gitstatus+=( " -${behind}" )
+        gitstatus+=( " +${ahead}" )
     elif [[ ${behind} > "0" && $ahead == "0" ]] then
-        (( ${ahead} )) && gitstatus+=( " +${ahead}" )
+        gitstatus+=( " -${behind}" )
     else
         gitstatus+=(" +${ahead}-${behind}")
     fi
