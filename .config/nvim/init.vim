@@ -24,7 +24,7 @@ filetype plugin on
 set completeopt=menu,menuone,noselect
 set hidden
 set updatetime=1000
-set signcolumn=yes
+set signcolumn=auto
 set listchars=tab:\ \ ,eol:
 set list
 set timeoutlen=1000

@@ -32,8 +32,6 @@ return require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use {
         'kevinhwang91/nvim-bqf',
-        -- opt = true,
-        -- ft = {'c', 'cpp', 'py', 'tex', 'sh'}
     }
     use {
         'terrortylor/nvim-comment',
@@ -64,7 +62,7 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'ledger/vim-ledger'}
+    use 'ledger/vim-ledger'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
@@ -77,7 +75,6 @@ return require('packer').startup(function()
         end
     }
     use 'lukas-reineke/indent-blankline.nvim'
-    -- use {'glepnir/galaxyline.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
     use {'windwp/windline.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}}
     use {
