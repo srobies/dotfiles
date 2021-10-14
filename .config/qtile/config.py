@@ -344,6 +344,12 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='Firefox'),
+    Match(wm_class='gnome-screenshot'),
+    Match(wm_class='zoom'),
+    Match(wm_class='barrier'),
+    Match(wm_class='Export'),
+    Match(wm_class='feh')
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
