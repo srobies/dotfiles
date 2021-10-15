@@ -10,7 +10,7 @@ return require('packer').startup(function()
         }
     }
     use 'windwp/nvim-autopairs'
-    use 'rinx/lspsaga.nvim'
+    use 'tami5/lspsaga.nvim'
     use 'christoomey/vim-tmux-navigator'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
@@ -56,6 +56,7 @@ return require('packer').startup(function()
     use {
         'lewis6991/gitsigns.nvim',
         requires = {'nvim-lua/plenary.nvim'},
+        event = 'VimEnter', -- Otherwise it produces an error when a :Git buffer is open.
         config = function ()
             require('gitsigns').setup{
                 numhl = true,

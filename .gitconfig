@@ -1,15 +1,24 @@
 [user]
 	email = sprobie1@gmail.com
 	name = srobies
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+	ui = auto
+    pager = true
 [pull]
-    rebase = false
-[difftool]
-    prompt = true
+	rebase = false
 [diff]
     tool = nvimdiff
+[difftool]
+    prompt = false
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-[mergetool "fugitive"]
-	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
-	tool = fugitive
+    tool = fugitive
+[mergetool "fugitive"]
+    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+[mergetool]
+    prompt = false
