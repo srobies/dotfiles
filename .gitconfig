@@ -19,6 +19,6 @@
 [merge]
     tool = fugitive
 [mergetool "fugitive"]
-    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\" -c \"nnoremap dh :diffget //2<CR>\" -c \"nnoremap dl :diffget //3<CR>\"
 [mergetool]
     prompt = false
