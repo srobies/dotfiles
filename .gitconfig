@@ -13,12 +13,12 @@
 [diff]
     tool = nvimdiff
 [difftool]
-    prompt = false
+    prompt = true
 [difftool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 [merge]
     tool = fugitive
 [mergetool "fugitive"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\" -c \"nnoremap dh :diffget //2<CR>\" -c \"nnoremap dl :diffget //3<CR>\"
 [mergetool]
-    prompt = false
+    prompt = true
