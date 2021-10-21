@@ -112,7 +112,7 @@ require('lspconfig').sumneko_lua.setup {
   },
 }
 local saga = require 'lspsaga'
-saga.init_lsp_saga {
+saga.setup {
     error_sign = '',
     infor_sign = '',
     hint_sign = '',

@@ -118,6 +118,9 @@ nnoremap <leader>- :sp<CR>
 
 nnoremap <C-t> :ToggleTerm<CR>
 
+nmap <Plug>Run :lua require'dap'.run_to_cursor()<cr>
+            \ :call repeat#set("\<Plug>RunToCursor")<CR>
+            \ :echo "Run to cursor"<CR>
 nmap <Plug>Continue :lua require'dap'.continue()<cr>
             \ :call repeat#set("\<Plug>Continue")<CR>
             \ :echo "Continue"<CR>
@@ -138,6 +141,7 @@ nmap <leader>dj <Plug>StepOver
 nmap <leader>dl <Plug>StepInto              
 nmap <leader>dh <Plug>StepOut               
 nmap <leader>db <Plug>Breakpoint            
+nmap <leader>dr <Plug>RunToCursor
 nnoremap <leader>dB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent><leader>de :lua require("dapui").eval()<CR>

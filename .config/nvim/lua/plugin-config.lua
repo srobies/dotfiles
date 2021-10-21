@@ -1,8 +1,12 @@
--- cmp config
+-- cmp config 
 local cmp = require'cmp'
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 cmp.setup({
     snippet = {
@@ -101,9 +105,9 @@ vim.cmd [[
 ]]
 
 dap.repl.commands = vim.tbl_extend('force', dap.repl.commands, {
-    continue = {'.continue', '.c', 'c'},
+    continue = {'.continue', '.c', 'c', 'continue'},
     next_ = {'.next', '.n', 'n', 'next'},
-    back = {'.back', '.b', 'b'},
+    back = {'.back', '.b', 'b', 'back'},
     reverse_continue = {'.reverse-continue', '.rc', 'rc'},
     into = {'.into', 'step', 's'},
     into_target = {'.into_target'},
@@ -147,10 +151,13 @@ basic.vi_mode = {
         Replace = { 'black', 'blue_light', 'bold' },
         Command = { 'black', 'magenta', 'bold' },
     },
-    text = function()
-        return {
-            { " " .. state.mode[1] .. " ", state.mode[2] },
-        }
+    text = function(_, _, width)
+        if width > breakpoint_width then
+            return { { " " .. state.mode[1] .. " ", state.mode[2] } }
+        else
+            local mode_string = state.mode[1]
+            return { { " " .. mode_string.sub(mode_string, 1, 1) .. " ", state.mode[2] } }
+        end
     end,
 }
 
@@ -263,12 +270,12 @@ local default = {
     filetypes = { 'default' },
     active = {
         basic.vi_mode,
+        basic.file,
         basic.lsp_diagnos,
         basic.divider,
         { git_comps.git_branch(), { 'magenta', 'black' }, breakpoint_width },
         basic.git,
         basic.venv,
-        basic.file,
         { ' ', hl_list.Black },
     },
     inactive = {
@@ -293,4 +300,4 @@ windline.setup({
         quickfix,
     },
 })
-require('wlfloatline').setup()
+-- require('wlfloatline').setup()
