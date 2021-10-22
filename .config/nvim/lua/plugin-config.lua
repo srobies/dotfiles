@@ -231,7 +231,6 @@ basic.git = {
         return ''
     end,
 }
-
 basic.venv = {
     name = 'venv',
     hl_colors = {
@@ -270,6 +269,7 @@ local default = {
     filetypes = { 'default' },
     active = {
         basic.vi_mode,
+        { ' ', hl_list.Black },
         basic.file,
         basic.lsp_diagnos,
         basic.divider,
