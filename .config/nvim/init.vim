@@ -174,6 +174,7 @@ nnoremap ]h :Gitsigns next_hunk<cr>
 nnoremap [h :Gitsigns prev_hunk<cr>
 
 nnoremap <silent>K :Lspsaga hover_doc<CR>
+nnoremap <silent><leader>cr :Lspsaga rename<CR>
 " nnoremap <silent>gs :Lspsaga signature_help<CR>
 nnoremap <silent>gf :Lspsaga lsp_finder<CR>
 nnoremap <silent>gp :Lspsaga preview_definition<CR>

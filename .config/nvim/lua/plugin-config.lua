@@ -43,16 +43,16 @@ cmp.setup({
         -- })
     },
     sources = {
-      { name = 'buffer' },
-      { name = 'latex_symbols' },
-      { name = 'vsnip' },
-      { name = 'treesitter' },
-      { name = 'path'},
-      { name = 'calc'},
       { name = 'nvim_lsp'},
       { name = 'nvim_lua'},
       { name = 'omni' },
-      { name = 'orgmode' }
+      { name = 'vsnip' },
+      { name = 'buffer' },
+      { name = 'treesitter' },
+      { name = 'path'},
+      { name = 'latex_symbols' },
+      { name = 'orgmode' },
+      { name = 'calc'},
     }
 })
 -- orgmode config
