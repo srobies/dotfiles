@@ -37,10 +37,10 @@ cmp.setup({
             feedkey("<Plug>(vsnip-jump-prev)", "")
           end
         end, { "i", "s" }),
-        -- ['<CR>'] = cmp.mapping.confirm({
-        --     behavior = cmp.ConfirmBehavior.Replace,
-        --     select = true,
-        -- })
+        ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        })
     },
     sources = {
       { name = 'nvim_lsp'},
@@ -55,6 +55,9 @@ cmp.setup({
       { name = 'calc'},
     }
 })
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '{' } }))
+
 -- orgmode config
 require('orgmode').setup{
     org_agenda_file = '~/Dropbox/org/*',
@@ -69,19 +72,8 @@ local npairs = require('nvim-autopairs')
 npairs.setup({
     check_ts = true,
     enable_check_bracket_line = true,
-    ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
 })
 npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
-
-require("nvim-autopairs.completion.cmp").setup({
-    map_cr = true,
-    map_complete = true,
-    auto_select = false,
-    map_char = {
-        all = '(',
-        tex = '{'
-    }
-})
 
 -- dap config
 local dap = require 'dap'

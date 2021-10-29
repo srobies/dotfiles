@@ -3,18 +3,10 @@ local wk = require("which-key")
 wk.register({
     s = "which_key_ignore",
     S = "which_key_ignore",
-    ["]"] = "which_key_ignore",
-    ["["] = "which_key_ignore",
     e = "Line diagnostics",
     u = "Undotree",
     ["|"] = "Vertical Split",
     ["-"] = "Horizontal Split",
-    c = {
-        name = "Code action",
-        a = "Code action",
-        s = "Clangd Switch Source Header",
-        r = "Rename"
-    },
     q = {
         name = "Quickfix",
         f = "Toggle",
@@ -103,5 +95,5 @@ wk.register({
 }, { prefix = "]" })
 
 wk.register({
-    c = "Kommentary motion"
+    c = "Comment motion"
 }, { prefix = "g" })

@@ -11,30 +11,27 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gd', "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>", opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- buf_set_keymap('n', '<space>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>D', "<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>", opts)
+  buf_set_keymap('n', '<space>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', "<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>", opts)
+  buf_set_keymap('n', 'gr', "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
     wk.register({
         r = "References",
         d = "Definition",
         D = "Declaration",
         i = "Implementation",
-        f = "LSP Finder", -- check init.vim for Lspsaga binds
-        s = "Signature help",
-        p = "Definition preview"
     }, { prefix = "g" })
     wk.register({
-        D = "Type definition"
+        D = "Type definition",
+        e = "Line diagnostics"
     }, { prefix = "<leader>" })
 
     -- Set some keybinds conditional on server capabilities
@@ -47,13 +44,26 @@ local on_attach = function(client, bufnr)
         }, { prefix = "<leader>" })
     end
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("v", "<space>cf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+      buf_set_keymap("v", "<space>cf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
-    if client.resolved_capabilities.ClangdSwitchSourceHeader then
+    local filetype = vim.bo.filetype
+    if filetype == "c" or filetype == "cpp" then
+      buf_set_keymap('n', '<space>cs', '<cmd>ClangdSwitchSourceHeader<CR>', opts)
         wk.register({
-            c = {
-                s = "Clangd Switch Source Header"
-            }
+          c = {
+              name = "Code action",
+              a = "Code action",
+              s = "Clangd Switch Source Header",
+              r = "Rename"
+          },
+        }, { prefix = "<leader>" })
+    else
+        wk.register({
+          c = {
+              name = "Code action",
+              a = "Code action",
+              r = "Rename"
+          },
         }, { prefix = "<leader>" })
     end
 
@@ -108,21 +118,4 @@ require('lspconfig').sumneko_lua.setup {
       },
     },
   },
-}
-local saga = require 'lspsaga'
-saga.init_lsp_saga {
-    error_sign = '',
-    infor_sign = '',
-    hint_sign = '',
-    warn_sign = '',
-    max_preview_lines = 15,
-    finder_action_keys = {
-      open = 'o', vsplit = '|',split = '-',quit = {'q', '<esc>'}, scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
-    },
-    code_action_keys = {
-      quit = {'q', '<Esc>'}, exec = '<CR>'
-    },
-    rename_action_keys = {
-      quit = {'<C-c>', '<Esc>'}, exec = '<CR>'
-    },
 }

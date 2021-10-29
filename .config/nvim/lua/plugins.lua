@@ -5,12 +5,10 @@ return require('packer').startup(function()
         run = function() vim.fn['firenvim#install'](0) end
     }
     use {'kristijanhusak/orgmode.nvim',
-        requires = {
-            'akinsho/org-bullets.nvim',
-        }
+        requires = {'akinsho/org-bullets.nvim'},
+        branch = 'tree-sitter'
     }
     use 'windwp/nvim-autopairs'
-    use 'srobies/lspsaga.nvim'
     use 'christoomey/vim-tmux-navigator'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'

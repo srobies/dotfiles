@@ -37,11 +37,6 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufNewFile,BufRead neomutt-* setf mail 
 autocmd FileType mail setlocal formatoptions+=w
-" C/Cpp specific tabsize
-autocmd FileType c,cpp set tabstop=2
-autocmd FileType c,cpp set softtabstop=2
-autocmd FileType c,cpp set shiftwidth=2
-autocmd FileType c,cpp setlocal commentstring=//%s
 autocmd TermOpen * IndentBlanklineDisable
 set expandtab
 " syntax on " This causes issue with diagnostics for some reason
@@ -173,20 +168,6 @@ nnoremap <silent><leader>hp :Gitsigns preview_hunk<cr>
 nnoremap ]h :Gitsigns next_hunk<cr>
 nnoremap [h :Gitsigns prev_hunk<cr>
 
-nnoremap <silent>K :Lspsaga hover_doc<CR>
-nnoremap <silent><leader>cr :Lspsaga rename<CR>
-" nnoremap <silent>gs :Lspsaga signature_help<CR>
-nnoremap <silent>gf :Lspsaga lsp_finder<CR>
-nnoremap <silent>gp :Lspsaga preview_definition<CR>
-nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
-nnoremap <silent><leader>cr :Lspsaga rename<CR>
-nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> <leader>e :Lspsaga show_line_diagnostics<CR>
-nnoremap <silent> ]d :Lspsaga diagnostic_jump_next<CR>
-nnoremap <silent> [d :Lspsaga diagnostic_jump_prev<CR>
-
 function! QuickFix_toggle()
     for i in range(1, winnr('$'))
         let bnum = winbufnr(i)
@@ -248,7 +229,7 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
 augroup END
 
-sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning numhl=LspDiagnosticsSignWarning
-sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation numhl=LspDiagnosticsSignInformation
-sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint numhl=LspDiagnosticsSignHint
-sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError numhl=LspDiagnosticsSignError
+sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn numhl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
+sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
+sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
