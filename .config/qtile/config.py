@@ -289,7 +289,9 @@ for i in groups:
 
 groups.append(ScratchPad("scratchpad", [
         DropDown("term", "alacritty", opacity=0.8, height=0.5),
-        DropDown("todo", "emacs ~/Dropbox/org/school.org",
+        # DropDown("todo", "emacs ~/Dropbox/org/school.org",
+        #          width=0.5, height=0.5, opacity=0.8, x=0.24),
+        DropDown("todo", "alacritty -e ~/repos/scripts/org.sh &",
                  width=0.5, height=0.5, opacity=0.8, x=0.24),
         DropDown("music", "spotify", opacity=0.8,width=0.5, height=1.0, x=0.24),
         DropDown("browser", "firefox --new-instance", opacity=0.8, width=0.8, height=0.9),
@@ -349,7 +351,8 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='zoom'),
     Match(wm_class='barrier'),
     Match(wm_class='Export'),
-    Match(wm_class='feh')
+    Match(wm_class='feh'),
+    Match(wm_class='Pinentry-gtk-2')
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
