@@ -1,12 +1,7 @@
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use {
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end
-    }
     use {'kristijanhusak/orgmode.nvim',
         requires = {'akinsho/org-bullets.nvim'},
-        branch = 'tree-sitter'
     }
     use 'windwp/nvim-autopairs'
     use 'christoomey/vim-tmux-navigator'
