@@ -1,4 +1,4 @@
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-setlocal commentstring=//%s
+setlocal commentstring=//\ %s
