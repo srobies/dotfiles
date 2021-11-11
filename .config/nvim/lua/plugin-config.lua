@@ -1,4 +1,4 @@
--- cmp config 
+-- cmp config
 local cmp = require'cmp'
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -16,9 +16,9 @@ cmp.setup({
     },
     mapping = {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-e>'] = cmp.mapping.abort(),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -52,7 +52,6 @@ cmp.setup({
       { name = 'path'},
       { name = 'latex_symbols' },
       { name = 'orgmode' },
-      { name = 'calc'},
     }
 })
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')

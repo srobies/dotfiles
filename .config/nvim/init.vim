@@ -4,21 +4,6 @@ lua require('my_debug')
 lua require('which-key-bindings')
 lua require('nvim_lsp')
 
-let g:firenvim_config = { 
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'content': 'text',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'never',
-        \ },
-    \ }
-   \ }
-
 filetype plugin on
 
 set completeopt=menu,menuone,noselect
