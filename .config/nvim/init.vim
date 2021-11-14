@@ -1,11 +1,5 @@
 lua require('plugins')
-lua require('plugin-config')
-lua require('my_debug')
-lua require('which-key-bindings')
-lua require('nvim_lsp')
-
 filetype plugin on
-
 set completeopt=menu,menuone,noselect
 set hidden
 set updatetime=1000
@@ -22,9 +16,8 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufNewFile,BufRead neomutt-* setf mail 
 autocmd FileType mail setlocal formatoptions+=w
-autocmd TermOpen * IndentBlanklineDisable
 set expandtab
-" syntax on " This causes issue with diagnostics for some reason
+syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
 set colorcolumn=80
@@ -57,28 +50,6 @@ endif
 
 "Rebinds
 let mapleader=' '
-nmap <leader>s <Plug>Sneak_s
-nmap <leader>S <Plug>Sneak_S
-nmap ; <Plug>Sneak_;
-nmap , <Plug>Sneak_,
-vmap ; <Plug>Sneak_;
-vmap , <Plug>Sneak_,
-xmap <leader>s <Plug>Sneak_s
-xmap <leader>S <Plug>Sneak_S
-omap <leader>s <Plug>Sneak_s
-omap <leader>S <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
 
 inoremap jk <esc>
 tnoremap <Esc> <C-\><C-n>
@@ -95,8 +66,6 @@ nnoremap - <C-w>-
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
-
-nnoremap <C-t> :ToggleTerm<CR>
 
 nmap <Plug>Run :lua require'dap'.run_to_cursor()<cr>
             \ :call repeat#set("\<Plug>RunToCursor")<CR>
@@ -161,7 +130,6 @@ function! QuickFix_toggle()
             return
         endif
     endfor
-
     botright copen 7
 endfunction
 
@@ -170,7 +138,6 @@ nnoremap <silent>]q :cnext<cr>
 nnoremap <silent>[q :cprevious<cr>
 nnoremap <silent><leader>qn :cnext<cr>
 nnoremap <silent><leader>qp :cprevious<cr>
-
 
 nnoremap <silent><leader>gfs :Git<cr>
 nnoremap <silent><leader>gfd :Git difftool<cr>
@@ -190,20 +157,11 @@ function! BlameToggle()
   endif
 endfunction
 
-
-let g:sneak#use_ic_scs = 1
-
 let g:vsnip_snippet_dir = '~/.config/nvim/snips'
 
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_syntax_conceal_default=0
-
-let g:indent_blankline_use_treesitter = v:true
-let g:indent_blankline_show_current_context = v:true
-let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments']
-let g:indent_blankline_char = '▏'
-" let g:indent_blankline_filetype_exclude = ['systemverilog']
+" let g:vimtex_syntax_conceal_disable = 1
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1

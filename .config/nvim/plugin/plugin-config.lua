@@ -1,5 +1,5 @@
 -- cmp config
-local cmp = require'cmp'
+local cmp = require('cmp')
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -93,9 +93,16 @@ npairs.setup({
 })
 npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 
+-- IndentBlankLine config
+require('indent_blankline').setup {
+  char = '▏',
+  context_patterns = {'class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments'},
+  buftype_exclude = {"terminal", 'help'},
+  use_treesitter = true,
+  show_current_context = true,
+}
 -- dap config
-local dap = require 'dap'
-dap.adapters.cpp = {
+require('dap').adapters.cpp = {
   type = 'executable',
   attach = {
     pidProperty = "pid",

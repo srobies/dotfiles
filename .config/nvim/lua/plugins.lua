@@ -35,7 +35,6 @@ return require('packer').startup(function()
         end
     }
     use 'tpope/vim-repeat'
-    use 'justinmk/vim-sneak'
     use {
         'akinsho/nvim-toggleterm.lua',
         config = function ()
