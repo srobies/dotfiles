@@ -102,7 +102,8 @@ require('indent_blankline').setup {
   show_current_context = true,
 }
 -- dap config
-require('dap').adapters.cpp = {
+local dap = require('dap')
+dap.adapters.cpp = {
   type = 'executable',
   attach = {
     pidProperty = "pid",
