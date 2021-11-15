@@ -4,7 +4,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd
 unsetopt beep
-bindkey -v
+bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 
@@ -12,6 +12,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+export QT_STYLE_OVERRIDE=kvantum
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
 autoload -Uz add-zsh-hook vcs_info
 # Enable substitution in the prompt.
@@ -72,6 +73,7 @@ alias 2021_fall="cd ~/Documents/school/2021_fall"
 export LEDGER_FILE=~/repos/finance/2021/2021-all.journal
 export EDITOR=nvim
 export TERM=alacritty
+export MANPAGER='nvim +Man!'
 TERM="xterm-256color"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
@@ -79,4 +81,4 @@ PROMPT='%F{green}%n%f%F{green}@%f%F{green}%m%f%f%F{red}${vcs_info_msg_0_}%f:%F{b
 eval "$(direnv hook zsh)"
 eval $(keychain --eval --quiet id_ed25519)
 
-export QSYS_ROOTDIR="/home/spencer/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/20.1/quartus/sopc_builder/bin"
+export QSYS_ROOTDIR="/home/spencer/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"

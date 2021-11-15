@@ -49,23 +49,36 @@ colors = dict(
     # background='#282c34',
 
     #zephyr colors
-    foreground ='#bbc2cf',
-    background = '#282a36',
-    red = '#e95678',
-    redwine = '#d16d9e',
-    orange = '#D98E48',
-    yellow = '#f0c674',
-    light_green = '#abcf84',
-    green = '#afd700',
-    dark_green = '#98be65',
-    cyan = '#36d0e0',
-    blue = '#42a8ed',
-    violet = '#b294bb',
-    magenta = '#c678dd',
-    teal = '#1abc9c',
-    grey = '#928374',
-    brown = '#c78665',
-    black = '#000000',
+    # foreground ='#bbc2cf',
+    # background = '#282a36',
+    # red = '#e95678',
+    # redwine = '#d16d9e',
+    # orange = '#D98E48',
+    # yellow = '#f0c674',
+    # light_green = '#abcf84',
+    # green = '#afd700',
+    # dark_green = '#98be65',
+    # cyan = '#36d0e0',
+    # blue = '#42a8ed',
+    # violet = '#b294bb',
+    # magenta = '#c678dd',
+    # teal = '#1abc9c',
+    # grey = '#928374',
+    # brown = '#c78665',
+    # black = '#000000',
+
+    # Tokyonight colors
+    background= '#1a1b26',
+    foreground= '#c0caf5',
+
+    black=   '#15161E',
+    red=     '#f7768e',
+    green=   '#9ece6a',
+    yellow=  '#e0af68',
+    blue=    '#7aa2f7',
+    magenta= '#bb9af7',
+    cyan=    '#7dcfff',
+    white=   '#a9b1d6',
 )
 
 @hook.subscribe.screen_change # change the number of bars when screens change
@@ -95,6 +108,7 @@ def screen_change():
                             widget.PulseVolume(),
                             widget.Sep(),
                             widget.Systray(),
+                            # widget.StatusNotifier(),
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
@@ -149,6 +163,7 @@ def screen_change():
                             widget.Sep(),
                             widget.Wlan(interface = 'wlp2s0', format = '{essid} {percent:2.0%}'),
                             widget.Systray(),
+                            # widget.StatusNotifier(),
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
@@ -260,7 +275,7 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
 
     Key([mod], 't', lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('todo')),
+    Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('nvim org')),
     Key([mod], 'm', lazy.group['scratchpad'].dropdown_toggle('music')),
     Key([mod], 'f', lazy.group['scratchpad'].dropdown_toggle('browser')),
 
@@ -277,21 +292,17 @@ for i in groups:
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
-
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+        # mod1 + ctrl + letter of group = switch to & move focused window to group
+        Key([mod, "control"], i.name, lazy.window.togroup(i.name, switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+            desc="move focused window to group {}".format(i.name)),
     ])
 
 groups.append(ScratchPad("scratchpad", [
         DropDown("term", "alacritty", opacity=0.8, height=0.5),
-        # DropDown("todo", "emacs ~/Dropbox/org/school.org",
-        #          width=0.5, height=0.5, opacity=0.8, x=0.24),
-        DropDown("todo", "alacritty -e ~/repos/scripts/org.sh &",
+        DropDown("nvim org", "alacritty -e /home/spencer/repos/scripts/org.sh",
                  width=0.5, height=0.5, opacity=0.8, x=0.24),
         DropDown("music", "spotify", opacity=0.8,width=0.5, height=1.0, x=0.24),
         DropDown("browser", "firefox --new-instance", opacity=0.8, width=0.8, height=0.9),
@@ -336,7 +347,6 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-# TODO: Update these floating rules
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     # *layout.Floating.default_float_rules,
@@ -352,7 +362,8 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='barrier'),
     Match(wm_class='Export'),
     Match(wm_class='feh'),
-    Match(wm_class='Pinentry-gtk-2')
+    Match(wm_class='Pinentry-gtk-2'),
+    Match(wm_class='spectacle')
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
