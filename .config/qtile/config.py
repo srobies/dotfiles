@@ -36,37 +36,6 @@ import subprocess
 
 
 colors = dict(
-    # one-half colors
-    # magenta='#c678dd',
-    # black='#282c34',
-    # red='#e06c75',
-    # green='#98c379',
-    # yellow='#e5c07b',
-    # blue='#61afef',
-    # cyan='#56b6c2',
-    # white='#dcdfe4',
-    # foreground='#dcdfe4',
-    # background='#282c34',
-
-    #zephyr colors
-    # foreground ='#bbc2cf',
-    # background = '#282a36',
-    # red = '#e95678',
-    # redwine = '#d16d9e',
-    # orange = '#D98E48',
-    # yellow = '#f0c674',
-    # light_green = '#abcf84',
-    # green = '#afd700',
-    # dark_green = '#98be65',
-    # cyan = '#36d0e0',
-    # blue = '#42a8ed',
-    # violet = '#b294bb',
-    # magenta = '#c678dd',
-    # teal = '#1abc9c',
-    # grey = '#928374',
-    # brown = '#c78665',
-    # black = '#000000',
-
     # Tokyonight colors
     background= '#1a1b26',
     foreground= '#c0caf5',
@@ -90,20 +59,13 @@ def screen_change():
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
                                 urgent_border=colors['red'],
                                 disable_drag=True),
                             widget.WindowName(),
-                            # widget.KhalCalendar(max_chars = 50, foreground=colors['yellow']),
                             widget.Sep(),
-                            # widget.Maildir(maildir_path='~/.local/share/mail',
-                            #     sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
-                            #         {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'},
-                            #         {'label': 'Professional', 'path': 'spencerrobieson@gmail.com/INBOX'}]),
-                            # widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
                             widget.Sep(),
@@ -112,13 +74,11 @@ def screen_change():
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
-                            # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                             widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3, padding=8),
                           ]
         secondary_widgets = [
                                 widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                                 widget.CurrentLayout(),
-                                # widget.CurrentScreen(active_color=colors['green'],inactive_color=colors['red']),
                                 widget.GroupBox(highlight_method='block',
                                     this_current_screen_border=colors['blue'],
                                     urgent_alert_method='block',
@@ -131,7 +91,6 @@ def screen_change():
                                 widget.Sep(),
                                 widget.Clock(format='%m-%d %a %I:%M %p'),
                                 widget.Sep(),
-                                # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                                 widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3, padding=5),
                             ]
     else: # laptop config
@@ -139,18 +98,12 @@ def screen_change():
         primary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
                                 urgent_border=colors['red'],
                                 disable_drag=True),
                             widget.WindowName(),
-                            # widget.Maildir(maildir_path='~/.local/share/mail',
-                            #     sub_folders=[{'label': 'Personal', 'path': 'sprobie1@gmail.com/INBOX'},
-                            #         {'label': 'School', 'path': 'slr6@illinois.edu/INBOX'}]),
-                            # widget.Sep(),
-                            # widget.KhalCalendar(max_chars = 45, foreground=colors['yellow']),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
                             widget.PulseVolume(),
@@ -172,7 +125,6 @@ def screen_change():
         secondary_widgets = [
                             widget.Image(filename='/usr/share/pixmaps/archlinux-logo.png',mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('alacritty -e sudo pacman -Syu')}),
                             widget.CurrentLayout(),
-                            # widget.CurrentScreen(active_color=colors['green'],inactive_color=['red']),
                             widget.GroupBox(highlight_method='block',
                                 this_current_screen_border=colors['blue'],
                                 urgent_alert_method='block',
@@ -193,7 +145,6 @@ def screen_change():
                             widget.Sep(),
                             widget.Clock(format='%m-%d %a %I:%M %p'),
                             widget.Sep(),
-                            # widget.QuickExit(default_text='Logout',countdown_format='[ {} ]',countdown_start=3),
                             widget.QuickExit(default_text='',countdown_format='[ {} ]',countdown_start=3),
                         ]
          
@@ -314,15 +265,6 @@ layouts = [
     layout.Stack(num_stacks=2, border_focus=colors['cyan']),
     layout.Matrix(border_focus=colors['cyan']),
     layout.Bsp(border_focus=colors['cyan']),
-    # Try more layouts by unleashing below layouts.
-    # layout.Slice()
-    # layout.Tile(border_focus=colors['cyan']),
-    # layout.TreeTab(border_focus=colors['cyan']),
-    # layout.Columns(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(

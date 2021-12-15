@@ -187,7 +187,7 @@ screens = [
                 widget.KeyboardLayout(configured_keyboards=['dvorak', 'us'], display_map={'us':'us', 'dvorak':'dv'}),
                 widget.StatusNotifier(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.QuickExit(default_text='[ logout ]'),
+                widget.QuickExit(default_text=' '),
             ],
             24,
         ),
