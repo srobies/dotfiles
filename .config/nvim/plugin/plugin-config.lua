@@ -38,8 +38,8 @@ cmp.setup({
           end
         end, { "i", "s" }),
         ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = false,
         })
     },
     sources = {

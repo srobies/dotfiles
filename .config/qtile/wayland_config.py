@@ -49,7 +49,7 @@ colors = dict(
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    home = os.path.expanduser('~/repos/dotfiles/.config/qtile/autostart_wayland_laptop.sh')
     subprocess.run([home])
 
 keys = [
@@ -131,7 +131,7 @@ keys = [
     Key(["control", "mod1"], "F12", lazy.core.change_vt(12), desc="Go to virtual console 12"),
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "1234567890"]
 
 for i in groups:
     keys.extend([

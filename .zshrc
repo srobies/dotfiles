@@ -76,6 +76,7 @@ export TERM=alacritty
 export MANPAGER='nvim +Man!'
 TERM="xterm-256color"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 PROMPT='%F{green}%n%f%F{green}@%f%F{green}%m%f%f%F{red}${vcs_info_msg_0_}%f:%F{blue}%~ %F{white}'
 eval "$(direnv hook zsh)"

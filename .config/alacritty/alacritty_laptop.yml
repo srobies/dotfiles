@@ -12,12 +12,13 @@
 #draw_bold_text_with_bright_colors: false
 env:
   TERM: xterm-256color
+
 # So that font isn't massive on laptop
 font:
   normal: 
     family: FantasqueSansMono Nerd Font Mono
     style: Regular
-  size: 10
+  size: 12
 # TokyoNight Alacritty Colors
 colors:
   # Default colors
