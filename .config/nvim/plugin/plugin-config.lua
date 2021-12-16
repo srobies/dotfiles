@@ -1,3 +1,29 @@
+require("dapui").setup()
+-- small step for vimkind
+local dap = require"dap"
+dap.configurations.lua = {
+  {
+    type = 'nlua',
+    request = 'attach',
+    name = "Attach to running Neovim instance",
+    host = function()
+      local value = vim.fn.input('Host [127.0.0.1]: ')
+      if value ~= "" then
+        return value
+      end
+      return '127.0.0.1'
+    end,
+    port = function()
+      local val = tonumber(vim.fn.input('Port: '))
+      assert(val, "Please provide a port number")
+      return val
+    end,
+  }
+}
+
+dap.adapters.nlua = function(callback, config)
+  callback({ type = 'server', host = config.host, port = config.port})
+end
 -- cmp config
 local cmp = require('cmp')
 local has_words_before = function()
@@ -15,8 +41,8 @@ cmp.setup({
         end,
     },
     mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-u>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -92,6 +118,7 @@ npairs.setup({
     enable_check_bracket_line = true,
 })
 npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+npairs.remove_rule('`')
 
 -- IndentBlankLine config
 require('indent_blankline').setup {
@@ -102,7 +129,7 @@ require('indent_blankline').setup {
   show_current_context = true,
 }
 -- dap config
-local dap = require('dap')
+-- local dap = require('dap')
 dap.adapters.cpp = {
   type = 'executable',
   attach = {

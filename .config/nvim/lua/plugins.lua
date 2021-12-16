@@ -1,4 +1,6 @@
 return require('packer').startup(function()
+  use '~/repos/undotree-nvim'
+  use 'jbyuki/one-small-step-for-vimkind'
     use 'wbthomason/packer.nvim'
     use {'kristijanhusak/orgmode.nvim',
         requires = {'akinsho/org-bullets.nvim'},

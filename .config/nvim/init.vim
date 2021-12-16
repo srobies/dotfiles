@@ -94,6 +94,7 @@ nmap <leader>dr <Plug>RunToCursor
 nnoremap <leader>dB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent><leader>de :lua require("dapui").eval()<CR>
+nnoremap <silent><leader>dt :lua require("dapui").toggle()<CR>
 
 nnoremap <silent><leader>ff :Telescope find_files<cr>
 nnoremap <silent><leader>fg :Telescope live_grep<cr>

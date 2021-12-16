@@ -67,7 +67,7 @@ def screen_change():
                             widget.WindowName(),
                             widget.Sep(),
                             widget.TextBox(text='Volume'),
-                            widget.PulseVolume(),
+                            widget.PulseVolume(step=1),
                             widget.Sep(),
                             widget.Systray(),
                             # widget.StatusNotifier(),
@@ -323,7 +323,7 @@ auto_minimize = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "qtile"
+wmname = "LG3D"
 
 @hook.subscribe.startup_once
 def autostart():

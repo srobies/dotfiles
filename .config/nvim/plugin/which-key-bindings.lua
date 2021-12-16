@@ -30,7 +30,8 @@ wk.register({
         B = "Conditional breakpoint",
         p = "Breakpoint log",
         e = "Eval",
-        r = "Run to cursor"
+        r = "Run to cursor",
+        t = "Toggle"
     },
     f = {
         name = "Telescope",
