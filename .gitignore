@@ -3,3 +3,4 @@
 .config/vifm/vifminfo.json
 .config/mutt/.mailsynclastrun
 .config/tmux/plugins/*
+.config/qtile/__pycache__/*
