@@ -71,10 +71,10 @@ cmp.setup({
     sources = {
       { name = 'nvim_lsp'},
       { name = 'nvim_lua'},
-      { name = 'omni' },
       { name = 'vsnip' },
       { name = 'buffer' },
       { name = 'treesitter' },
+      { name = 'omni' },
       { name = 'path'},
       { name = 'latex_symbols' },
       { name = 'orgmode' },
@@ -98,7 +98,7 @@ require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    -- disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
     additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
   },
   ensure_installed = {'org'}, -- Or run :TSUpdate org

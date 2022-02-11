@@ -1,4 +1,5 @@
-set tabstop=3
-set softtabstop=3
-set shiftwidth=3
+" set tabstop=1
+" set softtabstop=1
+" set shiftwidth=1
 set nofoldenable
+IndentBlanklineDisable
