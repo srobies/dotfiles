@@ -46,7 +46,6 @@ return require('packer').startup(function()
             }
         end
     }
-    -- use 'glepnir/zephyr-nvim'
     use {'lervag/vimtex', ft = {'tex'}, opt=true}
     use {
         'lewis6991/gitsigns.nvim',
@@ -62,13 +61,6 @@ return require('packer').startup(function()
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        config = function ()
-            require('nvim-treesitter.configs').setup {
-              ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-              highlight = { enable = true },
-              autopairs = { enable = true }
-        }
-        end
     }
     use 'lukas-reineke/indent-blankline.nvim'
     use {'windwp/windline.nvim',

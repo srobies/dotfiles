@@ -109,8 +109,8 @@ nnoremap <silent><leader>gd :Gdiff<cr>
 
 nnoremap <silent><leader>to :TroubleToggle<cr>
 nnoremap <silent><leader>tt :TodoTrouble<cr>
-nnoremap <silent><leader>tw :TroubleToggle lsp_workspace_diagnostics<cr>
-nnoremap <silent><leader>td :TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <silent><leader>tw :TroubleToggle workspace_diagnostics<cr>
+nnoremap <silent><leader>td :TroubleToggle document_diagnostics<cr>
 nnoremap <silent><leader>tq :TroubleToggle quickfix<cr>
 nnoremap <silent><leader>tr :TroubleRefresh<cr>
 
