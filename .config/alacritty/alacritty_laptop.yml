@@ -18,7 +18,7 @@ font:
   normal: 
     family: FantasqueSansMono Nerd Font Mono
     style: Regular
-  size: 12
+  size: 9
 # TokyoNight Alacritty Colors
 colors:
   # Default colors
