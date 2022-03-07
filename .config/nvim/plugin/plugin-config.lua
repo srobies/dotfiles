@@ -78,21 +78,36 @@ cmp.setup({
       { name = 'path'},
       { name = 'latex_symbols' },
       { name = 'orgmode' },
-    }
+    },
+    formatting = {
+      format = function(entry, vim_item)
+        local prsnt, lspkind = pcall(require, "lspkind")
+        if not prsnt then
+        vim_item.kind = string.format('%s', vim_item.kind) -- This concatonates the icons with the name of the item kind
+        -- Source
+        vim_item.menu = ({
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[Lua]",
+          vsnip = '[vsnip]',
+          buffer = "[Buffer]",
+          treesitter = '[Treesitter]',
+          omni = '[Omni]',
+          path = '[Path]',
+          latex_symbols = "[LaTeX]",
+          orgmode = '[Org]'
+        })[entry.source.name]
+        return vim_item
+        else
+          return lspkind.cmp_format()
+        end
+      end
+  },
 })
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '{' } }))
 
 -- orgmode config
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.org = {
-  install_info = {
-    url = 'https://github.com/milisims/tree-sitter-org',
-    revision = 'main',
-    files = {'src/parser.c', 'src/scanner.cc'},
-  },
-  filetype = 'org',
-}
+require('orgmode').setup_ts_grammar()
 
 require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
@@ -127,6 +142,7 @@ require('indent_blankline').setup {
   buftype_exclude = {"terminal", 'help'},
   use_treesitter = true,
   show_current_context = true,
+  show_current_context_start = true,
 }
 -- dap config
 -- local dap = require('dap')
