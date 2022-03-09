@@ -63,7 +63,7 @@ return require('packer').startup(function()
         run = ':TSUpdate',
     }
     use 'lukas-reineke/indent-blankline.nvim'
-    use {'windwp/windline.nvim',
+    use {'feline-nvim/feline.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}}
     use {
       "folke/trouble.nvim",
@@ -92,7 +92,8 @@ return require('packer').startup(function()
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-omni'
+            'hrsh7th/cmp-omni',
+            'lukas-reineke/cmp-rg'
         }
     }
     use {'nvim-telescope/telescope.nvim',
