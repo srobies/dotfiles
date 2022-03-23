@@ -1,5 +1,5 @@
-" set tabstop=1
-" set softtabstop=1
-" set shiftwidth=1
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set nofoldenable
 IndentBlanklineDisable
