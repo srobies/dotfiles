@@ -87,7 +87,6 @@ return require('packer').startup(function()
             'rafamadriz/friendly-snippets',
             'ray-x/cmp-treesitter',
             'hrsh7th/cmp-vsnip',
-            'kdheepak/cmp-latex-symbols',
             'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',

@@ -1,4 +1,3 @@
-lua require('plugins')
 filetype plugin on
 set completeopt=menu,menuone,noselect
 set hidden
@@ -32,6 +31,14 @@ set incsearch
 set noshowmode
 set wildmenu
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
+
+augroup qs_colors
+  autocmd!
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#ff9e64' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#1abe9c' gui=underline ctermfg=81 cterm=underline
+augroup END
+lua require('plugins')
+
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -160,7 +167,7 @@ endfunction
 
 let g:vsnip_snippet_dir = '~/.config/nvim/snips'
 
-let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_compiler_method = 'latexmk'
 " let g:vimtex_syntax_conceal_disable = 1
 

@@ -15,9 +15,9 @@ env:
 # So that font isn't massive on laptop
 font:
   normal: 
-    family: Fantasque Sans Mono Nerd Font
+    family: FantasqueSansMono Nerd Font Mono
     style: Regular
-  size: 12.5
+  size: 12
 # TokyoNight Alacritty Colors
 colors:
   # Default colors
