@@ -1,9 +1,0 @@
-{
-    "snippets.userSnippetsDirectory" : "~/.local/share/nvim/snips",
-    "Lua.workspace.preloadFileSize" : 150,
-    "diagnostic.virtualTextCurrentLineOnly": false,
-    "diagnostic.virtualText": true,
-    "diagnostic.warningSign": "",
-    "diagnostic.infoSign": "",
-    "diagnostic.errorSign": "",
-}
