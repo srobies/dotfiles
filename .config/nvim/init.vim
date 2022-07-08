@@ -160,9 +160,7 @@ endfunction
 
 let g:vsnip_snippet_dir = '~/.config/nvim/snips'
 
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_compiler_method = 'latexmk'
-" let g:vimtex_syntax_conceal_disable = 1
+let g:vimtex_view_method = 'zathura'
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1

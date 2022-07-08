@@ -185,4 +185,4 @@ dap.repl.commands = vim.tbl_extend('force', dap.repl.commands, {
     -- add your own commands
 })
 
-require('feline').setup()
+require('wlsample.evil_line')

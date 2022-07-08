@@ -15,14 +15,7 @@ return require('packer').startup(function()
         'rcarriga/nvim-dap-ui',
         requires = {'mfussenegger/nvim-dap'},
         config = function()
-            require('dapui').setup{
-                sidebar = {
-                    size = 60
-                },
-                tray = {
-                    elements = {},
-                }
-            }
+            require('dapui').setup{}
         end
     }
     use 'folke/tokyonight.nvim'
@@ -46,7 +39,7 @@ return require('packer').startup(function()
             }
         end
     }
-    use {'lervag/vimtex', ft = {'tex'}, opt=true}
+    use 'lervag/vimtex'
     use {
         'lewis6991/gitsigns.nvim',
         requires = {'nvim-lua/plenary.nvim'},
@@ -63,7 +56,7 @@ return require('packer').startup(function()
         run = ':TSUpdate',
     }
     use 'lukas-reineke/indent-blankline.nvim'
-    use {'feline-nvim/feline.nvim',
+    use {'windwp/windline.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}}
     use {
       "folke/trouble.nvim",
@@ -87,7 +80,6 @@ return require('packer').startup(function()
             'rafamadriz/friendly-snippets',
             'ray-x/cmp-treesitter',
             'hrsh7th/cmp-vsnip',
-            'kdheepak/cmp-latex-symbols',
             'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-path',
