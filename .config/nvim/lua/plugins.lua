@@ -3,8 +3,11 @@ return require('packer').startup(function()
   use 'unblevable/quick-scope'
   use 'jbyuki/one-small-step-for-vimkind'
     use 'wbthomason/packer.nvim'
-    use {'kristijanhusak/orgmode.nvim',
-        requires = {'akinsho/org-bullets.nvim'},
+    use 'kristijanhusak/orgmode.nvim'
+    use {'akinsho/org-bullets.nvim',
+      config = function()
+        require('org-bullets').setup{}
+      end
     }
     use 'windwp/nvim-autopairs'
     use 'christoomey/vim-tmux-navigator'

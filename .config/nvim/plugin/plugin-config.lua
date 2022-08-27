@@ -124,9 +124,7 @@ require('orgmode').setup{
     org_agenda_file = '~/Dropbox/org/*',
     org_default_notes_file = '~/Dropbox/org/school.org',
 }
-require("org-bullets").setup {
-    symbols = { "◉", "○", "✸", "✿" }
-}
+
 -- nvim-autopairs config
 _G.MUtils= {}
 local npairs = require('nvim-autopairs')
