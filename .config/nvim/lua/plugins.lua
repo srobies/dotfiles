@@ -88,7 +88,8 @@ return require('packer').startup(function()
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-omni',
-            'lukas-reineke/cmp-rg'
+            'lukas-reineke/cmp-rg',
+            'hrsh7th/cmp-nvim-lsp-signature-help'
         }
     }
     use {'nvim-telescope/telescope.nvim',

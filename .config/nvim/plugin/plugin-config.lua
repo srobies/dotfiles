@@ -77,8 +77,9 @@ cmp.setup({
       { name = 'rg' },
       { name = 'omni' },
       { name = 'path'},
-      { name = 'latex_symbols' },
       { name = 'orgmode' },
+      { name = 'nvim_lsp_signature_help'}
+
     },
     formatting = {
       format = function(entry, vim_item)
