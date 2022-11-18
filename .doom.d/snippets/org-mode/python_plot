@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: python_plot
-# key: python_plot
-# --
-#+begin_src python :session :results file
-    import matplotlib.pyplot as plt
-    $0
-#+end_src
