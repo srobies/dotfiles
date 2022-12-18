@@ -96,5 +96,9 @@ wk.register({
 }, { prefix = "]" })
 
 wk.register({
-    c = "Comment motion"
+    c = "Comment motion",
+    r = "References",
+    d = "Definition",
+    D = "Declaration",
+    i = "Implementation",
 }, { prefix = "g" })

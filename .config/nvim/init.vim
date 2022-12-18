@@ -5,7 +5,6 @@ set hidden
 set updatetime=1000
 set signcolumn=auto
 set listchars=tab:\ \ ,eol:
-set list
 set timeoutlen=1000
 set tabstop     =4
 set softtabstop =4
@@ -14,8 +13,6 @@ set autoindent
 set cindent
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-autocmd BufNewFile,BufRead neomutt-* setf mail 
-autocmd FileType mail setlocal formatoptions+=w
 set expandtab
 syntax on
 set undodir=~/.local/share/nvim/undodir
@@ -158,8 +155,6 @@ function! BlameToggle()
   endif
 endfunction
 
-let g:vsnip_snippet_dir = '~/.config/nvim/snips'
-
 let g:vimtex_view_method = 'zathura'
 
 let g:undotree_WindowLayout = 2
@@ -175,3 +170,4 @@ sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn numhl=Diagnost
 sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
 sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
 sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
+lua require('setup')

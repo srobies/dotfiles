@@ -1,8 +1,13 @@
 return require('packer').startup(function()
   use 'glepnir/lspsaga.nvim'
-  use '~/repos/undotree-nvim'
-  use 'unblevable/quick-scope'
-  use 'jbyuki/one-small-step-for-vimkind'
+  use {
+    'jinh0/eyeliner.nvim',
+    config = function()
+      require'eyeliner'.setup {
+        highlight_on_key = true
+      }
+    end
+  }
   use 'wbthomason/packer.nvim'
   use 'kristijanhusak/orgmode.nvim'
   use {'akinsho/org-bullets.nvim',
@@ -42,7 +47,7 @@ return require('packer').startup(function()
       end
   }
   use 'lervag/vimtex'
-  use {
+ use {
       'lewis6991/gitsigns.nvim',
       requires = {'nvim-lua/plenary.nvim'},
       event = 'VimEnter', -- Otherwise it produces an error when a :Git buffer is open.
@@ -75,19 +80,19 @@ return require('packer').startup(function()
     end
   }
   use 'neovim/nvim-lspconfig'
+  use 'L3MON4D3/LuaSnip'
   use {
       'hrsh7th/nvim-cmp',
       requires = {
-          'hrsh7th/vim-vsnip',
-          'rafamadriz/friendly-snippets',
-          'ray-x/cmp-treesitter',
-          'hrsh7th/cmp-vsnip',
-          'hrsh7th/cmp-nvim-lua',
-          'hrsh7th/cmp-nvim-lsp',
-          'hrsh7th/cmp-path',
-          'hrsh7th/cmp-buffer',
-          'hrsh7th/cmp-omni',
-          'lukas-reineke/cmp-rg',
+        'saadparwaiz1/cmp_luasnip',
+        'rafamadriz/friendly-snippets',
+        'ray-x/cmp-treesitter',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-omni',
+        'lukas-reineke/cmp-rg',
       }
   }
   use 'ray-x/lsp_signature.nvim'
