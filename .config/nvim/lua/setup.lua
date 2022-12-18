@@ -1,6 +1,7 @@
 require('mapping')
 require('which-key-bindings')
 require('nvim_lsp')
+require('plugin-config')
 require('plugin_config/autopairs')
 require('plugin_config/cmp')
 require('plugin_config/dap')
