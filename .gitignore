@@ -1,4 +1,3 @@
-.config/nvim/plugin/*
 .config/vdirsyncer/google_calendar_token
 .config/vifm/vifminfo.json
 .config/mutt/.mailsynclastrun

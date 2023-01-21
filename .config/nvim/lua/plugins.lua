@@ -1,83 +1,95 @@
-return require('packer').startup(function()
-  use 'glepnir/lspsaga.nvim'
-  use '~/repos/undotree-nvim'
-  use 'unblevable/quick-scope'
-  use 'jbyuki/one-small-step-for-vimkind'
-  use 'wbthomason/packer.nvim'
-  use 'kristijanhusak/orgmode.nvim'
-  use {'akinsho/org-bullets.nvim',
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+  'glepnir/lspsaga.nvim',
+  -- '~/repos/undotree-nvim',
+  'unblevable/quick-scope',
+  'jbyuki/one-small-step-for-vimkind',
+  'kristijanhusak/orgmode.nvim',
+  {'akinsho/org-bullets.nvim',
     config = function()
       require('org-bullets').setup{}
     end
-  }
-  use 'windwp/nvim-autopairs'
-  use 'christoomey/vim-tmux-navigator'
-  use 'mbbill/undotree'
-  use 'tpope/vim-fugitive'
-  use 'mfussenegger/nvim-dap'
-  use {
+  },
+  'windwp/nvim-autopairs',
+  'christoomey/vim-tmux-navigator',
+  'mbbill/undotree',
+  'tpope/vim-fugitive',
+  'mfussenegger/nvim-dap',
+  {
       'rcarriga/nvim-dap-ui',
-      requires = {'mfussenegger/nvim-dap'},
+      dependencies = {'mfussenegger/nvim-dap'},
       config = function()
           require('dapui').setup{}
       end
-  }
-  use 'folke/tokyonight.nvim'
-  use 'kevinhwang91/nvim-bqf'
-  use {
+  },
+  'folke/tokyonight.nvim',
+  'kevinhwang91/nvim-bqf',
+  {
       'terrortylor/nvim-comment',
       config = function ()
           require('nvim_comment').setup {
               comment_empty = false
           }
       end
-  }
-  use 'tpope/vim-repeat'
-  use {
+  },
+  'tpope/vim-repeat',
+  {
       'akinsho/nvim-toggleterm.lua',
       config = function ()
           require('toggleterm').setup{
               open_mapping = [[<C-t>]]
           }
       end
-  }
-  use 'lervag/vimtex'
-  use {
+  },
+  'lervag/vimtex',
+  {
       'lewis6991/gitsigns.nvim',
-      requires = {'nvim-lua/plenary.nvim'},
+      dependencies = {'nvim-lua/plenary.nvim'},
       event = 'VimEnter', -- Otherwise it produces an error when a :Git buffer is open.
       config = function ()
           require('gitsigns').setup{
               numhl = true,
           }
       end
-  }
-  use 'ledger/vim-ledger'
-  use {
+  },
+  'ledger/vim-ledger',
+  {
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate',
-  }
-  use 'lukas-reineke/indent-blankline.nvim'
-  use {'windwp/windline.nvim',
-      requires = {'kyazdani42/nvim-web-devicons'}}
-  use {
+      build = ':TSUpdate',
+  },
+  'lukas-reineke/indent-blankline.nvim',
+  {'windwp/windline.nvim',
+      dependencies = {'kyazdani42/nvim-web-devicons'}},
+  {
     "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
+    dependencies = {"kyazdani42/nvim-web-devicons"},
     config = function()
       require("trouble").setup {}
     end
-  }
-  use {
+  },
+  {
     "folke/todo-comments.nvim",
-    requires = {{"nvim-lua/plenary.nvim"}, {'folke/trouble.nvim'}},
+    dependencies = {"nvim-lua/plenary.nvim", 'folke/trouble.nvim'},
     config = function()
       require("todo-comments").setup {}
     end
-  }
-  use 'neovim/nvim-lspconfig'
-  use {
+  },
+  'neovim/nvim-lspconfig',
+  {
       'hrsh7th/nvim-cmp',
-      requires = {
+      dependencies = {
           'hrsh7th/vim-vsnip',
           'rafamadriz/friendly-snippets',
           'ray-x/cmp-treesitter',
@@ -89,15 +101,15 @@ return require('packer').startup(function()
           'hrsh7th/cmp-omni',
           'lukas-reineke/cmp-rg',
       }
-  }
-  use 'ray-x/lsp_signature.nvim'
-  use {'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
-  }
-  use {
+  },
+  'ray-x/lsp_signature.nvim',
+  {'nvim-telescope/telescope.nvim',
+      dependencies = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
+  },
+  {
     "folke/which-key.nvim",
     config = function()
       require("which-key").setup {}
     end
-  }
-end)
+  },
+})

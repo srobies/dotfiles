@@ -1,4 +1,6 @@
-require('lsp_signature').setup()
+require('lsp_signature').setup({
+  toggle_key = '<C-k>'
+})
 
 vim.keymap.set("n", "]t", function()
   require("todo-comments").jump_next()
@@ -10,14 +12,13 @@ end, { desc = "Previous todo comment" })
 
 -- lsp saga
 local keymap = vim.keymap.set
-local saga = require('lspsaga')
-saga.init_lsp_saga()
+require('lspsaga').setup({})
 keymap("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 keymap("n", "<leader>cr", "<cmd>Lspsaga rename<CR>", { silent = true })
 keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
-keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+-- keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 keymap("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
