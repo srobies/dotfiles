@@ -91,7 +91,7 @@ require('lazy').setup({
   {
       'hrsh7th/nvim-cmp',
       dependencies = {
-          'hrsh7th/vim-vsnip',
+          'L3MON4D3/LuaSnip',
           'rafamadriz/friendly-snippets',
           'ray-x/cmp-treesitter',
           'hrsh7th/cmp-vsnip',
