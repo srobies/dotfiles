@@ -17,7 +17,8 @@ require('lazy').setup({
   'unblevable/quick-scope',
   'jbyuki/one-small-step-for-vimkind',
   'kristijanhusak/orgmode.nvim',
-  {'akinsho/org-bullets.nvim',
+  {
+    'akinsho/org-bullets.nvim',
     config = function()
       require('org-bullets').setup{}
     end
@@ -104,7 +105,10 @@ require('lazy').setup({
   },
   'ray-x/lsp_signature.nvim',
   {'nvim-telescope/telescope.nvim',
-      dependencies = {{'nvim-lua/plenary.nvim'},{'nvim-lua/popup.nvim'}}
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-lua/popup.nvim',
+      }
   },
   {
     "folke/which-key.nvim",

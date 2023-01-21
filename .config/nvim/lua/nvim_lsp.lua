@@ -1,6 +1,9 @@
 -- lsp-config setup
 local nvim_lsp = require('lspconfig')
 local wk = require("which-key")
+require('lsp_signature').setup{
+  toggle_key = "<C-k>"
+}
 
 -- Mappings for lsp
 local on_attach = function(client, bufnr)
@@ -10,28 +13,13 @@ local on_attach = function(client, bufnr)
   local builtin = require('telescope.builtin')
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  -- vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
-  -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<space>gd', builtin.lsp_definitions, opts)
   vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
   vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
-  -- vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, opts)
-  -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
-  -- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
-    wk.register({
-        r = "References",
-        d = "Definition",
-        D = "Declaration",
-        i = "Implementation",
-    }, { prefix = "g" })
-    wk.register({
-        D = "Type definition",
-        e = "Line diagnostics"
-    }, { prefix = "<leader>" })
 
     -- Set some keybinds conditional on server capabilities
     if client.server_capabilities.document_formatting then
@@ -80,14 +68,12 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local servers = { 'pyright', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls', 'vimls'}
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  require('lspconfig')[lsp].setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     }
