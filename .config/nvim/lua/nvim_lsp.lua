@@ -12,8 +12,8 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true, buffer=bufnr }
   local builtin = require('telescope.builtin')
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  vim.keymap.set('n', '<space>gd', builtin.lsp_definitions, opts)
+  -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gD', builtin.lsp_definitions, opts)
   vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
   vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
   vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
@@ -70,7 +70,7 @@ end
 -- map buffer local keybindings when the language server attaches
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local servers = { 'pyright', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls', 'vimls'}
+local servers = { 'pylsp', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls', 'vimls'}
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
