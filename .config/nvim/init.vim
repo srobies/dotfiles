@@ -11,8 +11,6 @@ set softtabstop =4
 set shiftwidth  =4
 set autoindent
 set cindent
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
 set expandtab
 syntax on
 set undodir=~/.local/share/nvim/undodir

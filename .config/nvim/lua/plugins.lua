@@ -12,6 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {'kevinhwang91/promise-async'}
+  },
   'glepnir/lspsaga.nvim',
   -- '~/repos/undotree-nvim',
   'unblevable/quick-scope',
