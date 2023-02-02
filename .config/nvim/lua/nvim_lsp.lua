@@ -69,6 +69,10 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 
 local servers = { 'pylsp', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls', 'vimls'}
 for _, lsp in ipairs(servers) do
@@ -79,6 +83,7 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+require('ufo').setup()
 
 require('lspconfig').sumneko_lua.setup {
   cmd = {"lua-language-server"};
