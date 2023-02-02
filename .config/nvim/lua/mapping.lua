@@ -19,3 +19,10 @@ end, { desc = "Next todo comment" })
 keymap("n", "[t", function()
   require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
+
+local builtin = require('telescope.builtin')
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', 'gD', builtin.lsp_definitions, opts)
+vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
+vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
+vim.keymap.set('n', 'gr', builtin.lsp_references, opts)

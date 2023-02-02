@@ -11,12 +11,12 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local builtin = require('telescope.builtin')
   local opts = { noremap=true, silent=true }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', 'gD', builtin.lsp_definitions, opts)
   vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
   vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
   vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
   local opts = { noremap=true, silent=true, buffer=bufnr }
+  -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
