@@ -9,12 +9,12 @@ require('lsp_signature').setup{
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
-  local builtin = require('telescope.builtin')
-  local opts = { noremap=true, silent=true }
-  vim.keymap.set('n', 'gD', builtin.lsp_definitions, opts)
-  vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
-  vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
-  vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+  -- local builtin = require('telescope.builtin')
+  -- local opts = { noremap=true, silent=true }
+  -- vim.keymap.set('n', 'gD', builtin.lsp_definitions, opts)
+  -- vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
+  -- vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, opts)
+  -- vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
   local opts = { noremap=true, silent=true, buffer=bufnr }
   -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -84,31 +84,3 @@ for _, lsp in ipairs(servers) do
   }
 end
 require('ufo').setup()
-
-require('lspconfig').sumneko_lua.setup {
-  cmd = {"lua-language-server"};
-  capabilities =  require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = "/usr/bin/luajit",
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim','use'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
