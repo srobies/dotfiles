@@ -171,4 +171,5 @@ sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn numhl=Diagnost
 sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
 sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
 sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
+command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 lua require('setup')
