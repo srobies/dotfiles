@@ -27,6 +27,9 @@ set incsearch
 set noshowmode
 set wildmenu
 set errorformat=%A%f:%l:%c:%m,%-G%.%# " Error format for quickfix
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+" set nofoldenable                     " Disable folding at startup.
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

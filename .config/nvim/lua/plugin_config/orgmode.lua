@@ -10,6 +10,20 @@ require'nvim-treesitter.configs'.setup {
   },
   
   ensure_installed = {'org'}, -- Or run :TSUpdate org
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<CR>",
+      node_incremental = "<CR>",
+      scope_incremental = "<S-CR>",
+      node_decremental = "<BS>",
+    },
+  },
+  rainbow = {
+    enable = true,
+    query = 'rainbow-parens',
+    strategy = require('ts-rainbow').strategy.global,
+  }
 }
 require('orgmode').setup{
     org_agenda_file = '~/Dropbox/org/*',

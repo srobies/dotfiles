@@ -74,7 +74,7 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true
 }
 
-local servers = { 'pylsp', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls', 'vimls'}
+local servers = { 'pylsp', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls'}
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
@@ -83,4 +83,4 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
-require('ufo').setup()
+-- require('ufo').setup()
