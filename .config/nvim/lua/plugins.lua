@@ -13,14 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   'HiPhish/nvim-ts-rainbow2',
-  -- {
-  --   'kevinhwang91/nvim-ufo',
-  --   dependencies = {'kevinhwang91/promise-async'}
-  -- },
   'glepnir/lspsaga.nvim',
-  -- '~/repos/undotree-nvim',
   'unblevable/quick-scope',
-  'jbyuki/one-small-step-for-vimkind',
   'kristijanhusak/orgmode.nvim',
   {
     'akinsho/org-bullets.nvim',
@@ -29,10 +23,8 @@ require('lazy').setup({
     end
   },
   'windwp/nvim-autopairs',
-  'christoomey/vim-tmux-navigator',
   'mbbill/undotree',
   'tpope/vim-fugitive',
-  'mfussenegger/nvim-dap',
   {
       'rcarriga/nvim-dap-ui',
       dependencies = {'mfussenegger/nvim-dap'},
@@ -70,13 +62,13 @@ require('lazy').setup({
           }
       end
   },
-  'ledger/vim-ledger',
   {
       'nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
   },
   'lukas-reineke/indent-blankline.nvim',
-  {'windwp/windline.nvim',
+  {
+    'windwp/windline.nvim',
       dependencies = {'kyazdani42/nvim-web-devicons'}},
   {
     "folke/trouble.nvim",
@@ -96,20 +88,25 @@ require('lazy').setup({
   {
       'hrsh7th/nvim-cmp',
       dependencies = {
-          'L3MON4D3/LuaSnip',
-          'rafamadriz/friendly-snippets',
           'ray-x/cmp-treesitter',
-          'hrsh7th/cmp-vsnip',
           'hrsh7th/cmp-nvim-lua',
           'hrsh7th/cmp-nvim-lsp',
           'hrsh7th/cmp-path',
           'hrsh7th/cmp-buffer',
           'hrsh7th/cmp-omni',
           'lukas-reineke/cmp-rg',
+          'saadparwaiz1/cmp_luasnip'
       }
   },
+  {
+    'L3MON4D3/LuaSnip',
+    dependencies = {
+      'rafamadriz/friendly-snippets'
+    }
+  },
   'ray-x/lsp_signature.nvim',
-  {'nvim-telescope/telescope.nvim',
+  {
+    'nvim-telescope/telescope.nvim',
       dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',

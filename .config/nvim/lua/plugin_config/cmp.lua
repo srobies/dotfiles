@@ -62,7 +62,7 @@ cmp.setup({
         vim_item.menu = ({
           nvim_lsp = "[LSP]",
           nvim_lua = "[Lua]",
-          vsnip = '[vsnip]',
+          luasnip = '',
           buffer = "[Buffer]",
           treesitter = '[Treesitter]',
           omni = '[Omni]',
