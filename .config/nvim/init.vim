@@ -156,7 +156,7 @@ function! BlameToggle()
   endif
 endfunction
 
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'sioyek'
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
