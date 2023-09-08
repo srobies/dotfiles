@@ -51,171 +51,90 @@ colors = dict(
 
 @hook.subscribe.screen_change  # change the number of bars when screens change
 def screen_change():
-    screen_number = len(os.popen(r"xrandr | grep '\sconnected\s'").readlines())
-    # Changes widget based on laptop vs desktop
-    if os.uname()[1].lower().find("laptop") == -1:  # desktop config
-        bar_height = 20
-        primary_widgets = [
-            widget.Image(
-                filename="/usr/share/pixmaps/archlinux-logo.png",
-                mouse_callbacks={
-                    "Button1": lambda qtile: qtile.cmd_spawn(
-                        "alacritty -e sudo pacman -Syu"
-                    )
-                },
-            ),
-            widget.CurrentLayout(),
-            widget.GroupBox(
-                highlight_method="block",
-                this_current_screen_border=colors["blue"],
-                urgent_alert_method="block",
-                urgent_border=colors["red"],
-                disable_drag=True,
-            ),
-            widget.WindowName(),
-            widget.Sep(),
-            widget.TextBox(text="Volume"),
-            widget.PulseVolume(step=1),
-            widget.Sep(),
-            widget.Systray(),
-            # widget.StatusNotifier(),
-            widget.Sep(),
-            widget.Clock(format="%m-%d %a %I:%M %p"),
-            widget.Sep(),
-            widget.QuickExit(
-                default_text="",
-                countdown_format="[ {} ]",
-                countdown_start=3,
-                padding=8,
-            ),
-        ]
-        secondary_widgets = [
-            widget.Image(
-                filename="/usr/share/pixmaps/archlinux-logo.png",
-                mouse_callbacks={
-                    "Button1": lambda qtile: qtile.cmd_spawn(
-                        "alacritty -e sudo pacman -Syu"
-                    )
-                },
-            ),
-            widget.CurrentLayout(),
-            widget.GroupBox(
-                highlight_method="block",
-                this_current_screen_border=colors["blue"],
-                urgent_alert_method="block",
-                urgent_border=colors["red"],
-                disable_drag=True,
-            ),
-            widget.WindowName(),
-            widget.Sep(),
-            widget.TextBox(text="Volume"),
-            widget.PulseVolume(),
-            widget.Sep(),
-            widget.Clock(format="%m-%d %a %I:%M %p"),
-            widget.Sep(),
-            widget.QuickExit(
-                default_text="",
-                countdown_format="[ {} ]",
-                countdown_start=3,
-                padding=5,
-            ),
-        ]
-    else:  # laptop config
-        bar_height = 24
-        primary_widgets = [
-            widget.Image(
-                filename="/usr/share/pixmaps/archlinux-logo.png",
-                mouse_callbacks={
-                    "Button1": lambda qtile: qtile.cmd_spawn(
-                        "alacritty -e sudo pacman -Syu"
-                    )
-                },
-            ),
-            widget.CurrentLayout(),
-            widget.GroupBox(
-                highlight_method="block",
-                this_current_screen_border=colors["blue"],
-                urgent_alert_method="block",
-                urgent_border=colors["red"],
-                disable_drag=True,
-            ),
-            widget.WindowName(),
-            widget.Sep(),
-            widget.TextBox(text="Volume"),
-            widget.PulseVolume(),
-            widget.Sep(),
-            widget.TextBox(text="Brightness"),
-            widget.Backlight(backlight_name="intel_backlight"),
-            widget.Sep(),
-            widget.Battery(format="{char} {percent:2.0%} {hour:d}:{min:02d}"),
-            widget.BatteryIcon(),
-            widget.Sep(),
-            widget.Wlan(interface="wlp2s0", format="{essid} {percent:2.0%}"),
-            widget.Systray(),
-            # widget.StatusNotifier(),
-            widget.Sep(),
-            widget.Clock(format="%m-%d %a %I:%M %p"),
-            widget.Sep(),
-            widget.QuickExit(
-                default_text="Logout", countdown_format="[ {} ]", countdown_start=3
-            ),
-        ]
-        secondary_widgets = [
-            widget.Image(
-                filename="/usr/share/pixmaps/archlinux-logo.png",
-                mouse_callbacks={
-                    "Button1": lambda qtile: qtile.cmd_spawn(
-                        "alacritty -e sudo pacman -Syu"
-                    )
-                },
-            ),
-            widget.CurrentLayout(),
-            widget.GroupBox(
-                highlight_method="block",
-                this_current_screen_border=colors["blue"],
-                urgent_alert_method="block",
-                urgent_border=colors["red"],
-                disable_drag=True,
-            ),
-            widget.WindowName(),
-            widget.Sep(),
-            widget.TextBox(text="Volume"),
-            widget.PulseVolume(),
-            widget.Sep(),
-            widget.TextBox(text="Brightness"),
-            widget.Backlight(backlight_name="intel_backlight"),
-            widget.Sep(),
-            widget.Battery(format="{char} {percent:2.0%} {hour:d}:{min:02d}"),
-            widget.BatteryIcon(),
-            widget.Sep(),
-            widget.Wlan(interface="wlp2s0", format="{essid} {percent:2.0%}"),
-            widget.Sep(),
-            widget.Clock(format="%m-%d %a %I:%M %p"),
-            widget.Sep(),
-            widget.QuickExit(
-                default_text="", countdown_format="[ {} ]", countdown_start=3
-            ),
-        ]
-
+    bar_height = 20
+    primary_widgets = [
+        widget.Image(
+            filename="/usr/share/pixmaps/archlinux-logo.png",
+            mouse_callbacks={
+                "Button1": lambda qtile: qtile.cmd_spawn(
+                    "alacritty -e sudo pacman -Syu"
+                )
+            },
+        ),
+        widget.CurrentLayout(),
+        widget.GroupBox(
+            highlight_method="block",
+            this_current_screen_border=colors["blue"],
+            urgent_alert_method="block",
+            urgent_border=colors["red"],
+            disable_drag=True,
+        ),
+        widget.WindowName(),
+        widget.Sep(),
+        widget.TextBox(text="Volume"),
+        widget.PulseVolume(step=1),
+        widget.Sep(),
+        widget.Systray(),
+        # widget.StatusNotifier(),
+        widget.Sep(),
+        widget.Clock(format="%m-%d %a %I:%M %p"),
+        widget.Sep(),
+        widget.QuickExit(
+            default_text="",
+            countdown_format="[ {} ]",
+            countdown_start=3,
+            padding=8,
+        ),
+    ]
+    secondary_widgets = [
+        widget.Image(
+            filename="/usr/share/pixmaps/archlinux-logo.png",
+            mouse_callbacks={
+                "Button1": lambda qtile: qtile.cmd_spawn(
+                    "alacritty -e sudo pacman -Syu"
+                )
+            },
+        ),
+        widget.CurrentLayout(),
+        widget.GroupBox(
+            highlight_method="block",
+            this_current_screen_border=colors["blue"],
+            urgent_alert_method="block",
+            urgent_border=colors["red"],
+            disable_drag=True,
+        ),
+        widget.WindowName(),
+        widget.Sep(),
+        widget.TextBox(text="Volume"),
+        widget.PulseVolume(),
+        widget.Sep(),
+        widget.Clock(format="%m-%d %a %I:%M %p"),
+        widget.Sep(),
+        widget.QuickExit(
+            default_text="",
+            countdown_format="[ {} ]",
+            countdown_start=3,
+            padding=5,
+        ),
+    ]
     screens = []
-    for i in range(screen_number):
-        if i == 0:  # Systray on primary screen
-            screens.append(
-                Screen(
-                    top=bar.Bar(
-                        primary_widgets, bar_height, background=colors["background"]
-                    )
-                )
-            )
-        else:
-            screens.append(
-                Screen(
-                    top=bar.Bar(
-                        secondary_widgets, bar_height, background=colors["background"]
-                    )
-                )
-            )
+    screens.append(
+        Screen(
+            top=bar.Bar(primary_widgets, bar_height, background=colors["background"])
+        )
+    )
+    screens.append(
+        Screen(
+            top=bar.Bar(secondary_widgets, bar_height, background=colors["background"])
+        )
+    )
     return screens
+
+
+@hook.subscribe.client_new
+def client_new(client):
+    if client.name == 'Mozilla Thunderbird':
+        client.togroup('7')
 
 
 screens = screen_change()
