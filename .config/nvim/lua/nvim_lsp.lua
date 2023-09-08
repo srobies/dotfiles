@@ -19,20 +19,10 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '<space>s', vim.lsp.buf.format(), opts)
 
 
     -- Set some keybinds conditional on server capabilities
-    if client.server_capabilities.document_formatting then
-        vim.keymap.set("n", "<space>cf", "vim.lsp.buf.formatting()<CR>", opts)
-        wk.register({
-            c = {
-                f = "Format"
-            }
-        }, { prefix = "<leader>" })
-    end
-    if client.server_capabilities.document_range_formatting then
-      vim.keymap.set("v", "<space>cf", "vim.lsp.buf.range_formatting()<CR>", opts)
-    end
     local filetype = vim.bo.filetype
     if filetype == "c" or filetype == "cpp" then
       vim.keymap.set('n', '<space>cs', '<cmd>ClangdSwitchSourceHeader<CR>', opts)
@@ -83,4 +73,15 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+require('lspconfig').pylsp.setup {
+  settings = {
+    pylsp = {
+      plugins = {
+        black = {
+          enabled = true,
+        }
+      }
+    }
+  }
+}
 -- require('ufo').setup()

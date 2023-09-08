@@ -143,6 +143,8 @@ nnoremap <silent><leader>gfd :Git difftool<cr>
 nnoremap <silent><leader>gfm :Git mergetool<cr>
 nnoremap <silent><leader>gfv :Gvdiffsplit<cr>
 
+nnoremap <leader>cf :lua vim.lsp.buf.format()<cr>
+
 function! BlameToggle()
   let found = 0
   for winnr in range(1, winnr('$'))
