@@ -28,7 +28,6 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, DropDown, Group, Key, ScratchPad, Screen, Match
 from libqtile.lazy import lazy
 
-# from libqtile.utils import guess_terminal
 from libqtile import hook
 import os
 import subprocess
@@ -133,8 +132,8 @@ def screen_change():
 
 @hook.subscribe.client_new
 def client_new(client):
-    if client.name == 'Mozilla Thunderbird':
-        client.togroup('7')
+    if client.name == "Mozilla Thunderbird":
+        client.togroup("7")
 
 
 screens = screen_change()
@@ -153,7 +152,6 @@ keys = [
     Key([mod], "s", lazy.layout.shrink()),
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "o", lazy.layout.maximize()),
-    # Move windows up or down in current stack
     Key(
         [mod, "shift"],
         "k",
@@ -168,7 +166,6 @@ keys = [
     ),
     Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
-    # Switch window focus to other pane(s) of stack
     Key(
         [mod],
         "space",
@@ -176,14 +173,9 @@ keys = [
         desc="Switch window focus to other pane(s) of stack",
     ),
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
-    # Swap panes of split stack
     Key(
         [mod, "shift"], "space", lazy.layout.rotate(), desc="Swap panes of split stack"
     ),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
     Key(
         [mod, "shift"],
         "Return",
@@ -197,8 +189,6 @@ keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
-    # Key([mod], "r", lazy.spawncmd(),
-    #     desc="Spawn a command using a prompt widget"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key(
         [mod],
