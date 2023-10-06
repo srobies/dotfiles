@@ -29,6 +29,7 @@ import subprocess
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, DropDown, Group, Key, Match, Screen, ScratchPad
 from libqtile.lazy import lazy
+from qtile_extras import widget as extrawidget
 
 mod = "mod4"
 terminal = "alacritty"
@@ -50,22 +51,6 @@ colors = dict(
 def autostart():
     home = os.path.expanduser("~/repos/dotfiles/.config/qtile/autostart_wayland.sh")
     subprocess.run([home])
-
-
-@hook.subscribe.startup_complete
-def startup():
-    lazy.simulate_keypress([mod], "f")
-    lazy.simulate_keypress([mod], "m")
-    lazy.simulate_keypress([mod], "c")
-    lazy.simulate_keypress([mod], "t")
-
-
-@hook.subscribe.client_new
-def client_new(client):
-    if client.name == "Mozilla Thunderbird":
-        client.togroup("7")
-    elif client.name == "Discord":
-        client.togrup("6")
 
 
 keys = [
@@ -114,6 +99,8 @@ keys = [
     Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("browser")),
+    Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
+    Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("discord")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl --player=spotify previous")),
@@ -243,7 +230,9 @@ groups.append(
                 x=0.24,
             ),
             DropDown("music", "spotify-launcher", width=0.5, height=1.0, x=0.24),
-            DropDown("browser", "firefox --new-instance", width=0.8, height=0.9)
+            DropDown("browser", "firefox --new-instance", width=0.8, height=0.9),
+            DropDown("email", "thunderbird", width=0.8, height=1),
+            DropDown("discord", "discord", width=0.8, height=1),
         ],
     )
 )
@@ -263,43 +252,78 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.Image(
-                    filename="/usr/share/pixmaps/archlinux-logo.png",
-                    mouse_callbacks={
-                        "Button1": lambda qtile: qtile.cmd_spawn(
-                            "alacritty -e sudo pacman -Syu"
-                        )
-                    },
-                ),
-                widget.CurrentLayout(),
-                widget.GroupBox(
-                    highlight_method="block",
-                    this_current_screen_border=colors["blue"],
-                    urgent_alert_method="block",
-                    urgent_border=colors["red"],
-                    disable_drag=True,
-                ),
-                widget.WindowName(),
-                widget.TextBox(text="Volume"),
-                widget.PulseVolume(step=1),
-                widget.StatusNotifier(),
-                widget.Clock(format="%m-%d %a %I:%M %p"),
-                widget.QuickExit(
-                    default_text="",
-                    countdown_format="[{}]",
-                    countdown_start=3,
-                    padding=5,
-                ),
-            ],
-            24,
+primary_widgets = [
+        widget.Image(
+            filename="/usr/share/pixmaps/archlinux-logo.png",
+            mouse_callbacks={
+                "Button1": lambda qtile: qtile.cmd_spawn(
+                    "alacritty -e sudo pacman -Syu"
+                )
+            },
         ),
-    ),
+        widget.CurrentLayout(),
+        widget.GroupBox(
+            highlight_method="block",
+            this_current_screen_border=colors["blue"],
+            urgent_alert_method="block",
+            urgent_border=colors["red"],
+            disable_drag=True,
+        ),
+        widget.WindowName(),
+        widget.TextBox(text="Volume"),
+        widget.PulseVolume(step=1),
+        extrawidget.StatusNotifier(),
+        widget.Clock(format="%m-%d %a %I:%M %p"),
+        widget.QuickExit(
+            default_text="",
+            countdown_format="[ {}]",
+            countdown_start=3,
+            padding=20,
+        )
 ]
 
+secondary_widgets = [
+        widget.Image(
+            filename="/usr/share/pixmaps/archlinux-logo.png",
+            mouse_callbacks={
+                "Button1": lambda qtile: qtile.cmd_spawn(
+                    "alacritty -e sudo pacman -Syu"
+                )
+            },
+        ),
+        widget.CurrentLayout(),
+        widget.GroupBox(
+            highlight_method="block",
+            this_current_screen_border=colors["blue"],
+            urgent_alert_method="block",
+            urgent_border=colors["red"],
+            disable_drag=True,
+        ),
+        widget.WindowName(),
+        widget.TextBox(text="Volume"),
+        widget.PulseVolume(step=1),
+        widget.Clock(format="%m-%d %a %I:%M %p"),
+        widget.QuickExit(
+            default_text="",
+            countdown_format="[ {}]",
+            countdown_start=3,
+            padding=20,
+        )
+]
+
+screens = []
+bar_height = 24
+screens.append(
+    Screen(
+        top=bar.Bar(primary_widgets, bar_height, background=colors["background"])
+    )
+)
+
+screens.append(
+    Screen(
+        top=bar.Bar(secondary_widgets, bar_height, background=colors["background"])
+    )
+)
 # Drag floating layouts.
 mouse = [
     Drag(
