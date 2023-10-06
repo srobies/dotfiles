@@ -1,5 +1,5 @@
 -- IndentBlankLine config
 require('ibl').setup {
-  indent = { char = '▏'},
+  indent = { char = '▏', smart_indent_cap = false},
 }
 
