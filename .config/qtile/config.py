@@ -24,18 +24,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, DropDown, Group, Key, ScratchPad, Screen, Match
-from libqtile.lazy import lazy
-
-# from libqtile.utils import guess_terminal
-from libqtile import hook
 import os
 import subprocess
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, Screen, ScratchPad
+from libqtile.lazy import lazy
 
-
+mod = "mod4"
+terminal = "alacritty"
 colors = dict(
-    # Tokyonight colors
     background="#1a1b26",
     foreground="#c0caf5",
     black="#15161E",
@@ -49,141 +46,57 @@ colors = dict(
 )
 
 
-@hook.subscribe.screen_change  # change the number of bars when screens change
-def screen_change():
-    bar_height = 20
-    primary_widgets = [
-        widget.Image(
-            filename="/usr/share/pixmaps/archlinux-logo.png",
-            mouse_callbacks={
-                "Button1": lambda qtile: qtile.cmd_spawn(
-                    "alacritty -e sudo pacman -Syu"
-                )
-            },
-        ),
-        widget.CurrentLayout(),
-        widget.GroupBox(
-            highlight_method="block",
-            this_current_screen_border=colors["blue"],
-            urgent_alert_method="block",
-            urgent_border=colors["red"],
-            disable_drag=True,
-        ),
-        widget.WindowName(),
-        widget.Sep(),
-        widget.TextBox(text="Volume"),
-        widget.PulseVolume(step=1),
-        widget.Sep(),
-        widget.Systray(),
-        # widget.StatusNotifier(),
-        widget.Sep(),
-        widget.Clock(format="%m-%d %a %I:%M %p"),
-        widget.Sep(),
-        widget.QuickExit(
-            default_text="",
-            countdown_format="[ {} ]",
-            countdown_start=3,
-            padding=8,
-        ),
-    ]
-    secondary_widgets = [
-        widget.Image(
-            filename="/usr/share/pixmaps/archlinux-logo.png",
-            mouse_callbacks={
-                "Button1": lambda qtile: qtile.cmd_spawn(
-                    "alacritty -e sudo pacman -Syu"
-                )
-            },
-        ),
-        widget.CurrentLayout(),
-        widget.GroupBox(
-            highlight_method="block",
-            this_current_screen_border=colors["blue"],
-            urgent_alert_method="block",
-            urgent_border=colors["red"],
-            disable_drag=True,
-        ),
-        widget.WindowName(),
-        widget.Sep(),
-        widget.TextBox(text="Volume"),
-        widget.PulseVolume(),
-        widget.Sep(),
-        widget.Clock(format="%m-%d %a %I:%M %p"),
-        widget.Sep(),
-        widget.QuickExit(
-            default_text="",
-            countdown_format="[ {} ]",
-            countdown_start=3,
-            padding=5,
-        ),
-    ]
-    screens = []
-    screens.append(
-        Screen(
-            top=bar.Bar(primary_widgets, bar_height, background=colors["background"])
-        )
-    )
-    screens.append(
-        Screen(
-            top=bar.Bar(secondary_widgets, bar_height, background=colors["background"])
-        )
-    )
-    return screens
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser("~/repos/dotfiles/.config/qtile/autostart_wayland.sh")
+    subprocess.run([home])
+
+
+@hook.subscribe.startup_complete
+def startup():
+    lazy.simulate_keypress([mod], "f")
+    lazy.simulate_keypress([mod], "m")
+    lazy.simulate_keypress([mod], "c")
+    lazy.simulate_keypress([mod], "t")
 
 
 @hook.subscribe.client_new
 def client_new(client):
-    if client.name == 'Mozilla Thunderbird':
-        client.togroup('7')
+    if client.name == "Mozilla Thunderbird":
+        client.togroup("7")
+    elif client.name == "Discord":
+        client.togrup("6")
 
-
-screens = screen_change()
-
-mod = "mod4"
-terminal = "alacritty"
-home = os.path.expanduser("~")
 
 keys = [
-    # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.up(), desc="Move focus down in stack pane"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus up in stack pane"),
-    Key([mod], "h", lazy.layout.left()),
-    Key([mod], "l", lazy.layout.right()),
-    Key([mod], "g", lazy.layout.grow()),
-    Key([mod], "s", lazy.layout.shrink()),
-    Key([mod], "n", lazy.layout.normalize()),
-    Key([mod], "o", lazy.layout.maximize()),
-    # Move windows up or down in current stack
-    Key(
-        [mod, "shift"],
-        "k",
-        lazy.layout.shuffle_up(),
-        desc="Move window down in current stack ",
-    ),
-    Key(
-        [mod, "shift"],
-        "j",
-        lazy.layout.shuffle_down(),
-        desc="Move window up in current stack ",
-    ),
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
-    # Switch window focus to other pane(s) of stack
-    Key(
-        [mod],
-        "space",
-        lazy.layout.next(),
-        desc="Switch window focus to other pane(s) of stack",
-    ),
+    Key([mod], "o", lazy.to_screen(1)),
+    Key([mod], "a", lazy.to_screen(0)),
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
-    # Swap panes of split stack
+    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key(
-        [mod, "shift"], "space", lazy.layout.rotate(), desc="Swap panes of split stack"
+        [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
+    Key(
+        [mod, "shift"],
+        "l",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key(
+        [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
+    ),
+    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod], "g", lazy.layout.grow(), desc="Grow window"),
+    Key([mod], "s", lazy.layout.shrink(), desc="Shrink window"),
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key(
         [mod, "shift"],
         "Return",
@@ -191,25 +104,18 @@ keys = [
         desc="Toggle between split and unsplit sides of stack",
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Next layout"),
-    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Last layout"),
+    Key([mod], "i", lazy.spawn("wofi --show drun -I"), desc="Launch wofi"),
+    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
-    # Key([mod], "r", lazy.spawncmd(),
-    #     desc="Spawn a command using a prompt widget"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
-    Key(
-        [mod],
-        "i",
-        lazy.spawn(home + "/repos/rofi/1080p/launchers/colorful/launcher.sh"),
-    ),
-    Key([mod, "control"], "l", lazy.spawn(home + "/repos/scripts/i3lock.sh")),
-    # Backlight keys
-    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
-    # Media keys
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Restart Qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
+    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
+    Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
+    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("browser")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl --player=spotify previous")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl --player=spotify next")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl --player=spotify play-pause")),
@@ -224,13 +130,78 @@ keys = [
         "XF86AudioLowerVolume",
         lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
     ),
-    Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
-    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
-    Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
-    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("browser")),
-    # Switch monitor focus
-    Key([mod], "o", lazy.to_screen(1)),
-    Key([mod], "a", lazy.to_screen(0)),
+    Key(
+        ["control", "mod1"],
+        "F1",
+        lazy.core.change_vt(1),
+        desc="Go to virtual console 1",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F2",
+        lazy.core.change_vt(2),
+        desc="Go to virtual console 2",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F3",
+        lazy.core.change_vt(3),
+        desc="Go to virtual console 3",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F4",
+        lazy.core.change_vt(4),
+        desc="Go to virtual console 4",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F5",
+        lazy.core.change_vt(5),
+        desc="Go to virtual console 5",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F6",
+        lazy.core.change_vt(6),
+        desc="Go to virtual console 6",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F7",
+        lazy.core.change_vt(7),
+        desc="Go to virtual console 7",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F8",
+        lazy.core.change_vt(8),
+        desc="Go to virtual console 8",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F9",
+        lazy.core.change_vt(9),
+        desc="Go to virtual console 9",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F10",
+        lazy.core.change_vt(10),
+        desc="Go to virtual console 10",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F11",
+        lazy.core.change_vt(11),
+        desc="Go to virtual console 11",
+    ),
+    Key(
+        ["control", "mod1"],
+        "F12",
+        lazy.core.change_vt(12),
+        desc="Go to virtual console 12",
+    ),
 ]
 
 groups = [Group(i) for i in "1234567890"]
@@ -238,21 +209,18 @@ groups = [Group(i) for i in "1234567890"]
 for i in groups:
     keys.extend(
         [
-            # mod1 + letter of group = switch to group
             Key(
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
             ),
-            # mod1 + ctrl + letter of group = switch to & move focused window to group
             Key(
                 [mod, "control"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
             ),
-            # # mod1 + shift + letter of group = move focused window to group
             Key(
                 [mod, "shift"],
                 i.name,
@@ -266,37 +234,71 @@ groups.append(
     ScratchPad(
         "scratchpad",
         [
-            DropDown("term", "alacritty", opacity=0.8, height=0.5),
+            DropDown("term", "alacritty", height=0.5),
             DropDown(
                 "nvim org",
                 "alacritty -e /home/spencer/repos/scripts/org.sh",
                 width=0.5,
                 height=0.5,
-                opacity=0.8,
                 x=0.24,
             ),
-            DropDown(
-                "music", "spotify-launcher", opacity=0.8, width=0.5, height=1.0, x=0.24
-            ),
+            DropDown("music", "spotify-launcher", width=0.5, height=1.0, x=0.24),
+            DropDown("browser", "firefox --new-instance", width=0.8, height=0.9)
         ],
     )
 )
 
 layouts = [
     layout.MonadTall(border_focus=colors["cyan"]),
-    layout.Max(border_focus=colors["cyan"]),
+    layout.Max(),
     layout.Stack(num_stacks=2, border_focus=colors["cyan"]),
-    layout.Matrix(border_focus=colors["cyan"]),
     layout.Bsp(border_focus=colors["cyan"]),
+    layout.Matrix(border_focus=colors["cyan"]),
 ]
 
 widget_defaults = dict(
-    font="Fantasque Sans Mono Nerd Font",
-    # font='Ubuntu Mono Nerd Font',
-    fontsize=15,
+    font="MesloLGS Nerd Font",
+    fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
+
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
+                widget.Image(
+                    filename="/usr/share/pixmaps/archlinux-logo.png",
+                    mouse_callbacks={
+                        "Button1": lambda qtile: qtile.cmd_spawn(
+                            "alacritty -e sudo pacman -Syu"
+                        )
+                    },
+                ),
+                widget.CurrentLayout(),
+                widget.GroupBox(
+                    highlight_method="block",
+                    this_current_screen_border=colors["blue"],
+                    urgent_alert_method="block",
+                    urgent_border=colors["red"],
+                    disable_drag=True,
+                ),
+                widget.WindowName(),
+                widget.TextBox(text="Volume"),
+                widget.PulseVolume(step=1),
+                widget.StatusNotifier(),
+                widget.Clock(format="%m-%d %a %I:%M %p"),
+                widget.QuickExit(
+                    default_text="",
+                    countdown_format="[{}]",
+                    countdown_start=3,
+                    padding=5,
+                ),
+            ],
+            24,
+        ),
+    ),
+]
 
 # Drag floating layouts.
 mouse = [
@@ -307,9 +309,9 @@ mouse = [
         start=lazy.window.get_position(),
     ),
     Drag(
-        [mod], "Button2", lazy.window.set_size_floating(), start=lazy.window.get_size()
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
     ),
-    Click([mod], "Button3", lazy.window.bring_to_front()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -319,22 +321,14 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
-        # *layout.Floating.default_float_rules,
+        *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
+        Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(wm_class="Firefox"),
-        Match(wm_class="gnome-screenshot"),
-        Match(wm_class="zoom"),
-        Match(wm_class="barrier"),
-        Match(wm_class="Export"),
-        Match(wm_class="feh"),
-        Match(wm_class="Pinentry-gtk-2"),
-        Match(wm_class="spectacle"),
     ]
 )
 auto_fullscreen = True
@@ -354,9 +348,3 @@ auto_minimize = True
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
-
-
-@hook.subscribe.startup_once
-def autostart():
-    autostart = os.path.expanduser("~/.config/qtile/autostart.sh")
-    subprocess.call([autostart])
