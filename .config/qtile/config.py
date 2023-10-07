@@ -100,7 +100,6 @@ keys = [
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("browser")),
     Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
-    Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("discord")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl --player=spotify previous")),
@@ -232,7 +231,6 @@ groups.append(
             DropDown("music", "spotify-launcher", width=0.5, height=1.0, x=0.24),
             DropDown("browser", "firefox --new-instance", width=0.8, height=0.9),
             DropDown("email", "thunderbird", width=0.8, height=1),
-            DropDown("discord", "discord", width=0.8, height=1),
         ],
     )
 )
@@ -278,7 +276,7 @@ primary_widgets = [
             default_text="",
             countdown_format="[ {}]",
             countdown_start=3,
-            padding=20,
+            padding=5,
         )
 ]
 
@@ -307,7 +305,7 @@ secondary_widgets = [
             default_text="",
             countdown_format="[ {}]",
             countdown_start=3,
-            padding=20,
+            padding=5,
         )
 ]
 
