@@ -12,7 +12,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'HiPhish/nvim-ts-rainbow2',
+	{
+    'gbprod/cutlass.nvim',
+		opts = {
+			cut_key = "x",
+		}
+	},
+  {url = 'http://gitlab.com/HiPhish/rainbow-delimiters.nvim'},
   'glepnir/lspsaga.nvim',
   'unblevable/quick-scope',
   'kristijanhusak/orgmode.nvim',

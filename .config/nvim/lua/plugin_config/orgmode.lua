@@ -19,15 +19,9 @@ require'nvim-treesitter.configs'.setup {
       node_decremental = "<BS>",
     },
   },
-  rainbow = {
-    enable = true,
-    query = 'rainbow-parens',
-    strategy = require('ts-rainbow').strategy.global,
-  }
 }
 require('orgmode').setup{
   org_agenda_file = '~/Dropbox/org/*',
   org_default_notes_file = '~/Dropbox/org/school.org',
-  org_indent_mode = 'noindent',
 }
 
