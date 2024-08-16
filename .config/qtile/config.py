@@ -56,7 +56,7 @@ def autostart():
 keys = [
     Key([mod], "o", lazy.to_screen(1)),
     Key([mod], "a", lazy.to_screen(0)),
-    Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
+    Key([mod, "shift"], "s", lazy.spawn("grim -g $(slurp) - | wl-copy")),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -91,6 +91,8 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "i", lazy.spawn("wofi --show drun -I"), desc="Launch wofi"),
     Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle between layouts"),
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod, "shift"], "s", lazy.spawn("/home/spencer/.config/qtile/screenshot.sh")),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Restart Qtile"),
@@ -98,7 +100,6 @@ keys = [
     Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
     Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
-    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("browser")),
     Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
@@ -220,16 +221,16 @@ groups.append(
     ScratchPad(
         "scratchpad",
         [
-            DropDown("term", "alacritty", height=0.5),
+            DropDown("term", "alacritty", height=0.5, opacity=1),
             DropDown(
                 "nvim org",
                 "alacritty -e /home/spencer/repos/scripts/org.sh",
                 width=0.5,
                 height=0.5,
                 x=0.24,
+                opacity=1
             ),
             DropDown("music", "spotify-launcher", width=0.5, height=1.0, x=0.24),
-            DropDown("browser", "firefox --new-instance", width=0.8, height=0.9),
             DropDown("email", "thunderbird", width=0.8, height=1),
         ],
     )
