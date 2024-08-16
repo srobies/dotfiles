@@ -2,7 +2,8 @@
 -- local nvim_lsp = require('lspconfig')
 local wk = require("which-key")
 require('lsp_signature').setup{
-  toggle_key = "<C-k>"
+  toggle_key = "<C-k>",
+  toggle_key_flip_floatwin_setting = true
 }
 
 -- Mappings for lsp
