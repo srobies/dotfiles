@@ -7,3 +7,4 @@ dunst &
 kanshi &
 setwallpaper Pictures/wallpapers/souredapple.png &
 otd-daemon &
+flameshot &

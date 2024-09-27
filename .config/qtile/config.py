@@ -56,7 +56,7 @@ def autostart():
 keys = [
     Key([mod], "o", lazy.to_screen(1)),
     Key([mod], "a", lazy.to_screen(0)),
-    Key([mod, "shift"], "s", lazy.spawn("grim -g $(slurp) - | wl-copy")),
+    Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -92,7 +92,6 @@ keys = [
     Key([mod], "i", lazy.spawn("wofi --show drun -I"), desc="Launch wofi"),
     Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle between layouts"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod, "shift"], "s", lazy.spawn("/home/spencer/.config/qtile/screenshot.sh")),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Restart Qtile"),
@@ -230,7 +229,7 @@ groups.append(
                 x=0.24,
                 opacity=1
             ),
-            DropDown("music", "spotify-launcher", width=0.5, height=1.0, x=0.24),
+            DropDown("music", "spotify-launcher --skip-update", width=0.5, height=1.0, x=0.24),
             DropDown("email", "thunderbird", width=0.8, height=1),
         ],
     )
@@ -352,6 +351,8 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(wm_class="galculator"),
+        Match(wm_class="flameshot"),
     ]
 )
 auto_fullscreen = True
