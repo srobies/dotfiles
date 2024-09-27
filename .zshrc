@@ -76,4 +76,5 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 PROMPT='%F{green}%n%f%F{green}@%f%F{green}%m%f%f%F{red}${vcs_info_msg_0_}%f:%F{blue}%~ %F{white}'
 eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
 eval $(keychain --eval --quiet id_ed25519)
