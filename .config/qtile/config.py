@@ -102,9 +102,9 @@ keys = [
     Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
-    Key([], "XF86AudioPrev", lazy.spawn("playerctl --player=spotify previous")),
-    Key([], "XF86AudioNext", lazy.spawn("playerctl --player=spotify next")),
-    Key([], "XF86AudioPlay", lazy.spawn("playerctl --player=spotify play-pause")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key(
         [],
@@ -352,6 +352,7 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="galculator"),
+        Match(wm_class="steam"),
         Match(wm_class="flameshot"),
     ]
 )
