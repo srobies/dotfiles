@@ -15,7 +15,7 @@ require('lazy').setup({
 	{
     'gbprod/cutlass.nvim',
 		opts = {
-			cut_key = "x",
+			cut_key = "m",
 		}
 	},
   {url = 'http://gitlab.com/HiPhish/rainbow-delimiters.nvim'},

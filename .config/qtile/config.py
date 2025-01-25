@@ -54,7 +54,7 @@ def autostart():
 
 
 keys = [
-    Key([mod], "o", lazy.to_screen(1)),
+    Key([mod], "e", lazy.to_screen(1)),
     Key([mod], "a", lazy.to_screen(0)),
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -96,10 +96,10 @@ keys = [
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
-    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
-    Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
-    Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
+    Key([mod], "u", lazy.group["scratchpad"].dropdown_toggle("term")),
+    Key([mod], "o", lazy.group["scratchpad"].dropdown_toggle("nvim org")),
+    Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("music")),
+    # Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("email")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
@@ -229,7 +229,7 @@ groups.append(
                 x=0.24,
                 opacity=1
             ),
-            DropDown("music", "spotify-launcher --skip-update", width=0.5, height=1.0, x=0.24),
+            DropDown("music", "feishin", width=0.5, height=1.0, x=0.24),
             DropDown("email", "thunderbird", width=0.8, height=1),
         ],
     )

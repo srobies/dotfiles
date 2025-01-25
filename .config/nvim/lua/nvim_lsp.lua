@@ -65,7 +65,7 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true
 }
 
-local servers = { 'pylsp', 'clangd', 'tsserver', 'svls', 'texlab', 'bashls'}
+local servers = { 'pylsp', 'clangd', 'ts_ls', 'svls', 'texlab', 'bashls'}
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
