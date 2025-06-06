@@ -103,6 +103,7 @@ nnoremap <silent><leader>ft :TodoTelescope<cr>
 nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
+nnoremap <silent><leader>fr :lua require"telescope.builtin".resume()
 nnoremap <silent><leader>gd :Gdiff<cr>
 
 nnoremap <silent><leader>to :TroubleToggle<cr>
@@ -158,7 +159,7 @@ function! BlameToggle()
   endif
 endfunction
 
-let g:vimtex_view_method = 'sioyek'
+let g:vimtex_view_method = 'zathura'
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
@@ -169,9 +170,5 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
 augroup END
 
-sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn numhl=DiagnosticSignWarn
-sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
-sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
-sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 lua require('setup')
