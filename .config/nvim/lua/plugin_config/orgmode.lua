@@ -5,7 +5,7 @@ require'nvim-treesitter.configs'.setup {
   },
   
   ensure_installed = 'all', -- Or run :TSUpdate org
-  ignore_install = {'org'},
+  ignore_install = {'org', 'ipkg'},
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -20,4 +20,3 @@ require('orgmode').setup{
   org_agenda_file = '~/Dropbox/org/*',
   org_default_notes_file = '~/Dropbox/org/school.org',
 }
-
