@@ -17,6 +17,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 require('orgmode').setup{
-  org_agenda_file = '~/Dropbox/org/*',
-  org_default_notes_file = '~/Dropbox/org/school.org',
+  org_agenda_file = '~/Documents/org/*',
+  org_agenda_file = '~/Documents/org/todo.org',
 }
