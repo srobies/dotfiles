@@ -15,7 +15,7 @@ set expandtab
 syntax on
 set undodir=~/.local/share/nvim/undodir
 set undofile
-set colorcolumn=80
+set colorcolumn=120
 set nohlsearch
 set ignorecase
 set smartcase

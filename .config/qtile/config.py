@@ -25,6 +25,7 @@
 # SOFTWARE.
 
 import os
+import re
 import subprocess
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, DropDown, Group, Key, Match, Screen, ScratchPad
@@ -109,12 +110,12 @@ keys = [
     Key(
         [],
         "XF86AudioRaiseVolume",
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +1%"),
     ),
     Key(
         [],
         "XF86AudioLowerVolume",
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -1%"),
     ),
     Key(
         ["control", "mod1"],
@@ -354,6 +355,7 @@ floating_layout = layout.Floating(
         Match(wm_class="galculator"),
         Match(wm_class="steam"),
         Match(wm_class="flameshot"),
+        Match(wm_class=re.compile(r"bitwarden")),
     ]
 )
 auto_fullscreen = True
