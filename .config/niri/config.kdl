@@ -261,7 +261,7 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "bash" "-c" "swaybg -i ~/Pictures/souredapple_clouds.png"
-spawn-at-startup "bash" "-c" "swayidle -w before-sleep swaylock"
+spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock' timeout 300 'niri msg action power-off-monitors' timeout 600 'systemctl suspend' before-sleep swaylock"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
