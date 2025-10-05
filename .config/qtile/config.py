@@ -117,6 +117,8 @@ keys = [
         "XF86AudioLowerVolume",
         lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -1%"),
     ),
+    Key(['shift'], "XF86AudioRaiseVolume", lazy.spawn("playerctl volume .05+")),
+    Key(['shift'], "XF86AudioLowerVolume", lazy.spawn("playerctl volume .05-")),
     Key(
         ["control", "mod1"],
         "F1",
@@ -230,8 +232,8 @@ groups.append(
                 x=0.24,
                 opacity=1
             ),
-            DropDown("music", "feishin", width=0.5, height=1.0, x=0.24),
-            DropDown("email", "thunderbird", width=0.8, height=1),
+            DropDown("music", "supersonic-desktop", width=0.5, height=1.0, x=0.24, opacity=0.95),
+            # DropDown("email", "thunderbird", width=0.8, height=1),
         ],
     )
 )
