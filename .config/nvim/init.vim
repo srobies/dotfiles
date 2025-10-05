@@ -106,12 +106,10 @@ nnoremap <silent><leader>gs :Telescope git_status<cr>
 nnoremap <silent><leader>fr :lua require"telescope.builtin".resume()
 nnoremap <silent><leader>gd :Gdiff<cr>
 
-nnoremap <silent><leader>to :TroubleToggle<cr>
+nnoremap <silent><leader>to :Trouble toggle<cr>
 nnoremap <silent><leader>tt :TodoTrouble<cr>
-nnoremap <silent><leader>tw :TroubleToggle workspace_diagnostics<cr>
-nnoremap <silent><leader>td :TroubleToggle document_diagnostics<cr>
+nnoremap <silent><leader>td :Trouble toggle diagnostics<cr>
 nnoremap <silent><leader>tq :TroubleToggle quickfix<cr>
-nnoremap <silent><leader>tr :TroubleRefresh<cr>
 
 nnoremap <silent><leader>hs :Gitsigns stage_hunk<cr>
 nnoremap <silent><leader>hu :Gitsigns undo_stage_hunk<cr>
