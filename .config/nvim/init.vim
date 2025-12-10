@@ -103,7 +103,7 @@ nnoremap <silent><leader>ft :TodoTelescope<cr>
 nnoremap <silent><leader>gc :Telescope git_commits<cr>
 nnoremap <silent><leader>gb :Telescope git_branches<cr>
 nnoremap <silent><leader>gs :Telescope git_status<cr>
-nnoremap <silent><leader>fr :lua require"telescope.builtin".resume()
+nnoremap <silent><leader>fr :lua require"telescope.builtin".resume()<cr>
 nnoremap <silent><leader>gd :Gdiff<cr>
 
 nnoremap <silent><leader>to :Trouble toggle<cr>
