@@ -34,7 +34,7 @@ from qtile_extras import widget as extrawidget
 # from libqtile.utils import send_notification
 
 mod = "mod4"
-terminal = "alacritty"
+terminal = "ghostty"
 colors = dict(
     background="#1a1b26",
     foreground="#c0caf5",
@@ -232,10 +232,10 @@ groups.append(
     ScratchPad(
         "scratchpad",
         [
-            DropDown("term", "alacritty", height=0.5, opacity=1),
+            DropDown("term", "ghostty -e /bin/zsh", height=0.5, opacity=1),
             DropDown(
                 "nvim org",
-                "alacritty -e /home/spencer/repos/scripts/org.sh",
+                "ghostty -e /bin/bash /home/spencer/repos/scripts/org.sh",
                 width=0.5,
                 height=0.5,
                 x=0.24,
@@ -244,11 +244,10 @@ groups.append(
             DropDown(
                 "music",
                 "supersonic-desktop",
-                width=0.5,
+                width=0.75,
                 height=1.0,
-                x=0.24,
+                x=0.125,
                 opacity=0.9,
-                on_focus_lost_hide=False,
             ),
             # DropDown("email", "thunderbird", width=0.8, height=1),
         ],
@@ -274,7 +273,7 @@ primary_widgets = [
     widget.Image(
         filename="/usr/share/pixmaps/archlinux-logo.png",
         mouse_callbacks={
-            "Button1": lambda qtile: qtile.cmd_spawn("alacritty -e sudo pacman -Syu")
+            "Button1": lambda qtile: qtile.cmd_spawn("ghostty -e /bin/bash sudo pacman -Syu")
         },
     ),
     widget.CurrentLayout(),
@@ -302,7 +301,7 @@ secondary_widgets = [
     widget.Image(
         filename="/usr/share/pixmaps/archlinux-logo.png",
         mouse_callbacks={
-            "Button1": lambda qtile: qtile.cmd_spawn("alacritty -e sudo pacman -Syu")
+            "Button1": lambda qtile: qtile.cmd_spawn("ghostty -e /bin/bash sudo pacman -Syu")
         },
     ),
     widget.CurrentLayout(),
