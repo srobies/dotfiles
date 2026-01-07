@@ -261,7 +261,8 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "bash" "-c" "swaybg -i ~/Pictures/souredapple_clouds.png"
-spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'swaylock' timeout 300 'niri msg action power-off-monitors' timeout 600 'systemctl suspend' before-sleep swaylock"
+spawn-at-startup "bash" "-c" "swayidle -w timeout 300 'niri msg action power-off-monitors' timeout 600 'systemctl suspend' before-sleep swaylock"
+spawn-at-startup "bash" "-c" "/usr/lib/pam_kwallet_init"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -348,7 +349,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun" "-I"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
