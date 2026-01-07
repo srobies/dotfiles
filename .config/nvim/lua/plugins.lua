@@ -100,25 +100,32 @@ require('lazy').setup({
 		},
 		'neovim/nvim-lspconfig',
 		{
-				'hrsh7th/nvim-cmp',
-				dependencies = {
-						'ray-x/cmp-treesitter',
-						'hrsh7th/cmp-nvim-lua',
-						'hrsh7th/cmp-nvim-lsp',
-						'hrsh7th/cmp-path',
-						'hrsh7th/cmp-buffer',
-						'hrsh7th/cmp-omni',
-						'lukas-reineke/cmp-rg',
-						'saadparwaiz1/cmp_luasnip'
-				}
+      'saghen/blink.cmp',
+      dependencies = { 'rafamadriz/friendly-snippets' },
+      version = '1.*',
+      opts = {
+        keymap = {
+          preset = "enter",
+          ["<Tab>"] = {
+            "select_next",
+            "snippet_forward",
+            "fallback",
+          },
+          ["<S-Tab>"] = {
+            "select_prev",
+            "snippet_backward",
+            "fallback",
+          },
+        },
+        signature = { enabled = true }
+      }
 		},
-		{
-			'L3MON4D3/LuaSnip',
-			dependencies = {
-				'rafamadriz/friendly-snippets'
-			}
-		},
-		'ray-x/lsp_signature.nvim',
+		-- {
+		-- 	'L3MON4D3/LuaSnip',
+		-- 	dependencies = {
+		-- 		'rafamadriz/friendly-snippets'
+		-- 	}
+		-- },
 		{
 			'nvim-telescope/telescope.nvim',
 				dependencies = {

@@ -1,11 +1,4 @@
--- lsp-config setup
--- local nvim_lsp = require('lspconfig')
 local wk = require("which-key")
-require('lsp_signature').setup{
-  toggle_key = "<C-k>",
-  toggle_key_flip_floatwin_setting = true
-}
-
 -- Mappings for lsp
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -57,32 +50,7 @@ local on_attach = function(client, bufnr)
     end
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true
-}
-
 local servers = { 'pylsp', 'clangd', 'ts_ls', 'svls', 'texlab', 'bashls'}
-for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+for _,lsp in ipairs(servers) do
+  vim.lsp.enable(lsp)
 end
-require('lspconfig').pylsp.setup {
-  settings = {
-    pylsp = {
-      plugins = {
-        black = {
-          enabled = true,
-        }
-      }
-    }
-  }
-}
--- require('ufo').setup()
