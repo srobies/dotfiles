@@ -94,22 +94,21 @@ nnoremap <leader>dp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log
 nnoremap <silent><leader>de :lua require("dapui").eval()<CR>
 nnoremap <silent><leader>dt :lua require("dapui").toggle()<CR>
 
-nnoremap <silent><leader>ff :Telescope find_files<cr>
-nnoremap <silent><leader>fg :Telescope live_grep<cr>
-nnoremap <silent><leader>fb :Telescope buffers<cr>
-nnoremap <silent><leader>fm :Telescope marks<cr>
-nnoremap <silent><leader>fq :Telescope quickfix<cr>
-nnoremap <silent><leader>ft :TodoTelescope<cr>
-nnoremap <silent><leader>gc :Telescope git_commits<cr>
-nnoremap <silent><leader>gb :Telescope git_branches<cr>
-nnoremap <silent><leader>gs :Telescope git_status<cr>
-nnoremap <silent><leader>fr :lua require"telescope.builtin".resume()<cr>
-nnoremap <silent><leader>gd :Gdiff<cr>
+nnoremap <silent><leader>ff :FzfLua files<cr>
+nnoremap <silent><leader>fg :FzfLua live_grep<cr>
+nnoremap <silent><leader>fb :FzfLua buffers<cr>
+nnoremap <silent><leader>fq :FzfLua quickfix<cr>
+nnoremap <silent><leader>ft :TodoFzfLua<cr>
+nnoremap <silent><leader>gc :FzfLua git_commits<cr>
+nnoremap <silent><leader>gb :FzfLua git_branches<cr>
+nnoremap <silent><leader>gs :FzfLua git_status<cr>
+nnoremap <silent><leader>fr :FzfLua resume<cr>
+nnoremap gD :FzfLua lsp_definitions<cr>
+nnoremap gi :FzfLua lsp_implementations<cr>
+nnoremap <leader>D :FzfLua lsp_typedefs<cr>
+nnoremap gr :FzfLua lsp_references<cr>
 
-nnoremap <silent><leader>to :Trouble toggle<cr>
-nnoremap <silent><leader>tt :TodoTrouble<cr>
-nnoremap <silent><leader>td :Trouble toggle diagnostics<cr>
-nnoremap <silent><leader>tq :TroubleToggle quickfix<cr>
+nnoremap <silent><leader>gd :Gdiff<cr>
 
 nnoremap <silent><leader>hs :Gitsigns stage_hunk<cr>
 nnoremap <silent><leader>hu :Gitsigns undo_stage_hunk<cr>
@@ -119,6 +118,18 @@ nnoremap <silent><leader>hb :Gitsigns blame_line<cr>
 nnoremap <silent><leader>hp :Gitsigns preview_hunk<cr>
 nnoremap ]h :Gitsigns next_hunk<cr>
 nnoremap [h :Gitsigns prev_hunk<cr>
+
+nnoremap <silent>gf :Lspsaga finder<CR>
+nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+vnoremap <silent><leader>ca :Lspsaga code_action<CR>
+nnoremap <silent><leader>cr :Lspsaga rename<CR>
+nnoremap <silent>gd :Lspsaga peek_definition<CR>
+nnoremap <silent><leader>e :Lspsaga show_line_diagnostics<CR>
+nnoremap <silent><leader>cd :Lspsaga show_cursor_diagnostics<CR>
+nnoremap <silent>[e :Lspsaga diagnostic_jump_prev<CR>
+nnoremap <silent>]e :Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent><leader>o :Lspsaga outline<CR>
+nnoremap <silent>K :Lspsaga hover_doc<CR>
 
 function! QuickFix_toggle()
     for i in range(1, winnr('$'))
