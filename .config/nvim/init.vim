@@ -61,7 +61,6 @@ noremap <silent> <m-k> :TmuxNavigateUp<cr>
 noremap <silent> <m-l> :TmuxNavigateRight<cr>
 nnoremap + <C-w>+
 nnoremap - <C-w>-
-nnoremap <silent><leader>u :UndotreeToggle<CR>
 nnoremap <leader><bar> :vsp<CR>
 nnoremap <leader>- :sp<CR>
 

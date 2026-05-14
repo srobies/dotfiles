@@ -34,7 +34,6 @@ require('lazy').setup({
       end
     },
     'windwp/nvim-autopairs',
-    'mbbill/undotree',
     'tpope/vim-fugitive',
     {
       'rcarriga/nvim-dap-ui',
